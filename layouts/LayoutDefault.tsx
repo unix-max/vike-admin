@@ -1,76 +1,65 @@
-import "./style.css";
-
 import React from "react";
+//Оконная система
+import { useWinStore } from '../pages/+client'
+import { WinManager } from '../components/WinManager'
+import { WinPanel } from "../components/WinPanel";
+import {Menu, IMenuData} from '../components/Menu'
+//Компоненты
 import logoUrl from "../assets/logo.svg";
-import { Link } from "../components/Link.js";
+//import { TovarSpr } from '../components/TovarSpr'
+import { KlientSpr } from '../components/KlientSpr'
+//Стили
+//import "./style.css";
 
 export default function LayoutDefault({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        maxWidth: 900,
-        margin: "auto",
-      }}
-    >
-      <Sidebar>
-        <Logo />
-        <Link href="/">Welcome</Link>
-        <Link href="/todo">Todo</Link>
-        <Link href="/star-wars">Data Fetching</Link>
-        {""}
-      </Sidebar>
-      <Content>{children}</Content>
-    </div>
-  );
-}
+  const [addWin, addNWin] = useWinStore((state: any)  => [state.addWin, state.addNWin])
 
-function Sidebar({ children }: { children: React.ReactNode }) {
+  let data: IMenuData[] = [
+    {name: "Файл", 
+    in: [
+      {name: "Клиент",
+      click: () => {
+        
+        addWin(KlientSpr, {winId: Date.now()})
+      }
+    },
+    {name: "Товар",
+    click: () => {
+      
+      // addWin(TovarSpr, {})
+    }
+  },
+      {name: "Открыть"}
+    ]},
+    {name: "Справочник", in: [
+      {name: "Наши", in: [
+        {name: "Фирмы",
+          click: () => {
+        
+            addNWin(KlientSpr, {winId: Date.now()})
+        }},
+        {name: "Налоги", in:[
+          {name: "НДС"},
+          {name: "НП"}
+        ]},
+        {name: "Валюты"},
+        {name: "Склады"},
+        {name: "Страны"}
+        ]},
+      {name: "Клиенты", },
+      
+      {name: "Товары", }
+      ]
+    }
+    ];
+ 
   return (
-    <div
-      id="sidebar"
-      style={{
-        padding: 20,
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        lineHeight: "1.8em",
-        borderRight: "2px solid #eee",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function Content({ children }: { children: React.ReactNode }) {
-  return (
-    <div id="page-container">
-      <div
-        id="page-content"
-        style={{
-          padding: 20,
-          paddingBottom: 50,
-          minHeight: "100vh",
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function Logo() {
-  return (
-    <div
-      style={{
-        marginTop: 20,
-        marginBottom: 10,
-      }}
-    >
-      <a href="/">
-        <img src={logoUrl} height={64} width={64} alt="logo" />
-      </a>
+    <div>
+    <Menu menuData={data} />
+    
+      {/* <Content>{children}</Content> */}
+      <WinManager />
+      <WinPanel />
     </div>
   );
 }

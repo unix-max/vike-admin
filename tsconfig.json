@@ -21,10 +21,15 @@
       "vite/client",
       "vike-react"
     ],
+    "paths": {
+      "@/*": ["./*"]
+    },
     "jsx": "preserve",
     "jsxImportSource": "react"
+   
   },
   "exclude": [
     "dist"
   ]
+ 
 }

@@ -1,0 +1,25 @@
+import { IOKSM } from "./OKSM"
+export interface ICity {
+    id?: number,
+	oldKod?: number,
+    name?: string,
+	fullName?: string,
+	oksm?: IOKSM, 
+	alias?: string,
+	created: Date,
+	updated: Date,
+	deleted?: Date
+}
+
+
+const createTable: string = `CREATE TABLE IF NOT EXISTS city (
+	id serial PRIMARY KEY,
+	old_code INTEGER,
+	name VARCHAR ( 50 ) NOT NULL,
+	fullName VARCHAR ( 50 ),
+	oksm INTEGER REFERENCES oksm,
+	alias VARCHAR (15),
+	created TIMESTAMP NOT NULL,
+	updated TIMESTAMP NOT NULL,
+	deleted TIMESTAMP
+    );`
