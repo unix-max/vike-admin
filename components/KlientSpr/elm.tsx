@@ -1,14 +1,12 @@
 import React from 'react'
-import { trpc } from "../../trpc/client";
+import { trpc } from "@/trpc/client";
 //import {Window, IWinProps} from '../Window'
 import { useWinStore } from '../../pages/+client'
 import { WindowCl } from '../Window/winCl'
 import { TabPanel, TabItem} from '../Tabs';
-import { IClient, IClientCatalog } from '../../db/Entitys/Client';
+import { IClient, IClientCatalog } from '@/db/Entitys/Client';
 import { SuperInput } from '../SuperInput';
-import { fetcher, useDataSend } from '../../helpers/fetch';
 //import styles from './index.module.css'
-//const fetcher = async (url:string) => fetch(url).then(r => r.json());
 const delNWin = useWinStore.getState().delNWin;
 
 type IKlientElmProps  = {
@@ -36,7 +34,7 @@ export class KlientElm extends React.Component<IKlientElmProps, IClientElmState>
 	async componentDidMount() {
 		console.log(this?.props?.parentId)
 		if(this.props.elmId) {
-			const data = await trpc.spr.client.getElm.query(this.props.elmId);
+			const data = await trpc.spr.client.getElm.query({tName:'client', tData:['name','phone'], id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
 		} else {
 			if (typeof(this?.props?.parentId)=='number' && this?.props?.parentId > 0) {

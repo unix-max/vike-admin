@@ -50,51 +50,51 @@ export class Spr<P extends ISprProps, S extends ISprState>
      }
     }
   
-  async loadData(apiPath: string) {
-    const  treeJson = await fetcher(`${apiPath}/tree`);
-    const  itemsJson = await fetcher(`${apiPath}/list/null`);
-    this.setState({ treeData: treeJson, list: itemsJson.list });
-    this.treeRef.current?.selectItem('null');
-  }
-  componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: any): void {
-   // console.log(testTreeData===this.state.treeData)
-   // testTreeData = this.state.treeData;
-  }
-  shouldComponentUpdate(nextProps: P, nextState: S) {
-    //console.log(nextState.treeData===this.state.treeData)
-    return true;
-  }
-  onSelectElm = (elmId: number) => {
-    //console.log(elmId);
-    this.selectElmId = elmId;
-    this.itemRef.current?.selectItem(elmId);
+  // async loadData(apiPath: string) {
+  //   const  treeJson = await fetcher(`${apiPath}/tree`);
+  //   const  itemsJson = await fetcher(`${apiPath}/list/null`);
+  //   this.setState({ treeData: treeJson, list: itemsJson.list });
+  //   this.treeRef.current?.selectItem('null');
+  // }
+  // componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot?: any): void {
+  //  // console.log(testTreeData===this.state.treeData)
+  //  // testTreeData = this.state.treeData;
+  // }
+  // shouldComponentUpdate(nextProps: P, nextState: S) {
+  //   //console.log(nextState.treeData===this.state.treeData)
+  //   return true;
+  // }
+  // onSelectElm = (elmId: number) => {
+  //   //console.log(elmId);
+  //   this.selectElmId = elmId;
+  //   this.itemRef.current?.selectItem(elmId);
 
-  }
-  onEditElm = (elmId: number, elm1: React.ComponentType<IComponentProps>) => {
-    console.log(123)
-    addWin(elm1, {elmId: this.selectElmId, renew: this.onEndEditElm})
-  }
-  onEndEditElm = async (elmId: number) => {
-    const  itemsJson = await fetcher(`${this.apiPath}/list/${this.selectGrpId}`);
-    this.setState({ list: itemsJson.list });
-  }
+  // }
+  // onEditElm = (elmId: number, elm1: React.ComponentType<IComponentProps>) => {
+  //   console.log(123)
+  //   addWin(elm1, {elmId: this.selectElmId, renew: this.onEndEditElm})
+  // }
+  // onEndEditElm = async (elmId: number) => {
+  //   const  itemsJson = await fetcher(`${this.apiPath}/list/${this.selectGrpId}`);
+  //   this.setState({ list: itemsJson.list });
+  // }
 
-  onSelectGrp = async (grpId: number) => {
-    this.selectGrpId = grpId;
-    this.treeRef.current?.selectItem(grpId);
-    const  itemsJson = await fetcher(`${this.apiPath}/list/${grpId}`);
-    this.setState({ list: itemsJson.list });
-    //console.log(this.treeRef.current);
+  // onSelectGrp = async (grpId: number) => {
+  //   this.selectGrpId = grpId;
+  //   this.treeRef.current?.selectItem(grpId);
+  //   const  itemsJson = await fetcher(`${this.apiPath}/list/${grpId}`);
+  //   this.setState({ list: itemsJson.list });
+  //   //console.log(this.treeRef.current);
     
-  }
-  onEditGrp = (grpId: number,  Grp: React.ComponentType<IComponentProps>) => {
-    //console.log(grpId)
-    addWin(Grp, {grpId: this.selectGrpId, renew: this.onEndEditGrp})
-  }
-  onEndEditGrp = async (grpId: number) => {
-    const  treeJson = await fetcher(`${this.apiPath}tree`);
-    this.setState({ treeData: treeJson });
-  }
+  // }
+  // onEditGrp = (grpId: number,  Grp: React.ComponentType<IComponentProps>) => {
+  //   //console.log(grpId)
+  //   addWin(Grp, {grpId: this.selectGrpId, renew: this.onEndEditGrp})
+  // }
+  // onEndEditGrp = async (grpId: number) => {
+  //   const  treeJson = await fetcher(`${this.apiPath}tree`);
+  //   this.setState({ treeData: treeJson });
+  // }
   
 
 }

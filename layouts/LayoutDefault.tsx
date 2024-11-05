@@ -6,7 +6,7 @@ import { WinPanel } from "../components/WinPanel";
 import {Menu, IMenuData} from '../components/Menu'
 //Компоненты
 import logoUrl from "../assets/logo.svg";
-//import { TovarSpr } from '../components/TovarSpr'
+import { TovarSpr } from '@/components/TovarSpr'
 import { KlientSpr } from '../components/KlientSpr'
 //Стили
 //import "./style.css";
@@ -20,13 +20,13 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
       {name: "Клиент",
       click: () => {
         
-        addWin(KlientSpr, {winId: Date.now()})
+        addNWin(KlientSpr, {winId: Date.now()})
       }
     },
     {name: "Товар",
     click: () => {
       
-      // addWin(TovarSpr, {})
+      addNWin(TovarSpr, {winId: Date.now()})
     }
   },
       {name: "Открыть"}

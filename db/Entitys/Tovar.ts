@@ -1,6 +1,6 @@
 export interface ITovar {
-//	[key: string]: any,
-    id?: number,
+	[key: string]: any,
+    id: number,
 	path?: string,
 	oldCode?: number,
 	type?: string,

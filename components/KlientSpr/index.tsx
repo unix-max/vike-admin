@@ -7,7 +7,7 @@ import { SprButtons } from '../SprButtons'
 import { ItemTable } from '../ItemsTable'
 import { KlientElm } from './elm';
 import { KlientGrp } from './grp'
-import { useWinStore } from '../../pages/+client'
+import { useWinStore } from '@/pages/+client'
 import { IClient, IClientCatalog } from '../../db/Entitys/Client'
 //import shallow from 'zustand/shallow'
 import styles from './styles'
@@ -45,8 +45,8 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
   async componentDidMount() {
     //console.log(initRequest)
 
-    const  data = await trpc.spr.client.getList.query(0);
-    const  treeJson = await trpc.spr.client.getTree.query();
+    const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: 0});
+    const  treeJson = await trpc.spr.client.getTree.query({tName: 'client'});
     if (treeJson && data) this.setState({ treeData: treeJson, list: data.list });
     
     //const thiDate = await trpc.demo.query(10);
@@ -76,7 +76,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
     }
   }
   reloadList = async () => {
-    const  data = await trpc.spr.client.getList.query(this.selectGrpId);
+    const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: this.selectGrpId});
     console.log(data)
     if (data) this.setState({ list: data.list });
   }
@@ -94,7 +94,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
     addNWin(KlientGrp, {winId: Date.now(), grpId: this.selectGrpId, renew: this.reloadTree})
   }
   reloadTree = async (grpId: number) => {
-    const  treeJson = await trpc.spr.client.getTree.query();
+    const  treeJson = await trpc.spr.client.getTree.query({tName: 'client'});
     if (treeJson ) this.setState({ treeData: treeJson });
   }
   

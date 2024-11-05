@@ -51,7 +51,7 @@ export const clientSprInsertElm = router({
       else if (elmData.parentId && elmData.parentId > 0) {
         query = format(`
           INSERT INTO %I (%I, path, created, updated)
-          VALUES (%L, ((select path from client where id = %4$L) || %4$L), now(),now())
+          VALUES (%L, ((select path from %1$I where id = %4$L) || %4$L), now(),now())
           RETURNING id;`, input.tName, keys, vals, elmData.parentId);
         } 
       else {

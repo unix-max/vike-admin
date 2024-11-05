@@ -1,6 +1,6 @@
 import React from 'react'
-import { trpc } from "../../trpc/client";
-import { useWinStore } from '../../pages/+client'
+import { trpc } from "@/trpc/client";
+import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../Window/winCl'
 import { SuperInput } from '../SuperInput';
 
@@ -31,7 +31,7 @@ export class KlientGrp extends React.Component<IKlientGrpProps, IKlientGrpState>
 	}
 	async componentDidMount() {
 		if(this.props.grpId) {
-			const data = await trpc.spr.client.getElm.query(this.props.grpId);
+			const data = await trpc.spr.client.getElm.query({tName:'client', tData:['name'], id: this.props.grpId});
 			if (data) this.setState({id: data.elm.id, name: data.elm.name});
 			console.log(data)
 			
