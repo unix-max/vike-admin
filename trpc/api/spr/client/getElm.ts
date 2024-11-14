@@ -23,12 +23,13 @@ export const clientSprGetElm = router({
     let clientList: IClient ={id:0};
     let query:string;
 
+      console.log(input.id)
       query = format(`
         SELECT ${all ? '*': 'c.id, c.path, c.type, %1$I'} 
         FROM %2$I AS c
         WHERE c.id = %3$L
         ORDER BY name;`, input.tData, input.tName, input.id);
-        console.log(query)
+ //       console.log(query, input.id)
     try {
       const dbClient = await pool.connect();
       const res = await dbClient.query(query);

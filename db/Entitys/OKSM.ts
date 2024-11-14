@@ -23,4 +23,10 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS oksm (
 	created TIMESTAMP NOT NULL,
 	updated TIMESTAMP NOT NULL,
 	deleted TIMESTAMP
-    );`
+    );
+		`;
+
+		const add: string = `
+			INSERT INTO oksm (code, name, full_name, a2, a3, alias, created, updated)
+			VALUES (643, 'РОССИЯ', 'Российская Федерация',	'RU', 'RUS', 'РФ', NOW(), NOW());
+			`;

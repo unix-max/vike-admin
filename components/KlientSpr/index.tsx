@@ -47,6 +47,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
 
     const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: 0});
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'client'});
+    //console.log(treeJson)
     if (treeJson && data) this.setState({ treeData: treeJson, list: data.list });
     
     //const thiDate = await trpc.demo.query(10);
@@ -77,7 +78,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
   }
   reloadList = async () => {
     const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: this.selectGrpId});
-    console.log(data)
+    //console.log(data)
     if (data) this.setState({ list: data.list });
   }
 

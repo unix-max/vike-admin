@@ -18,11 +18,11 @@ export const clientSprGetTree = router({
     const { input } = opts;
 
     let query:string = format(`
-      SELECT c.id, c.path, c.type, c.name, COALESCE(nlevel(path),0) as level, subpath(path, -1) as parentId
-      FROM %I AS c
-      WHERE c.type = 'F'
+      SELECT id, path, type, name, COALESCE(nlevel(path),0) as level, subpath(path, -1) as parentId
+      FROM %I
+      WHERE type = 'F'
       ORDER BY level, name;`, input.tName);   
-
+          console.log(query)
     try {
       const dbClient: PoolClient = await pool.connect();
       const res = await dbClient.query(query);

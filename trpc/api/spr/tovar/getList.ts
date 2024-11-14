@@ -34,9 +34,9 @@ export const clientSprGetList = router({
         query = format(`
           SELECT ${all ? '*': 'id, path, type, %1$I'} 
           FROM %2$I 
-          ${ input.id==0 ? 'WHERE path is null': 'WHERE subpath(path, -1) = %3$L'}
+          ${ input.id==0 ? 'WHERE path is null': 'WHERE subpath(path, -1) = %$3L'}
           ORDER BY name;`, input.tData, input.tName, input.id);
-         // console.log(query, input.id)
+          console.log(query)
       try {
         const dbClient = await pool.connect();
         const res = await dbClient.query(query);

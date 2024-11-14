@@ -44,7 +44,7 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
   async componentDidMount() {
     //console.log(initRequest)
 
-    const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: 0});
+    const  data = await trpc.spr.client.getList.query({tName:'tovar', tData:['name'], id: 0});
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'tovar'});
     if (treeJson && data) this.setState({ treeData: treeJson, list: data.list });
     
@@ -75,12 +75,13 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
     }
   }
   reloadList = async () => {
-    const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: this.selectGrpId} );
+    const  data = await trpc.spr.client.getList.query({tName:'tovar', tData:['name'], id: this.selectGrpId} );
     console.log(data)
     if (data) this.setState({ list: data.list });
   }
 
   onSelectGrp = async (grpId: number) => {
+    console.log(grpId)
     this.selectGrpId = grpId;
     this.treeRef.current?.selectItem(grpId);
     this.reloadList();
@@ -117,7 +118,7 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
           </div>
 
           <div className="table">
-          <ItemTable tableKeys={{head:['Id1','Name', 'Path'], body:['id','name', 'path']}} tableData={this.state.list}
+          <ItemTable tableKeys={{head:['Id','Name', 'Path'], body:['id','name', 'path']}} tableData={this.state.list}
           onSelect={this.onSelectElm}
           onEdit={this.onEditElm}
           ref={this.itemRef}

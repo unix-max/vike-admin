@@ -17,3 +17,8 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS okei (
 	updated TIMESTAMP NOT NULL,
 	deleted TIMESTAMP
     );`
+
+		const add: string = `
+			INSERT INTO okei (code, sokr, name, alias, created, updated)
+			VALUES (796, 'шт', 'Штука', 'pcs', NOW(), NOW());
+		`;

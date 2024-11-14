@@ -34,7 +34,7 @@ export class TovarElm extends React.Component<ITovarElmProps, ITovarElmState>{
 	async componentDidMount() {
 		console.log(this?.props?.parentId)
 		if(this.props.elmId) {
-			const data = await trpc.spr.client.getElm.query({tName:'tovar', tData:['name','phone'], id: this.props.elmId});
+			const data = await trpc.spr.client.getElm.query({tName:'tovar', tData:['name','oksm', 'okei'], id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
 		} else {
 			if (typeof(this?.props?.parentId)=='number' && this?.props?.parentId > 0) {
@@ -102,14 +102,10 @@ export class TovarElm extends React.Component<ITovarElmProps, ITovarElmState>{
 									<tbody>
                   <tr>
                     <td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
-										<td><SuperInput zagolovok="Адрес" value={this.oldElmData.address} onChange={(val) => this.changeData('address', val)}/></td>
-                    <td><SuperInput zagolovok="В документы" value={this.oldElmData.indoc} onChange={(val) => this.changeData('indoc', val)}/></td>      
+										<td><SuperInput zagolovok="OKSM" value={this.oldElmData.oksm} onChange={(val) => this.changeData('oksm', val)}/></td>
+                    <td><SuperInput zagolovok="OKEI" value={this.oldElmData.okei} onChange={(val) => this.changeData('okei', val)}/></td>      
                   </tr>
-              	  <tr>
-										<td><SuperInput zagolovok="ИНН" value={this.oldElmData.inn} onChange={(val) => this.changeData('inn', val)}/></td>
-										<td><SuperInput zagolovok="КПП" value={this.oldElmData.kpp} onChange={(val) => this.changeData('kpp', val)}/></td>
-                    <td><SuperInput zagolovok="ОГРН" value={this.oldElmData.ogrn} onChange={(val) => this.changeData('ogrn', val)}/></td> 
-                  </tr>
+              	
 									</tbody>
               	</table>
             </fieldset>

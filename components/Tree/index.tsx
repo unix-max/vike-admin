@@ -64,7 +64,7 @@ export class Tree extends React.Component<ITreeData> {
   } 
   onSelectItem= (e: any)=> {
     const id: number = parseInt(e.target?.getAttribute('data-id'));
-  //  console.log(typeof(id))
+    //console.log(id)
     if (typeof(id)=='number' && this.props.onSelect) this.props.onSelect(id);   
   }
   onEditItem= (e: any)=> {

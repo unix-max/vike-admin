@@ -29,3 +29,8 @@ const createTable1: string = `CREATE TABLE IF NOT EXISTS rate (
     currency INTEGER REFERENCES currency ON DELETE CASCADE,
     rate NUMERIC(10, 2) NOT NULL
     );`
+
+const add: string = `
+  INSERT INTO currency (code, sokr, symbol, name, alias, created, updated)
+  VALUES (643, 'Руб', '₽', 'Российский рубль', 'RUB', NOW(), NOW());
+  `;
