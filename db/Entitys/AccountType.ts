@@ -20,3 +20,8 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS account_type (
 	updated TIMESTAMP NOT NULL,
 	deleted TIMESTAMP
     );`
+
+		const add = `
+		insert into account_type (name, descript, alias, created, updated)
+values ('Рассчетный', 'Текущий счет',  'тек', NOW(), NOW());
+		`

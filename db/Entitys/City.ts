@@ -23,3 +23,8 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS city (
 	updated TIMESTAMP NOT NULL,
 	deleted TIMESTAMP
     );`
+
+		const add=`
+		insert into city (name, fullname, oksm, alias, created, updated)
+		values ('Н.Новгород', 'Нижний Новгород', 643, 'NiNo', NOW(), NOW());
+		`

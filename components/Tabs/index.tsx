@@ -19,20 +19,15 @@ export class TabPanel extends React.Component<ITabPanelProps, ITabPanelState>{
       };
   
     }
-  
-    _handleClick = (index: number) => {
-      this.setState({
-        selectedTabIndex: index
-      });
-      
-      if(this.props.onTabChange) this.props.onTabChange(index);
-    }
-  
+    
     _renderTabs = () => {
       return React.Children.map(this.props.children, (child, i) => (
         <span className={`${className} 
           ${i === this.state.selectedTabIndex ? 'tab tab--selected' : 'tab'}`}
-          onClick={() => this._handleClick(i)}>
+          onClick={() => {
+            this.setState({ selectedTabIndex: i });
+            if (this.props.onTabChange) this.props.onTabChange(i);
+            if (child?.props.onSelect) child.props.onSelect()}}>
           <span className={`${className} tab__label`}>{child?.props.title}</span>
         </span>
 
@@ -68,6 +63,7 @@ export class TabPanel extends React.Component<ITabPanelProps, ITabPanelState>{
   interface ITabItemProps {
     title: string;
     children?: React.ReactNode;
+    onSelect?: () => void;
   }
   export class TabItem extends React.Component<ITabItemProps> {
     constructor(props: ITabItemProps) {

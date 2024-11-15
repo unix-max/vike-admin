@@ -13,11 +13,11 @@ export interface IBank {
 
 
 const createTable: string = `CREATE TABLE IF NOT EXISTS bank (
-	bik INTEGER PRIMARY KEY,
+	bik VARCHAR(9) PRIMARY KEY,
 	old_code INTEGER,
 	name VARCHAR ( 50 ) NOT NULL,
     corAccount VARCHAR ( 20 ),
-    cyty INTEGER REFERENCES city (id) ON DELETE RESTRICT,
+    city INTEGER REFERENCES city (id) ON DELETE RESTRICT,
 	alias VARCHAR (15),
 	created TIMESTAMP NOT NULL,
 	updated TIMESTAMP NOT NULL,

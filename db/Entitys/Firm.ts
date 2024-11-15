@@ -1,6 +1,6 @@
 export interface IFirm {
-//	[key: string]: any,
-    id?: number,
+	[key: string]: any,
+    id: number,
 	oldCode?: number,
 	type?: string,
     name?: string,

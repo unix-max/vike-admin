@@ -2,18 +2,19 @@ import { IBank } from "./Bank"
 import { IAccountType } from "./AccountType"
 import { ICurrency } from "./Currency"
 export interface IFirmAccount {
+    [key: string]: any,
     id?: number,
     oldCode?: number,
-    firmId: number,
-    type: IAccountType,
+    firmId?: number,
+    type?: IAccountType,
     name?: string,
-    number: string,
-    bank: IBank,
-    currency: ICurrency,
+    number?: string,
+    bank?: IBank,
+    currency?: ICurrency,
 	alias?: string,
     main?: boolean,
-    created: Date,
-	updated: Date,
+    created?: Date,
+	updated?: Date,
 	deleted?: Date
 }
 
@@ -25,7 +26,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS firm_account (
 	type INTEGER REFERENCES account_type ON DELETE RESTRICT,
 	name VARCHAR ( 50 ) NOT NULL,
 	number VARCHAR ( 20 ),
-    bank INTEGER REFERENCES bank ON DELETE RESTRICT,
+    bank VARCHAR(9) REFERENCES bank ON DELETE RESTRICT,
     currency INTEGER REFERENCES currency ON DELETE RESTRICT,
 	alias VARCHAR (15),
     main boolean,
