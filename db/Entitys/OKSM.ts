@@ -1,4 +1,5 @@
 export type IOKSM = {
+	id: number,
 	code: number,
 	oldCode?: number,
 	name: string,

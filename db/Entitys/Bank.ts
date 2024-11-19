@@ -1,10 +1,11 @@
 import { ICity } from "./City"
-export interface IBank {
+export type IBank = {
+	id: number,
     bik: string,
 	oldCode?: number,
-    name?: string,
+    name: string,
     corAccount: string,
-    city?: ICity,     
+    city: ICity,     
 	alias?: string,
 	created?: Date,
 	updated?: Date,

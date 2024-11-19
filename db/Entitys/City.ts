@@ -1,11 +1,10 @@
 import { IOKSM } from "./OKSM"
-export interface ICity {
-	[key: string]: any,
+export type ICity = {
     id: number,
 	oldKod?: number,
-    name?: string,
+    name: string,
 	fullName?: string,
-	oksm?: IOKSM, 
+	oksm: IOKSM, 
 	alias?: string,
 	created?: Date,
 	updated?: Date,
@@ -17,7 +16,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS city (
 	id serial PRIMARY KEY,
 	old_code INTEGER,
 	name VARCHAR ( 50 ) NOT NULL,
-	fullName VARCHAR ( 50 ),
+	fullName VARCHAR ( 100 ),
 	oksm INTEGER REFERENCES oksm,
 	alias VARCHAR (15),
 	created TIMESTAMP NOT NULL,
