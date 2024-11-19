@@ -1,7 +1,7 @@
-export interface IAccountType {
-    id?: number,
+export type IAccountType = {
+    id: number,
 	oldCode?: number,
-    name?: string, 
+    name: string, 
 	descript?: string,
 	alias?: string,
 	created?: Date,

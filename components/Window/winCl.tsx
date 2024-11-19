@@ -1,12 +1,13 @@
 import React from 'react'
-import styles from './index.module.css'
 import { useWinStore } from '../../pages/+client'
 import { shallow } from 'zustand/shallow'
-
+import styles from './index.module.css'
+//import css from 'styled-jsx/css'
 interface IWinProps {
   winId: number,
   caption?: string,
   modal?: boolean,
+  size?: {width: string, height: string}
   children?: React.ReactNode
 }
 const state = useWinStore.getState();
@@ -133,7 +134,19 @@ stopMove = (event: any) => {
           </div>
         </div>
         {this.props.children}
+
+        {this.props.size ?
+          <style>{`
+            .${styles.win}{
+              width: ${this.props.size.width};
+              height: ${this.props.size.height};
+              }
+            `}
+          </style>
+        :''
       
+      }
+        
       </div>
         
     )
