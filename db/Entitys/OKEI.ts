@@ -9,7 +9,8 @@ export interface IOKEI {
 }
 
 const createTable: string = `CREATE TABLE IF NOT EXISTS okei (
-	code INTEGER PRIMARY KEY,
+	id serial PRIMARY KEY,
+	code INTEGER UNIQUE NOT NULL,
 	sokr VARCHAR (3) NOT NULL,
 	name VARCHAR ( 30 ) NOT NULL,
 	alias VARCHAR (15),

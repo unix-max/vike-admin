@@ -13,8 +13,8 @@ export interface IFirm {
 	phone?: string,
 	email?: string,
 	www?: string,
-	nds?: number,
-	np?: number,
+	nds?: boolean,
+	
 	created?: Date,
 	updated?: Date,
 	deleted?: Date,
@@ -37,8 +37,8 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS firm (
 	ur_addr jsonb not null default '{}'::jsonb,
 	phone INTEGER,
 	email VARCHAR (100),
-	nds INTEGER REFERENCES nds ON DELETE RESTRICT,
-	np INTEGER REFERENCES np ON DELETE RESTRICT,
+	nds BOOLEAN NOT NULL,
+
 	www VARCHAR (100),
 	created TIMESTAMP NOT NULL,
 	updated TIMESTAMP NOT NULL,

@@ -4,8 +4,8 @@ export interface IAccountType {
     name?: string, 
 	descript?: string,
 	alias?: string,
-	created: Date,
-	updated: Date,
+	created?: Date,
+	updated?: Date,
 	deleted?: Date
 }
 

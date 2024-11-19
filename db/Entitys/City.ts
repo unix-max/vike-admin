@@ -1,13 +1,14 @@
 import { IOKSM } from "./OKSM"
 export interface ICity {
-    id?: number,
+	[key: string]: any,
+    id: number,
 	oldKod?: number,
     name?: string,
 	fullName?: string,
 	oksm?: IOKSM, 
 	alias?: string,
-	created: Date,
-	updated: Date,
+	created?: Date,
+	updated?: Date,
 	deleted?: Date
 }
 

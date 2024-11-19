@@ -6,14 +6,15 @@ export interface ICurrency {
     symbol: string,
     name: string,
 	alias?: string,
-    created: Date,
-	updated: Date,
+    created?: Date,
+	updated?: Date,
 	deleted?: Date
 }
 
 
 const createTable: string = `CREATE TABLE IF NOT EXISTS currency (
-	code INTEGER PRIMARY KEY,
+    id serial PRIMARY KEY,
+	code INTEGER UNIQUE NOT NULL,
     old_code INTEGER,
 	sokr VARCHAR (3) NOT NULL,
     symbol VARCHAR (3) NOT NULL,

@@ -6,14 +6,15 @@ export interface IBank {
     corAccount: string,
     city?: ICity,     
 	alias?: string,
-	created: Date,
-	updated: Date,
+	created?: Date,
+	updated?: Date,
 	deleted?: Date
 }
 
 
 const createTable: string = `CREATE TABLE IF NOT EXISTS bank (
-	bik VARCHAR(9) PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
+	bik VARCHAR(9) UNIQUE NOT NULL,
 	old_code INTEGER,
 	name VARCHAR ( 50 ) NOT NULL,
     corAccount VARCHAR ( 20 ),

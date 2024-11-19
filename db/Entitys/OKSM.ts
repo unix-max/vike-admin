@@ -1,21 +1,22 @@
-export interface IOKSM {
-    code?: number,
+export type IOKSM = {
+	code: number,
 	oldCode?: number,
 	name: string,
-	fullName: string,
-	a2: string,
-	a3: string, 
+	fullName?: string,
+	a2?: string,
+	a3?: string, 
 	alias?: string,
-	created: Date,
-	updated: Date,
+	created?: Date,
+	updated?: Date,
 	deleted?: Date
 }
 
 
 const createTable: string = `CREATE TABLE IF NOT EXISTS oksm (
-	code INTEGER PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
+	code INTEGER UNIQUE NOT NULL,
 	old_code INTEGER,
-	name VARCHAR ( 50 ) UNIQUE NOT NULL,
+	name VARCHAR ( 50 ) NOT NULL,
 	full_name VARCHAR ( 150 ),
 	a2 VARCHAR ( 2 ),
 	a3 VARCHAR ( 3 ),
