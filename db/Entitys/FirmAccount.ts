@@ -1,16 +1,15 @@
 import { IBank } from "./Bank"
 import { IAccountType } from "./AccountType"
 import { ICurrency } from "./Currency"
-export interface IFirmAccount {
-    [key: string]: any,
-    id?: number,
+export type IFirmAccount = {
+    id: number,
     oldCode?: number,
-    firmId?: number,
-    type?: IAccountType,
-    name?: string,
-    number?: string,
-    bank?: IBank,
-    currency?: ICurrency,
+    firmId: number,
+    type: IAccountType,
+    name: string,
+    number: string,
+    bank: IBank,
+    currency: ICurrency,
 	alias?: string,
     main?: boolean,
     created?: Date,
