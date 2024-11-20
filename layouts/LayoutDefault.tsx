@@ -12,6 +12,7 @@ import { SkladSpr } from "@/components/spr/SkladSpr";
 import { CitySpr } from "@/components/spr/CitySpr";
 import { FirmSpr } from "@/components/spr/FirmSpr";
 import { OKSMSpr } from "@/components/spr/OKSMSpr";
+import { BankSpr } from "@/components/spr/BankSpr";
 //Стили
 //import "./style.css";
 
@@ -48,6 +49,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
         ]},
         {name: "Валюты"},
         {name: "Склады", click: () => addNWin(SkladSpr, {winId: Date.now()})},
+        {name: "Банки", click: () => addNWin(BankSpr, {winId: Date.now()})},
         {name: "Города", click: () => addNWin(CitySpr, {winId: Date.now()})},
         {name: "Страны", click: () => addNWin(OKSMSpr, {winId: Date.now()})}
         ]},

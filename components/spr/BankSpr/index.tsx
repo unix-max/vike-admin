@@ -3,13 +3,14 @@ import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
-import { CityElm } from './elm';
+import { BankElm } from './elm';
 import { useWinStore } from '@/pages/+client'
 //import { ITableString } from '../../ItemsTable1';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
 const addNWin = useWinStore.getState().addNWin;
+const delNWin = useWinStore.getState().delNWin
 
 export type IBankSprProps = {
   winId: number;
@@ -51,7 +52,7 @@ export class BankSpr extends React.Component<IBankSprProps, ICitySprState>{
 
   }
   onEditElm = (elm: IBankSprElm) => {
-      addNWin(CityElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
+      addNWin(BankElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
     
   }
   reloadList = async () => {
@@ -69,7 +70,7 @@ export class BankSpr extends React.Component<IBankSprProps, ICitySprState>{
         <div className="container">
           <div className='buttons'>
             <SprButtons 
-              onNewElm={()=> addNWin(CityElm, {winId: Date.now(), renew: this.reloadList})}
+              onNewElm={()=> addNWin(BankElm, {winId: Date.now(), renew: this.reloadList})}
               />
           </div>
 

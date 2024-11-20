@@ -8,35 +8,34 @@ import { ICity } from '@/db/Entitys/City';
 
 import { SuperInput } from '../../inputs/SuperInput';
 import { SprInput } from '@/components/inputs/SprInput';
-import { OKSMSpr } from '../OKSMSpr';
+import { CitySpr } from '../CitySpr';
 
 //import styles from './index.module.css'
 const addNWin = useWinStore.getState().addNWin
 const delNWin = useWinStore.getState().delNWin
 
-type ICityElmProps  = {
+type IBankElmProps  = {
 	winId: number;
 	elmId?: number;
-
 	renew?: () => void;
 }
 
-type ICityElmState = {
+type IBankElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
-	newElmData: ICityElmState;
-	oldElmData: ICityElmState;
+export class BankElm extends React.Component<IBankElmProps, IBankElmState>{
+	newElmData: IBankElmState;
+	oldElmData: IBankElmState;
 
-	constructor(props: ICityElmProps) {
+	constructor(props: IBankElmProps) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};
 	}
 	async componentDidMount() {
 		if(this.props.elmId) {
-			const data = await trpc.spr.city.getElm.query({ id: this.props.elmId});
+			const data = await trpc.spr.bank.getElm.query({ id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
 		} else {
 			
@@ -66,9 +65,9 @@ export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.city.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				data = await trpc.spr.bank.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.city.setElm.mutate({ ...this.newElmData });
+				data = await trpc.spr.bank.setElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
@@ -80,8 +79,8 @@ export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 		delNWin(this.props.winId);
 		//console.log(id)	
 	}
-	changeOksm=() => {
-		addNWin(OKSMSpr, {winId: Date.now(), onChoice: (elm: any) => this.changeData('oksm', elm) });
+	changeCity=() => {
+		addNWin(CitySpr, {winId: Date.now(), onChoice: (elm: any) => this.changeData('city', elm) });
 	}
 	name = () => 'City'
 	
@@ -97,10 +96,13 @@ export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 									<tbody>
                   <tr>
                     <td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
-										<td><SuperInput zagolovok="Полное наименование" value={this.oldElmData.full_name} onChange={(val) => this.changeData('full_name', val)}/></td>
-										<td><SprInput zagolovok="Страна" value={this.oldElmData.oksm} onBtnClick={this.changeOksm}/></td>
-                        
+										<td><SuperInput zagolovok="БИК" value={this.oldElmData.bik} onChange={(val) => this.changeData('bik', val)}/></td>
+										<td><SuperInput zagolovok="Кор.Счет" value={this.oldElmData.coraccount} onChange={(val) => this.changeData('coraccount', val)}/></td>	
                   </tr>
+									<tr>
+										<td><SuperInput zagolovok="Алиас" value={this.oldElmData.alias} onChange={(val) => this.changeData('alias', val)}/></td>	
+										<td><SprInput zagolovok="Город" value={this.oldElmData.city} onBtnClick={this.changeCity}/></td>
+									</tr>
               	
 									</tbody>
               	</table>

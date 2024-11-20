@@ -4,16 +4,19 @@ import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { CityElm } from './elm';
+import { ICity}  from '@/db/Entitys/City'
 import { useWinStore } from '@/pages/+client'
 //import { ITableString } from '../../ItemsTable1';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
 const addNWin = useWinStore.getState().addNWin;
+const delNWin = useWinStore.getState().delNWin
 
 export type ICitySprProps = {
   winId: number;
   id?: number;
+  onChoice?: (elm:ICitySprElm) => void;
 }
 
 type ICitySprElm = {
@@ -51,8 +54,12 @@ export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
 
   }
   onEditElm = (elm: ICitySprElm) => {
+    if(this.props.onChoice) {
+      this.props.onChoice(elm);
+      delNWin(this.props.winId);
+    } else {
       addNWin(CityElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
-    
+    }
   }
   reloadList = async () => {
     const  data = await trpc.spr.city.getList.query();

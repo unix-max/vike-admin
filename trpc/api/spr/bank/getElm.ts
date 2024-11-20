@@ -9,7 +9,7 @@ const requestShema = z.object({
   id: z.number()
 })
 
-export const citySprGetElm = router({
+export const bankSprGetElm = router({
   getElm: publicProcedure
   .input(requestShema)
   .query(async (opts) => {
@@ -20,16 +20,18 @@ export const citySprGetElm = router({
     
     let query = format(`
     SELECT 
+    b.id AS bank_id,
+    b.name AS bank_name,
+    b.bik AS bank_bik,
+    b.coraccount AS bank_coraccount,
+    b.city AS bank_city,
+    b.alias AS bank_alias,
     c.id AS city_id,
-    c.name AS city_name,
-    c.full_name AS city_full_name,
-    c.oksm AS city_oksm,
-    o.id AS oksm_id,
-    o.name AS oksm_name
-    FROM city AS c
-    LEFT JOIN oksm AS o ON o.id = c.oksm
-    WHERE c.id = %1$L
-    ORDER BY c.name;`, input.id);
+    c.name AS city_name
+    FROM bank AS b
+    LEFT JOIN city AS c ON c.id = b.city
+    WHERE b.id = %1$L
+    ;`, input.id);
     //console.log(query)
     
     try {
@@ -38,8 +40,10 @@ export const citySprGetElm = router({
       const res = await dbClient.query(query);
       dbClient.release();
       
-      const city = res.rows[0];
-      const elm = {id: city.city_id, name: city.city_name, full_name: city.city_full_name, oksm: city.oksm_name}
+      const b = res.rows[0];
+      const elm = {id: b.bank_id, name: b.bank_name, bik: b.bank_bik, coraccount: b.bank_coraccount, alias: b.bank_alias,
+        city:b.city_name
+      }
       //console.log(res2);
       return {elm: elm, tc: pool.totalCount, ic: pool.idleCount}
     } catch(err) {

@@ -8,8 +8,9 @@ const requestShema = z.object({
   id:         z.number(),
 	oldCode:    z.number(),
   name:       z.string(),
-  full_name:   z.string(),
-  oksm:       z.coerce.string(),
+  bik:        z.string(),
+  coraccount: z.string(),
+  city:       z.coerce.string(),
   alias:      z.string()
 }).partial()
 
@@ -17,7 +18,7 @@ type genSprElm = {
   [key: string]: any,
   id?: number,
 }
-export const citySprSetElm = router({
+export const bankSprSetElm = router({
   setElm: publicProcedure
     .input(requestShema)
     .mutation(async (opts) => {
@@ -32,12 +33,12 @@ export const citySprSetElm = router({
       let query:string;
       if (input.id && input.id > 0 ) {
         query = format(`
-          UPDATE city SET (%I, updated) = (%L, now())
+          UPDATE bank SET (%I, updated) = (%L, now())
           WHERE id = %L RETURNING id;`, keys, vals, input.id);   
         }
       else {
         query = format(`
-          INSERT INTO city (%I, created, updated)
+          INSERT INTO bank (%I, created, updated)
           VALUES (%L, now(),now())
           RETURNING id;`, keys, vals);
       }

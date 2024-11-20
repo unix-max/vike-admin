@@ -17,12 +17,12 @@ export const bankSprGetList = router({
           b.id AS bank_id,
           b.bik AS bank_bik,
           b.name AS bank_name,
-          b.city AS bank_city
+          b.city AS bank_city,
           c.id AS city_id,
           c.name AS city_name
           FROM bank AS b
           LEFT JOIN city AS c ON b.city = c.id
-          ORDER BY c.bik;`;
+          ORDER BY b.bik;`;
           console.log(query)
       try {
         const dbClient:PoolClient = await pool.connect();
