@@ -39,10 +39,8 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 			this.newElmData = {id: 0, name: 'Новый'};
 		}
 		this.forceUpdate();
-
 	}
 
-	
 	changeData= (key: string, val: any) => {
 		this.oldElmData[key] = val;
 		this.newElmData[key] = val;
@@ -71,7 +69,7 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 		//console.log(id)	
 
 	}
-
+	name=() =>'ОКСМ'
 	render() {
 
 		console.log(`Render sprElm ${this.props.elmId}`)

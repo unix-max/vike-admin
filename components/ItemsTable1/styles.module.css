@@ -1,10 +1,5 @@
-.select {
-  color: red;
-}
-
 .container {
   display: inline-block;
-  height: 550px;
   overflow: auto
 }
 
@@ -28,8 +23,8 @@ position: -webkit-sticky;
   padding: 3px;
 }
 
-.container tr {
-  color: #212121;
+.select {
+  color: red;
 }
 
 .container tr:nth-child(odd) {

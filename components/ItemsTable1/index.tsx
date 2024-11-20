@@ -70,9 +70,9 @@ export class ItemTable<T extends ITableString> extends React.Component<IItemTabl
 
 	selectItem =(id: number) => {
 		console.log(id)
-		if (this.selectId) this.tableRef?.querySelectorAll(`[data-id='${this.selectId}']`)[0]?.classList.remove("select");
+		if (this.selectId) this.tableRef?.querySelectorAll(`[data-id='${this.selectId}']`)[0]?.classList.remove(styles.select);
 		const selectElm = this.tableRef?.querySelectorAll(`[data-id='${id}']`)[0];
-		selectElm?.classList.add("select");
+		selectElm?.classList.add(styles.select);
 		this.selectId = id;
 	  } 
 

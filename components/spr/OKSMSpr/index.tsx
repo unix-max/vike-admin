@@ -31,7 +31,6 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
       list: []
   }
   console.log(`Constructor OKSMSpr ${this.props.id}`)
-  this.name = this.name.bind(this);
   }
 
   async componentDidMount() {
@@ -40,15 +39,15 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
   }
 
   onSelectElm = (item: IOKSM) => {
-    //console.log(elmId+110);
+    console.log(item);
     this.selectElmId = item.id;
     this.itemRef.current?.selectItem(this.selectElmId);
 
   }
-  onEditElm = (id:any) => {
+  onEditElm = (item:IOKSM) => {
     //console.log(elmId)
   
-      addNWin(OKSMElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
+      addNWin(OKSMElm, {winId: Date.now() ,elmId: item.id, renew: this.reloadList});
     
   }
   reloadList = async () => {
@@ -56,13 +55,7 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
       //const list = data?.list.map((item)=> ({id: item.code, ...item}))
     if (data) this.setState({list: data.list as IOKSM[] });
   }
-
- 
-  name() {
-    return 'Товары';
-  }
-  
-  
+  name = () => 'OKSM'
   render() {
     console.log(`render KlientSpr ${this.props.id}`)
     return (

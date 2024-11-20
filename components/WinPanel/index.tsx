@@ -32,7 +32,12 @@ export function WinPanel() {
   return (
     <section className={styles.wrapper}>
   	  {/* {arrMinWin.map((val:any) => <MinWinElm key={val[0]} id={val[0]} name={val[1].name} min={val[1].min}/>)} */}
-      {arrNWin.map((val:any) => <MinWinElm key={val[0]} id={val[0]} name={val[1]?.ref?.current?.name()} min={false}/>)}
+      {arrNWin.map((val:any) => {
+        console.log(val)
+        return (
+        <MinWinElm key={val[0]} id={val[0]} name={val[1]?.ref?.current?.name()} min={false}/>
+      )}
+      )} 
     </section>
   )
 }

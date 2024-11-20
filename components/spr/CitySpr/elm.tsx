@@ -23,16 +23,13 @@ type ICityElmState = {
 export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 	newElmData: ICityElmState;
 	oldElmData: ICityElmState;
-	path: string| null;
 
 	constructor(props: ICityElmProps) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};
-		this.path = null; 
 	}
 	async componentDidMount() {
-	
 		if(this.props.elmId) {
 			const data = await trpc.spr.city.getElm.query({ id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
@@ -42,42 +39,31 @@ export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 			this.newElmData = {id: 0, name: 'Новый'};
 		}
 		this.forceUpdate();
-
 	}
 
-	componentDidUpdate(prevProps: Readonly<ICityElmProps>, prevState: Readonly<ICity>, snapshot?: any): void {
-		// console.log(testTreeData===this.state.treeData)
-		console.log(this.newElmData)
-	 }
-	 /*getData=(key: string) => {
-		//console.log(this.state[key])
-		if (this.newElmData[key]) return this.newElmData[key];
-		return this.state[key]
-	 } */
 	changeData= (key: string, val: any) => {
 		this.oldElmData[key] = val;
 		this.newElmData[key] = val;
 		//this.setState( {[key]: val})
-		//console.log(this.newElmData);
+		console.log(this.newElmData);
 		//if (key=='name')
-		this.forceUpdate();
+		//this.forceUpdate();
 	}
 
 	dataSend= async () => {
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { id: this.props.elmId, ...this.newElmData }});
+				data = await trpc.spr.city.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { type: 'E', ...this.newElmData }});
+				data = await trpc.spr.city.setElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
 		}
-		if ('client' in data) {
-			const id =  data?.client?.id;
-			if ( this.props.renew && id > 0 ) this.props.renew();
-		} else alert(data.message);
+		if (data && 'elm' in data) {
+			if ( this.props.renew && data?.elm?.id > 0 ) this.props.renew();
+		} else alert(data?.message);
 
 		delNWin(this.props.winId);
 		//console.log(id)	

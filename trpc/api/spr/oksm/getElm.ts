@@ -23,7 +23,7 @@ export const oksmSprGetElm = router({
         SELECT * FROM oksm AS c
         WHERE c.id = %1$L
         ORDER BY name;`, input.id);
-   
+      //console.log(query)
     try {
       
       const dbClient = await pool.connect();
@@ -31,7 +31,7 @@ export const oksmSprGetElm = router({
       dbClient.release();
       
       const oksm = res.rows[0] as IOKSM;
-      //console.log(res2);
+      //console.log(oksm);
       return {elm: oksm, tc: pool.totalCount, ic: pool.idleCount}
     } catch(err) {
       console.log("Error", err);
