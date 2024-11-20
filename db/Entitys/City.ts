@@ -16,7 +16,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS city (
 	id serial PRIMARY KEY,
 	old_code INTEGER,
 	name VARCHAR ( 50 ) NOT NULL,
-	fullName VARCHAR ( 100 ),
+	full_name VARCHAR ( 100 ),
 	oksm INTEGER REFERENCES oksm,
 	alias VARCHAR (15),
 	created TIMESTAMP NOT NULL,

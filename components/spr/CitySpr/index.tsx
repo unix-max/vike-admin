@@ -2,10 +2,10 @@ import React from 'react'
 import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
-import { ItemTable } from '../../ItemsTable'
+import { ItemTable } from '../../ItemsTable1'
 import { CityElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { ICity} from '@/db/Entitys/City'
+//import { ITableString } from '../../ItemsTable1';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
@@ -16,56 +16,50 @@ export type ICitySprProps = {
   id?: number;
 }
 
+type ICitySprElm = {
+  id: number,
+    name: string,
+	fullName?: string,
+	oksm: string, 
+	
+}
 type ICitySprState = {
-  list: ICity[];
+  list: ICitySprElm[];
 }
 
 export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
   selectElmId?: number;
-  itemRef: React.RefObject<ItemTable>;
+  itemRef: React.RefObject<ItemTable<ICitySprElm>>;
 
   constructor(props: ICitySprProps) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {
       list: []
-  }
+      }
   console.log(`Constructor CitySpr ${this.props.id}`)
-  this.name = this.name.bind(this);
+
   }
   async componentDidMount() {
-    //console.log(initRequest)
-
-    const  data = await trpc.spr.city.getList.query();
-    if (data) this.setState({list: data.list });
-    
-    //const thiDate = await trpc.demo.query(10);
-    console.log(data)
+    this.reloadList();
   }
 
-  onSelectElm = (elmId: number) => {
+  onSelectElm = (elm: ICitySprElm) => {
     //console.log(elmId+110);
-    this.selectElmId = elmId;
-    this.itemRef.current?.selectItem(elmId);
+    this.selectElmId = elm.id;
+    this.itemRef.current?.selectItem(elm.id);
 
   }
-  onEditElm = (elm: ICity) => {
-    //console.log(elmId)
-  
+  onEditElm = (elm: ICitySprElm) => {
       addNWin(CityElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
     
   }
   reloadList = async () => {
-    const  data = await trpc.spr.sklad.getList.query();
-    console.log(data)
-    if (data) this.setState({ list: data.list });
+    const  data = await trpc.spr.city.getList.query();
+    //console.log(data)
+    if (data) this.setState({ list: data.list as ICitySprElm[] });
   }
 
- 
-  name() {
-    return 'Товары';
-  }
-  
   
   render() {
     console.log(`render KlientSpr ${this.props.id}`)
@@ -80,10 +74,13 @@ export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
           </div>
 
           <div className="table">
-          <ItemTable tableKeys={{head:['Id','Name', 'Полное имя', 'ОКСМ'], body:['id', 'name', 'fullname', 'oksm']}} tableData={this.state.list}
-          onSelect={this.onSelectElm}
-          onEdit={this.onEditElm}
-          ref={this.itemRef}
+          <ItemTable<ICitySprElm> 
+            tableKeys={{head:['Id','Name', 'Полное имя', 'Страна'], body:['id', 'name', 'full_name', 'oksm']}}
+            tableData={this.state.list}
+            skey='id'
+            onSelect={this.onSelectElm}
+            onEdit={this.onEditElm}
+            ref={this.itemRef}
           />
           </div>
         </div>
