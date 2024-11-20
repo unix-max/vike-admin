@@ -41,7 +41,7 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
 
   onSelectElm = (item: IOKSM) => {
     //console.log(elmId+110);
-    this.selectElmId = item.code;
+    this.selectElmId = item.id;
     this.itemRef.current?.selectItem(this.selectElmId);
 
   }

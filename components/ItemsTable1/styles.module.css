@@ -18,20 +18,20 @@ position: -webkit-sticky;
   border-collapse: collapse;
 }
 
-table th {
+.container table th {
   background-color: #1976D2;
   color: #fff;
 }
 
-th,
-td {
+.container th,
+.container td {
   padding: 3px;
 }
 
-tr {
+.container tr {
   color: #212121;
 }
 
-tr:nth-child(odd) {
+.container tr:nth-child(odd) {
   background-color: #BBDEFB;
 }

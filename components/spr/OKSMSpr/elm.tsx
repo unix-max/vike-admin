@@ -12,7 +12,6 @@ const delNWin = useWinStore.getState().delNWin;
 type IOKSMElmProps  = {
 	winId: number;
 	elmId?: number;
-
 	renew?: () => void;
 }
 
@@ -52,24 +51,21 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 		//if (key=='name')
 		//this.forceUpdate();
 	}
-upd=() => {
-	this.forceUpdate()
-}
+
 	dataSend= async () => {
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { id: this.props.elmId, ...this.newElmData }});
+				data = await trpc.spr.oksm.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { type: 'E', ...this.newElmData }});
+				data = await trpc.spr.oksm.setElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
 		}
-		if ('client' in data) {
-			const id =  data?.client?.id;
-			if ( this.props.renew && id > 0 ) this.props.renew();
-		} else alert(data.message);
+		if (data && 'elm' in data) {
+			if ( this.props.renew && data?.elm?.id > 0 ) this.props.renew();
+		} else alert(data?.message);
 
 		delNWin(this.props.winId);
 		//console.log(id)	
@@ -101,7 +97,7 @@ upd=() => {
 								</tr>
 							</tbody>
             </table>
-						<input type="text" defaultValue={this.oldElmData.name}  onChange={e => this.changeData('name', e.target.value)}/>
+					
 						
           </fieldset>
         </form>
