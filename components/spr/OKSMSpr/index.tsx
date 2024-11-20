@@ -10,10 +10,12 @@ import { IOKSM } from '@/db/Entitys/OKSM'
 import styles from './styles.module.css'
 //console.log(styles)
 const addNWin = useWinStore.getState().addNWin;
+const delNWin = useWinStore.getState().delNWin
 
 export type IOKSMSprProps = {
   winId: number;
   id?: number;
+  onChoice?: (elm:IOKSM) => void;
 }
 
 type IOKSMSprState = {
@@ -45,9 +47,14 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
 
   }
   onEditElm = (item:IOKSM) => {
-    //console.log(elmId)
-  
+    if(this.props.onChoice) {
+      this.props.onChoice(item);
+      delNWin(this.props.winId);
+    } else {
       addNWin(OKSMElm, {winId: Date.now() ,elmId: item.id, renew: this.reloadList});
+    }
+  
+      
     
   }
   reloadList = async () => {

@@ -11,27 +11,27 @@ import styles from './styles.module.css'
 //console.log(styles)
 const addNWin = useWinStore.getState().addNWin;
 
-export type ICitySprProps = {
+export type IBankSprProps = {
   winId: number;
   id?: number;
 }
 
-type ICitySprElm = {
+type IBankSprElm = {
   id: number,
-    name: string,
-	fullName?: string,
+  name: string,
+  bik: string,
 	oksm: string, 
 	
 }
 type ICitySprState = {
-  list: ICitySprElm[];
+  list: IBankSprElm[];
 }
 
-export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
+export class BankSpr extends React.Component<IBankSprProps, ICitySprState>{
   selectElmId?: number;
-  itemRef: React.RefObject<ItemTable<ICitySprElm>>;
+  itemRef: React.RefObject<ItemTable<IBankSprElm>>;
 
-  constructor(props: ICitySprProps) {
+  constructor(props: IBankSprProps) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {
@@ -44,28 +44,28 @@ export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
     this.reloadList();
   }
 
-  onSelectElm = (elm: ICitySprElm) => {
+  onSelectElm = (elm: IBankSprElm) => {
     //console.log(elmId+110);
     this.selectElmId = elm.id;
     this.itemRef.current?.selectItem(elm.id);
 
   }
-  onEditElm = (elm: ICitySprElm) => {
+  onEditElm = (elm: IBankSprElm) => {
       addNWin(CityElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
     
   }
   reloadList = async () => {
-    const  data = await trpc.spr.city.getList.query();
+    const  data = await trpc.spr.bank.getList.query();
     //console.log(data)
-    if (data) this.setState({ list: data.list as ICitySprElm[] });
+    if (data) this.setState({ list: data.list as IBankSprElm[] });
   }
-  name = () => 'City'
+  name = () => 'Bank'
   
   render() {
-    console.log(`render KlientSpr ${this.props.id}`)
+    console.log(`render BankSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='Города' modal={false} key={this.props.id} size={{width: '200px', height: '300px'}} >    
+      <WindowCl winId={this.props.winId} caption='Банки' modal={false} key={this.props.id} size={{width: '200px', height: '300px'}} >    
         <div className="container">
           <div className='buttons'>
             <SprButtons 
@@ -74,8 +74,8 @@ export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
           </div>
 
           <div className="table">
-          <ItemTable<ICitySprElm> 
-            tableKeys={{head:['Id','Name', 'Полное имя', 'Страна'], body:['id', 'name', 'full_name', 'oksm']}}
+          <ItemTable<IBankSprElm> 
+            tableKeys={{head:['Id','Name', 'БИК', 'Город'], body:['id', 'name', 'bik', 'city']}}
             tableData={this.state.list}
             skey='id'
             onSelect={this.onSelectElm}
