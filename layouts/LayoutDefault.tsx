@@ -6,10 +6,12 @@ import { WinPanel } from "../components/WinPanel";
 import {Menu, IMenuData} from '../components/Menu'
 //Компоненты
 import logoUrl from "../assets/logo.svg";
-import { TovarSpr } from '@/components/TovarSpr'
-import { KlientSpr } from '../components/KlientSpr'
-import { SkladSpr } from "@/components/SkladSpr";
-import { FirmSpr } from "@/components/FirmSpr";
+import { TovarSpr } from '@/components/spr/TovarSpr'
+import { KlientSpr } from '../components/spr/KlientSpr'
+import { SkladSpr } from "@/components/spr/SkladSpr";
+import { CitySpr } from "@/components/spr/CitySpr";
+import { FirmSpr } from "@/components/spr/FirmSpr";
+import { OKSMSpr } from "@/components/spr/OKSMSpr";
 //Стили
 //import "./style.css";
 
@@ -46,7 +48,8 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
         ]},
         {name: "Валюты"},
         {name: "Склады", click: () => addNWin(SkladSpr, {winId: Date.now()})},
-        {name: "Страны"}
+        {name: "Города", click: () => addNWin(CitySpr, {winId: Date.now()})},
+        {name: "Страны", click: () => addNWin(OKSMSpr, {winId: Date.now()})}
         ]},
         { name: "Клиент", click: () => addNWin(KlientSpr, {winId: Date.now()})},
       

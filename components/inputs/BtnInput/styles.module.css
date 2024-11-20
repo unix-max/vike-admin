@@ -1,0 +1,16 @@
+
+.container {
+  display: flex;
+  border: 1px solid #aaa;
+  border-radius: 4px; /* Для скругления углов */
+  }  
+.container input {
+  flex-grow: 1; /* Поле занимает всё доступное пространство */
+  border: none; /* Границы отсутствуют */
+  outline: none; /* Очертание при фокусе отсутствует */
+}
+.container button {
+  background: #fff;
+  border: none;
+  cursor: pointer; /* Курсор в виде указателя */
+}
