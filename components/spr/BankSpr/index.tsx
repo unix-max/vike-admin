@@ -15,20 +15,21 @@ const delNWin = useWinStore.getState().delNWin
 export type IBankSprProps = {
   winId: number;
   id?: number;
+  onChoice?: (elm:IBankSprElm) => void;
 }
 
 type IBankSprElm = {
   id: number,
   name: string,
   bik: string,
-	oksm: string, 
+	city: string, 
 	
 }
-type ICitySprState = {
+type IBankSprState = {
   list: IBankSprElm[];
 }
 
-export class BankSpr extends React.Component<IBankSprProps, ICitySprState>{
+export class BankSpr extends React.Component<IBankSprProps, IBankSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<IBankSprElm>>;
 
@@ -38,7 +39,7 @@ export class BankSpr extends React.Component<IBankSprProps, ICitySprState>{
     this.state = {
       list: []
       }
-  console.log(`Constructor CitySpr ${this.props.id}`)
+  console.log(`Constructor BankSpr ${this.props.id}`)
 
   }
   async componentDidMount() {
@@ -52,7 +53,12 @@ export class BankSpr extends React.Component<IBankSprProps, ICitySprState>{
 
   }
   onEditElm = (elm: IBankSprElm) => {
+    if(this.props.onChoice) {
+      this.props.onChoice(elm);
+      delNWin(this.props.winId);
+    } else {
       addNWin(BankElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
+    }
     
   }
   reloadList = async () => {

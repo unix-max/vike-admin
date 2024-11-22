@@ -86,7 +86,7 @@ export class BankElm extends React.Component<IBankElmProps, IBankElmState>{
 	
 	render() {
 		//if (!Object.hasOwn(this.oldElmData, 'id')) return;
-		console.log(`Render sprElm ${this.props.elmId}`)
+		console.log(`Render BankSprElm ${this.props.elmId}`)
 		return (           
 		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false}>
 			<form className="main">

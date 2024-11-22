@@ -87,7 +87,7 @@ export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 	
 	render() {
 		//if (!Object.hasOwn(this.oldElmData, 'id')) return;
-		console.log(`Render sprElm ${this.props.elmId}`)
+		console.log(`Render CitySprElm ${this.props.elmId}`)
 		return (           
 		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false}>
 			<form className="main">
