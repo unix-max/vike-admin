@@ -102,7 +102,7 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
     console.log(`render KlientSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='Товары' modal={false} key={this.props.id} >    
+      <WindowCl winId={this.props.winId} caption='Товары' modal={false} key={this.props.winId} >    
         <div className="container">
           <div className='buttons'>
             <SprButtons 

@@ -65,7 +65,7 @@ export class FirmSpr extends React.Component<IFirmSprProps, IFirmSprState>{
     console.log(`render KlientSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='Фирмы' modal={false} key={this.props.id} >    
+      <WindowCl winId={this.props.winId} caption='Фирмы' modal={false} key={this.props.winId} >    
         
           <div className='buttons'>
             <SprButtons 

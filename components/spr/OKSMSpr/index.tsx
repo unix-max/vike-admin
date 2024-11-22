@@ -67,7 +67,7 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
     console.log(`render KlientSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='Страны' modal={false} key={this.props.id} size={{width: '200px', height: '300px'}} >    
+      <WindowCl winId={this.props.winId} caption='Страны' modal={false} key={this.props.winId} size={{width: '200px', height: '300px'}} >    
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 

@@ -92,7 +92,7 @@ export class KlientElm extends React.Component<IKlientElmProps, IClientElmState>
 		if (!Object.hasOwn(this.oldElmData, 'id')) return;
 		console.log(`Render sprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false}>
+		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false} key={this.props.winId}>
 			<TabPanel>
 				<TabItem title="Tab1">
 					<form className="main">

@@ -71,8 +71,8 @@ export class CitySpr extends React.Component<ICitySprProps, ICitySprState>{
   render() {
     console.log(`render CitySpr ${this.props.id}`)
     return (
-             
-      <WindowCl winId={this.props.winId} caption='Города' modal={false} key={this.props.id} size={{width: '200px', height: '300px'}} >    
+
+      <WindowCl winId={this.props.winId} caption='Города' modal={false} key={this.props.winId} size={{width: '200px', height: '300px'}} >    
         <div className="container">
           <div className='buttons'>
             <SprButtons 

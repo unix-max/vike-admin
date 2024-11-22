@@ -74,7 +74,7 @@ export class TovarGrp extends React.Component<ITovarGrpProps, ITovarGrpState>{
 	render() {
 			console.log(`Render sprGrp ${this.state.name}`)
 	return (           
-		<WindowCl winId={this.props.winId} caption={this.state.name} modal={false}>
+		<WindowCl winId={this.props.winId} caption={this.state.name} modal={false} key={this.props.winId}>
 			<SuperInput zagolovok="Наименование" value={this.state.name} onChange={(val) => this.changeData('name', val)}/>
 			<button onClick={this.dataSend}>OK</button>
 			<button onClick={() => delNWin(this.props.winId)}>Отмена</button>

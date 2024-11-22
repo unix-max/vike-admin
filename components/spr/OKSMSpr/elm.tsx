@@ -74,7 +74,7 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 
 		console.log(`Render sprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={`${this.oldElmData.name} id:${this.oldElmData.id}`} modal={false}>
+		<WindowCl winId={this.props.winId} caption={`${this.oldElmData.name} id:${this.oldElmData.id}`} modal={false} key={this.props.winId}>
 			<form className="main">
         <fieldset>
           <legend>Основные</legend>

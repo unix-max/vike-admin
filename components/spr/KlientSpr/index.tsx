@@ -103,7 +103,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
     console.log(`render KlientSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='Клиенты' modal={false} key={this.props.id} >    
+      <WindowCl winId={this.props.winId} caption='Клиенты' modal={false} key={this.props.winId} >    
         <div className="container">
           <div className='buttons'>
             <SprButtons 

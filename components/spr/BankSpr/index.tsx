@@ -72,7 +72,7 @@ export class BankSpr extends React.Component<IBankSprProps, IBankSprState>{
     console.log(`render BankSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='Банки' modal={false} key={this.props.id} size={{width: '200px', height: '300px'}} >    
+      <WindowCl winId={this.props.winId} caption='Банки' modal={false} key={this.props.winId} size={{width: '200px', height: '300px'}} >    
         <div className="container">
           <div className='buttons'>
             <SprButtons 
