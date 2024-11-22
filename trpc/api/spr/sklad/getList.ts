@@ -14,18 +14,18 @@ export const skladSprGetList = router({
 
       const query = `
       SELECT 
-      s.id AS sklad_id,
-      s.name AS sklad_name,
-      s.inDoc AS sklad_inDoc,
-      s.mol AS sklad_mol_id,
-      m.id AS mol_id,
-      m.human AS mol_human_id,
-      h.id AS human_id,
-      h.nic AS human_nic
+        s.id AS sklad_id,
+        s.name AS sklad_name,
+        s.indoc AS sklad_inDoc,
+        s.mol AS sklad_mol_id,
+        m.id AS mol_id,
+        m.human AS mol_human_id,
+        h.id AS human_id,
+        h.nic AS human_nic
       FROM sklad AS s
-      LEFT JOIN mol AS m ON m.id = s.mol
+      LEFT JOIN firm_employee AS m ON m.id = s.mol
       LEFT JOIN human AS h ON h.id = m.human
-      ORDER BY c.name;`;
+      ORDER BY s.name;`;
       console.log(query)
       try {
         const dbClient:PoolClient = await pool.connect();

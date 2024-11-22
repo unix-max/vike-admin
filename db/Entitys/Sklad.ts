@@ -20,4 +20,10 @@ alias VARCHAR (15),
 created TIMESTAMP NOT NULL,
 updated TIMESTAMP NOT NULL,
 deleted TIMESTAMP
-  );`
+  );
+  
+INSERT INTO sklad 
+	(name, indoc, created, updated)
+VALUES
+	('Основной', 'Основной', NOW(), NOW());
+`
