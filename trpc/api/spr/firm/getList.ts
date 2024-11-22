@@ -16,7 +16,11 @@ export const firmSprGetList = router({
       let query:string;
 
         query = `
-          SELECT * FROM firm
+          SELECT
+            id,
+            name,
+            phone,
+          FROM firm
           ORDER BY name;`;
           console.log(query)
       try {

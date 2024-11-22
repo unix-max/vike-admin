@@ -38,7 +38,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS firm (
 	phone INTEGER,
 	email VARCHAR (100),
 	nds BOOLEAN NOT NULL,
-
+	sklad INTEGER REFERENCES sklad,
 	www VARCHAR (100),
 	created TIMESTAMP NOT NULL,
 	updated TIMESTAMP NOT NULL,
