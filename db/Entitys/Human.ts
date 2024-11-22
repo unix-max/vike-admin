@@ -47,6 +47,10 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS human (
 
     );`
 
+	const index = `
+	CREATE INDEX human_path_idx ON human USING BTREE (path);
+	CREATE INDEX human_path_gist_idx ON human USING GIST (path);
+`
 const createTable1: string = `CREATE TABLE IF NOT EXISTS human_doc  (
     id serial PRIMARY KEY,
 	human INTEGER REFERENCES human ON DELETE CASCADE,

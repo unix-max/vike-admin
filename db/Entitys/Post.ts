@@ -12,6 +12,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS post (
     id SERIAL PRIMARY KEY,
 	old_code INTEGER,
 	name VARCHAR ( 50 ) NOT NULL,
+	inDoc VARCHAR ( 150 ) NOT NULL,
 	alias VARCHAR (15),
 	created TIMESTAMP NOT NULL,
 	updated TIMESTAMP NOT NULL,
