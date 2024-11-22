@@ -12,12 +12,12 @@ export const citySprGetList = router({
       const { input } = opts;
       const { pool } = opts.ctx as Context;
       
-      let query = `
+      const query = `
           SELECT 
           c.id AS city_id,
           c.name AS city_name,
           c.full_name AS city_full_name,
-          c.oksm AS city_oksm,
+          c.oksm AS city_oksm_id,
           o.id AS oksm_id,
           o.code AS oksm_code,
           o.name AS oksm_name
