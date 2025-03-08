@@ -19,7 +19,7 @@ export const firmSprGetList = router({
           SELECT
             id,
             name,
-            phone,
+            phone
           FROM firm
           ORDER BY name;`;
           console.log(query)
