@@ -57,7 +57,7 @@ export class FirmSpr extends React.Component<IFirmSprProps, IFirmSprState>{
 
  
   name() {
-    return 'Товары';
+    return 'Фирмы';
   }
   
   
