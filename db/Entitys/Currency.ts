@@ -1,5 +1,6 @@
 
-export interface ICurrency {
+export type ICurrency = {
+    id: number,
     code: number,
     oldCode?: number,
     sokr: string,
@@ -25,7 +26,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS currency (
 	deleted TIMESTAMP
     );`
 
-const createTable1: string = `CREATE TABLE IF NOT EXISTS rate (
+const createTable1: string = `CREATE TABLE IF NOT EXISTS currency_rate (
     begin TIMESTAMP PRIMARY KEY,
     currency INTEGER REFERENCES currency ON DELETE CASCADE,
     rate NUMERIC(10, 2) NOT NULL

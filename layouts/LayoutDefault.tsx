@@ -9,6 +9,7 @@ import logoUrl from "../assets/logo.svg";
 import { TovarSpr } from '@/components/spr/TovarSpr'
 import { KlientSpr } from '../components/spr/KlientSpr'
 import { SkladSpr } from "@/components/spr/SkladSpr";
+import { CurrencySpr } from "@/components/spr/CurrencySpr";
 import { CitySpr } from "@/components/spr/CitySpr";
 import { FirmSpr } from "@/components/spr/FirmSpr";
 import { OKSMSpr } from "@/components/spr/OKSMSpr";
@@ -47,7 +48,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
           {name: "НДС"},
           {name: "НП"}
         ]},
-        {name: "Валюты"},
+        {name: "Валюты", click: () => addNWin(CurrencySpr, {winId: Date.now()})},
         {name: "Склады", click: () => addNWin(SkladSpr, {winId: Date.now()})},
         {name: "Банки", click: () => addNWin(BankSpr, {winId: Date.now()})},
         {name: "Города", click: () => addNWin(CitySpr, {winId: Date.now()})},
