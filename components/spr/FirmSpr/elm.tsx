@@ -92,12 +92,12 @@ export class FirmElm extends React.Component<IFirmElmProps, IFirmElmState>{
 		//console.log(id)	
 
 	}
-
+	name=() =>`Фирма ${this.oldElmData.name}`;
 	render() {
 		if (!Object.hasOwn(this.oldElmData, 'id')) return;
 		console.log(`Render sprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false} key={this.props.winId}>
+		<WindowCl winId={this.props.winId} caption={this.name()} modal={false} key={this.props.winId}>
 			<TabPanel>
 				<TabItem title="Основной">
 					<form className="main">

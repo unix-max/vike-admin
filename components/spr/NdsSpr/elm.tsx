@@ -9,21 +9,21 @@ import { SuperInput } from '../../inputs/SuperInput';
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;
 
-type IOKSMElmProps  = {
+type CurrencyElmProps  = {
 	winId: number;
 	elmId?: number;
 	renew?: () => void;
 }
 
-type IOKSMElmState = {
+type CurrencyElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
-	newElmData: IOKSMElmState;
-	oldElmData: IOKSMElmState;
+export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmState>{
+	newElmData: CurrencyElmState;
+	oldElmData: CurrencyElmState;
 
-	constructor(props: IOKSMElmProps) {
+	constructor(props: CurrencyElmProps) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};
@@ -31,7 +31,7 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 	async componentDidMount() {
 	
 		if(this.props.elmId) {
-			const data = await trpc.spr.oksm.getElm.query({ id: this.props.elmId});
+			const data = await trpc.spr.currency.getElm.query({ id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
 		} else {
 			
@@ -54,9 +54,9 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.oksm.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				data = await trpc.spr.currency.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.oksm.setElm.mutate({ ...this.newElmData });
+				data = await trpc.spr.currency.setElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
@@ -69,12 +69,12 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
 		//console.log(id)	
 
 	}
-	name=() =>`ОКСМ ${this.oldElmData.name}`;
+	name=() =>'Валюта'
 	render() {
 
 		console.log(`Render sprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={`${this.name()} id:${this.oldElmData.id}`} modal={false} key={this.props.winId}>
+		<WindowCl winId={this.props.winId} caption={`${this.oldElmData.name} id:${this.oldElmData.id}`} modal={false} key={this.props.winId}>
 			<form className="main">
         <fieldset>
           <legend>Основные</legend>
@@ -82,15 +82,14 @@ export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
             <table>
 							<tbody>
                 <tr>
-								
-                  <td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
-									<td><SuperInput zagolovok="Полное наименование" value={this.oldElmData.full_name} onChange={(val) => this.changeData('full_name', val)}/></td>
-									<td><SuperInput zagolovok="OKSM" type="number" value={this.oldElmData.code} onChange={(val) => this.changeData('code', val)}/></td>
+									<td><SuperInput zagolovok="Code" type="number" value={this.oldElmData.code} onChange={(val) => this.changeData('code', val)}/></td>
+                  <td><SuperInput zagolovok="Sokr"  value={this.oldElmData.sokr} onChange={(val) => this.changeData('sokr', val)}/></td>
+									<td><SuperInput zagolovok="Symbol" value={this.oldElmData.symbol} onChange={(val) => this.changeData('symbol', val)}/></td>
+									
                         
                 </tr>
 								<tr>
-									<td><SuperInput zagolovok="A2" value={this.oldElmData.a2} onChange={(val) => this.changeData('a2', val)}/></td>
-									<td><SuperInput zagolovok="A3" value={this.oldElmData.a3} onChange={(val) => this.changeData('a3', val)}/></td>
+									<td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
 									<td><SuperInput zagolovok="Alias" value={this.oldElmData.alias} onChange={(val) => this.changeData('alias', val)}/></td>
 								</tr>
 							</tbody>

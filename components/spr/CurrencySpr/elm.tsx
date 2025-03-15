@@ -69,12 +69,12 @@ export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmSt
 		//console.log(id)	
 
 	}
-	name=() =>'Валюта'
+	name=() =>`Валюта ${this.oldElmData.name}`;
 	render() {
 
 		console.log(`Render sprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={`${this.oldElmData.name} id:${this.oldElmData.id}`} modal={false} key={this.props.winId}>
+		<WindowCl winId={this.props.winId} caption={`${this.name()} id:${this.oldElmData.id}`} modal={false} key={this.props.winId}>
 			<form className="main">
         <fieldset>
           <legend>Основные</legend>

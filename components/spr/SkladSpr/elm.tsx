@@ -84,13 +84,13 @@ export class SkladElm extends React.Component<ISkladElmProps, ISkladElmState>{
 	changeMOL=() => {
 		//addNWin(OKSMSpr, {winId: Date.now(), onChoice: (elm: any) => this.changeData('oksm', elm) });
 	}
-	name = () => 'Sklad'
+	name=() =>`Склад ${this.oldElmData.name}`;
 
 	render() {
 		//if (!Object.hasOwn(this.oldElmData, 'id')) return;
 		console.log(`Render SkladsprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false} key={this.props.winId}>
+		<WindowCl winId={this.props.winId} caption={this.name()} modal={false} key={this.props.winId}>
 					<form className="main">
         		<fieldset>
               <legend>Основные</legend>

@@ -83,13 +83,13 @@ export class CityElm extends React.Component<ICityElmProps, ICityElmState>{
 	changeOksm=() => {
 		addNWin(OKSMSpr, {winId: Date.now(), onChoice: (elm: any) => this.changeData('oksm', elm) });
 	}
-	name = () => 'City'
+	name=() =>`Город ${this.oldElmData.name}`;
 	
 	render() {
 		//if (!Object.hasOwn(this.oldElmData, 'id')) return;
 		console.log(`Render CitySprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false} key={this.props.winId}>
+		<WindowCl winId={this.props.winId} caption={this.name()} modal={false} key={this.props.winId}>
 			<form className="main">
         		<fieldset>
               <legend>Основные</legend>

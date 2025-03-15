@@ -82,13 +82,13 @@ export class BankElm extends React.Component<IBankElmProps, IBankElmState>{
 	changeCity=() => {
 		addNWin(CitySpr, {winId: Date.now(), onChoice: (elm: any) => this.changeData('city', elm) });
 	}
-	name = () => 'City'
+	name=() =>`Банк ${this.oldElmData.name}`;
 	
 	render() {
 		//if (!Object.hasOwn(this.oldElmData, 'id')) return;
 		console.log(`Render BankSprElm ${this.props.elmId}`)
 		return (           
-		<WindowCl winId={this.props.winId} caption={this.oldElmData.name} modal={false} key={this.props.winId}>
+		<WindowCl winId={this.props.winId} caption={this.name()} modal={false} key={this.props.winId}>
 			<form className="main">
         		<fieldset>
               <legend>Основные</legend>
