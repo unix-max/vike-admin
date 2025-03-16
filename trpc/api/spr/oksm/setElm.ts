@@ -46,7 +46,7 @@ export const oksmSprSetElm = router({
       console.log(`${query} `);
 
       try {
-        const dbClient = await pool.connect();
+        const dbClient: PoolClient = await pool.connect();
         const res = await dbClient.query(query);
         dbClient.release();
         const elm = res.rows[0];

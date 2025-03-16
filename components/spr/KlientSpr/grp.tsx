@@ -15,39 +15,44 @@ type IKlientGrpProps  = {
 }
 type IKlientGrpState  = {
 	[key: string]: any;
-	id: number;
-	name: string;
+	
 }
 
 export class KlientGrp extends React.Component<IKlientGrpProps, IKlientGrpState>{
-	newGrpData: {[key: string]: any};
+	oldGrpData: IKlientGrpState;
+	newGrpData: IKlientGrpState;
 	path: string| null;
 
 	constructor(props: IKlientGrpProps) {
 		super(props);
+		this.oldGrpData = {}
 		this.newGrpData = {}
-		this.state = {id: 0, name: 'Новый'};
 		this.path = null; 
 	}
 	async componentDidMount() {
 		if(this.props.grpId) {
-			const data = await trpc.spr.client.getElm.query({tName:'client', tData:['name'], id: this.props.grpId});
-			if (data) this.setState({id: data.elm.id, name: data.elm.name});
+			const data = await trpc.spr.client.getElm.query({id: this.props.grpId});
+			if (data) this.oldGrpData = data.elm;
 			console.log(data)
 			
 		} else {
 			if (typeof(this?.props?.parentId)=='number' && this?.props?.parentId > 0) {
 				//console.log(this.path);
-				this.newGrpData.name = 'Новый';
+				this.oldGrpData = {id: 0, name: 'Новый'};
+				this.newGrpData = {id: 0, name: 'Новый'};
+				//this.newGrpData.name = 'Новый';
 			}
-			
 		}
+		this.forceUpdate();
 	}
 
 	changeData= (key: string, val: any) => {
+		this.oldGrpData[key] = val;
 		this.newGrpData[key] = val;
-		this.setState( {[key]: val})
-		//console.log(val)
+		//this.setState( {[key]: val})
+		//console.log(this.newElmData);
+		//if (key=='name')
+		this.forceUpdate();
 	}
 	
 	dataSend= async () => {
@@ -55,27 +60,27 @@ export class KlientGrp extends React.Component<IKlientGrpProps, IKlientGrpState>
 		let data: any;
 		try {
 			if (this.props.grpId) {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'client', tData: { id: this.props.grpId, ...this.newGrpData }});
+				data = await trpc.spr.client.insertElm.mutate({ id: this.props.grpId, ...this.newGrpData });
 			} else {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'client', tData: { parentId: this.props.parentId, type: 'F', ...this.newGrpData }});
+				data = await trpc.spr.client.insertElm.mutate({ parentId: this.props.parentId, type: 'F', ...this.newGrpData });
 			}
 		} catch (e: any) {
 			console.log(e);
 		}
-		if ('client' in data) {
-			const id =  data?.client?.id;
+		if ('elm' in data) {
+			const id =  data?.elm?.id;
 			if ( this.props.renew && id > 0 ) this.props.renew(id);
 		} else alert(data.message);
 
 		delNWin(this.props.winId);
 		//console.log(id)	
 	}
-
+	name=() =>`Клиент ${this.oldGrpData.name}`;
 	render() {
-			console.log(`Render sprGrp ${this.state.name}`)
+			console.log(`Render sprGrp ${this.oldGrpData.name}`)
 	return (           
-		<WindowCl winId={this.props.winId} caption={this.state.name} modal={false} key={this.props.winId}>
-			<SuperInput zagolovok="Наименование" value={this.state.name} onChange={(val) => this.changeData('name', val)}/>
+		<WindowCl winId={this.props.winId} caption={this.oldGrpData.name} modal={false} key={this.props.winId}>
+			<SuperInput zagolovok="Наименование" value={this.oldGrpData.name} onChange={(val) => this.changeData('name', val)}/>
 			<button onClick={this.dataSend}>OK</button>
 			<button onClick={() => delNWin(this.props.winId)}>Отмена</button>
 		</WindowCl>

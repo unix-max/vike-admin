@@ -4,10 +4,28 @@ import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
 
-const requestShema = z.object({
-  tName: z.string(),
-  tData: z.object({}).passthrough()
+const requestShema =z.object({
+  id:         z.number(),
+  oldCode:    z.number(),
+	path:       z.string(),
+	type:       z.string(),
+  name:       z.string(),
+	parentId:   z.number(),
+	nomer:      z.number(),
+	indoc:      z.string(),
+	inn:        z.string(),
+	kpp:        z.string(),
+	ogrn:       z.string(),
+	address:    z.string(),
+	urAddress:  z.string(),
+	phone:      z.string(),
+	email:      z.string(),
+	www:        z.string(),
+	nds:        z.number(),
+	np:         z.number(),
+
 })
+.partial()
 
 type genSprElm = {
   [key: string]: any,
@@ -17,58 +35,44 @@ type genSprElm = {
 export const clientSprInsertElm = router({
   insertElm: publicProcedure
     .input(requestShema)
-    .use(async (opts) => {
-    
-      return opts.next();
-    })
     .mutation(async (opts) => {
       const { pool } = opts.ctx as Context;
       const { input } = opts as genSprElm;
-      
-      let elmData:genSprElm = {} 
-      try {
-        const module = await import(`./tValidate/${input.tName}.ts`);
-        if (input.tData) {
-          elmData = module.sprElmShema.parse(input.tData);
-          
-        } else throw new Error("Отсутствует имя таблицы");
-      } catch (err: any) {
-        console.log(err)
-      }
+  
 
-      const {id, parentId, ...qData } = elmData;
+      const {id, parentId, ...qData } = input;
       const keys: string[] = Object.keys(qData);
       let vals: (string| number)[] = [];
       keys.forEach((val) => vals.push(qData[val]));
+      console.log( keys, vals);
 
       let query:string;
-      console.log(elmData, keys, vals);
-      if (elmData.id) {
+      if (input.id && input.id > 0) {
         query = format(`
-          UPDATE %I SET (%I, updated) = (%L, now())
-          WHERE id = %L RETURNING id;`, input.tName, keys, vals, elmData.id);   
+          UPDATE client SET (%I, updated) = (%L, now())
+          WHERE id = %L RETURNING id;`, keys, vals, input.id);   
         }
-      else if (elmData.parentId && elmData.parentId > 0) {
+      else if (input.parentId && input.parentId > 0) {
         query = format(`
-          INSERT INTO %I (%I, path, created, updated)
+          INSERT INTO client (%I, path, created, updated)
           VALUES (%L, ((select path from %1$I where id = %4$L) || %4$L), now(),now())
-          RETURNING id;`, input.tName, keys, vals, elmData.parentId);
+          RETURNING id;`, keys, vals, input.parentId);
         } 
       else {
         query = format(`
-          INSERT INTO %I (%I, created, updated)
+          INSERT INTO client (%I, created, updated)
           VALUES (%L, now(),now())
-          RETURNING id;`, input.tName, keys, vals);
+          RETURNING id;`, keys, vals);
       }
       console.log(`${query} `);
 
-      let client: genSprElm = {id: 0};
+      //let client: genSprElm = {id: 0};
       try {
-        const dbClient = await pool.connect();
+        const dbClient: PoolClient = await pool.connect();
         const res = await dbClient.query(query);
         dbClient.release();
-        client = res.rows[0];
-        return {client: client}
+        const elm = res.rows[0];
+        return {elm: elm}
       } catch (err: any) {
         return { message: err.message };
         throw new Error(err.message);

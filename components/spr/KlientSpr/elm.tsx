@@ -72,14 +72,14 @@ export class KlientElm extends React.Component<IKlientElmProps, IClientElmState>
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'client', tData: { id: this.props.elmId, ...this.newElmData }});
+				data = await trpc.spr.client.insertElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'client', tData: { parentId: this.props.parentId, type: 'E', ...this.newElmData }});
+				data = await trpc.spr.client.insertElm.mutate({ parentId: this.props.parentId, type: 'E', ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
 		}
-		if ('client' in data) {
+		if ('elm' in data) {
 			const id =  data?.client?.id;
 			if ( this.props.renew && id > 0 ) this.props.renew();
 		} else alert(data.message);
