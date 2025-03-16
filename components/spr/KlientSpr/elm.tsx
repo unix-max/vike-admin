@@ -34,8 +34,9 @@ export class KlientElm extends React.Component<IKlientElmProps, IClientElmState>
 	async componentDidMount() {
 		console.log(this?.props?.parentId)
 		if(this.props.elmId) {
-			const data = await trpc.spr.client.getElm.query({tName:'client', tData:['name','phone'], id: this.props.elmId});
+			const data = await trpc.spr.client.getElm.query( {id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
+			console.log(data)
 		} else {
 			if (typeof(this?.props?.parentId)=='number' && this?.props?.parentId > 0) {
 				//const {data} = await gClient({query: clientQuery, variables: {id: this.props.parentId}});
