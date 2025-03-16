@@ -21,8 +21,7 @@ export const oksmSprGetElm = router({
 
     const query: string = format(`
         SELECT * FROM oksm AS c
-        WHERE c.id = %1$L
-        ORDER BY name;`, input.id);
+        WHERE c.id = %1$L;`, input.id);
       //console.log(query)
     try {
       
