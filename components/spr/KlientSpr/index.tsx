@@ -98,6 +98,9 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'client'});
     if (treeJson ) this.setState({ treeData: treeJson });
   }
+  onLoadTable = async () => {
+    let a = await trpc.spr.client.loadTable.query()
+  }
   
   render() {
     console.log(`render KlientSpr ${this.props.id}`)
@@ -110,6 +113,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
               onNewFolder={()=> addNWin(KlientGrp, {winId: Date.now(), parentId: this.selectGrpId, renew: this.reloadTree})}
               onNewElm={()=> addNWin(KlientElm, {winId: Date.now(), parentId: this.selectGrpId, renew: this.reloadList})}
               />
+              
           </div>
 
           <div className="tree">
@@ -126,6 +130,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
           />
           </div>
         </div>
+        {/* <button onClick={this.onLoadTable}> Load </button> */}
         <style jsx>{styles}</style>
       </WindowCl>
 
