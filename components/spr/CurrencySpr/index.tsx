@@ -12,21 +12,21 @@ import styles from './styles.module.css'
 const addNWin = useWinStore.getState().addNWin;
 const delNWin = useWinStore.getState().delNWin
 
-export type IOKSMSprProps = {
+export type ICurrencySprProps = {
   winId: number;
   id?: number;
   onChoice?: (elm:ICurrency) => void;
 }
 
-type IOKSMSprState = {
+type ICurrencySprState = {
   list: ICurrency[];
 }
 
-export class CurrencySpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
+export class CurrencySpr extends React.Component<ICurrencySprProps, ICurrencySprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<ICurrency>>;
 
-  constructor(props: IOKSMSprProps) {
+  constructor(props: ICurrencySprProps) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {
