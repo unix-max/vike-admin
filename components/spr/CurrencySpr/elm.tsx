@@ -86,7 +86,6 @@ export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmSt
                   <td><SuperInput zagolovok="Sokr"  value={this.oldElmData.sokr} onChange={(val) => this.changeData('sokr', val)}/></td>
 									<td><SuperInput zagolovok="Symbol" value={this.oldElmData.symbol} onChange={(val) => this.changeData('symbol', val)}/></td>
 									
-                        
                 </tr>
 								<tr>
 									<td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>

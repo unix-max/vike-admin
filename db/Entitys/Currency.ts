@@ -6,6 +6,7 @@ export type ICurrency = {
     sokr: string,
     symbol: string,
     name: string,
+    rate: number,
 	alias?: string,
     created?: Date,
 	updated?: Date,
