@@ -19,9 +19,22 @@ export const currencySprGetElm = router({
     const { pool } = opts.ctx as Context;
     
     const query: string = format(`
-      SELECT * FROM currency AS c
-      WHERE c.id = %1$L
-      ORDER BY name;`, input.id);
+      SELECT DISTINCT ON (currency_id)
+          r.currency_id AS rate_cur_id,
+          r.id AS rate_id,
+          r.begin AS rate_begin,
+          r.rate AS rate,
+          c.id AS id,
+          c.code AS code,
+          c.sokr AS sokr,
+          c.symbol AS symbol,
+          c.name AS name,
+          c.alias AS alias
+        FROM currency_rate  AS r
+        LEFT JOIN currency AS c ON c.id = r.currency_id
+        WHERE r.currency_id = %1$L AND r.begin <= NOW()  
+        ORDER BY currency_id, BEGIN DESC;`, input.id);
+
     //console.log(query)
     
     try {

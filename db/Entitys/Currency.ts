@@ -27,8 +27,9 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS currency (
     );`
 
 const createTable1: string = `CREATE TABLE IF NOT EXISTS currency_rate (
-    begin TIMESTAMP PRIMARY KEY,
-    currency INTEGER REFERENCES currency ON DELETE CASCADE,
+    id serial PRIMARY KEY,
+    begin TIMESTAMPFTZ,
+    currency_id INTEGER REFERENCES currency ON DELETE CASCADE,
     rate NUMERIC(10, 2) NOT NULL
     );`
 
@@ -36,3 +37,13 @@ const add: string = `
   INSERT INTO currency (code, sokr, symbol, name, alias, created, updated)
   VALUES (643, 'Руб', '₽', 'Российский рубль', 'RUB', NOW(), NOW());
   `;
+
+  const addRate: string = `
+    INSERT INTO currency_rate (begin, currency, rate)
+		VALUES 
+      ('2000-01-01 00:00:00 +3:00', 1, 1),
+      ('2025-03-25 00:00:00 +3:00', 3, 84.62),
+      ('2025-03-26 00:00:00 +3:00', 3, 84.08),
+      ('2025-03-27 00:00:00 +3:00', 3, 84.50),
+      ('2025-03-28 00:00:00 +3:00', 3, 84.50);
+    `;

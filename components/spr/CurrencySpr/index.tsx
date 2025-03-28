@@ -74,14 +74,14 @@ export class CurrencySpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
           </div>
 
           <div className={styles.table}>
-          <ItemTable<ICurrency> 
-            tableKeys={{head:['Id','Code', 'Sokr', 'Symbol', 'Name', 'alias'], body:['id','code', 'sokr', 'symbol', 'name', 'alias']}} 
-            tableData={this.state.list}
-            skey='id'
-          onSelect={this.onSelectElm}
-          onEdit={this.onEditElm}
-          ref={this.itemRef}
-          />
+            <ItemTable<ICurrency> 
+              tableKeys={{head:['Id','Code', 'Sokr', 'Symbol', 'Name', 'Курс', 'Alias'], body:['id','code', 'sokr', 'symbol', 'name', 'rate', 'alias']}} 
+              tableData={this.state.list}
+              skey='id'
+              onSelect={this.onSelectElm}
+              onEdit={this.onEditElm}
+              ref={this.itemRef}
+            />
           </div>
         </div>
 

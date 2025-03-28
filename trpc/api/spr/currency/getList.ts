@@ -13,8 +13,21 @@ export const currencySprGetList = router({
       const { pool } = opts.ctx as Context;
       
       const query = `
-        SELECT * FROM currency
-        ORDER BY name;`;
+        SELECT DISTINCT ON (currency_id)
+          r.currency_id AS rate_cur_id,
+          r.id AS rate_id,
+          r.begin AS rate_begin,
+          r.rate AS rate,
+          c.id AS id,
+          c.code AS code,
+          c.sokr AS sokr,
+          c.symbol AS symbol,
+          c.name AS name,
+          c.alias AS alias
+        FROM currency_rate  AS r
+        LEFT JOIN currency AS c ON c.id = r.currency_id
+        WHERE r.begin <= NOW()
+        ORDER BY currency_id, BEGIN DESC`;
       console.log(query)
 
       try {
