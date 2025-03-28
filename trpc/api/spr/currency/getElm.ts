@@ -33,7 +33,7 @@ export const currencySprGetElm = router({
         FROM currency_rate  AS r
         LEFT JOIN currency AS c ON c.id = r.currency_id
         WHERE r.currency_id = %1$L AND r.begin <= NOW()  
-        ORDER BY currency_id, BEGIN DESC;`, input.id);
+        ORDER BY currency_id, begin DESC;`, input.id);
 
     //console.log(query)
     

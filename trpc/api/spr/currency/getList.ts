@@ -27,7 +27,7 @@ export const currencySprGetList = router({
         FROM currency_rate  AS r
         LEFT JOIN currency AS c ON c.id = r.currency_id
         WHERE r.begin <= NOW()
-        ORDER BY currency_id, BEGIN DESC`;
+        ORDER BY currency_id, begin DESC`;
       console.log(query)
 
       try {
