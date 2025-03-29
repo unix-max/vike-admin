@@ -2,12 +2,11 @@ import * as React from 'react';
 import { createWithEqualityFn as create } from 'zustand/traditional'
 import { subscribeWithSelector } from 'zustand/middleware'
 
-// type IProps = {
-//   [prop: string]: any
-//   id: number,
-//   key?: number
+type IProps = {
+  [prop: string]: any
+
     
-// }
+}
 export type IComponentProps = {
   winId: number;
   [key: string]: any;
@@ -27,6 +26,7 @@ interface wmStore {
   zIndexArr: number[];
   // addWin: (elm: React.ComponentType<IComponentProps>, props:IComponentProps) => void;
   addNWin: (elm: React.ComponentType<IComponentProps>, props:IComponentProps) => void;
+  addTWin: <T extends IProps>(elm: React.ComponentType<T & { winId: number }>, props:T) => void;
   // delWin: (id: number) => void;
   delNWin: (winId: number) => void;
   addSmallWin: (id: number, name:string|undefined, min: boolean) => void;
@@ -47,6 +47,14 @@ export const useWinStore = create<wmStore>()(subscribeWithSelector((set, get) =>
       return {nWin: new Map(state.nWin).set(props.winId, React.createElement<IComponentProps>(elm, {key: props.winId, ref: React.createRef(), ...props}))}
 
     }),
+    addTWin: <T extends IProps>(elm: React.ComponentType<T & { winId: number }>, tprops: T) => set((state) => {
+      const winId: number = Date.now();
+      state.zIndexArr.push(winId);
+      
+      return {nWin: new Map(state.nWin).set(winId, React.createElement<T & { winId: number }>(elm, {winId: winId, key: winId, ref: React.createRef(), ...tprops}))}
+
+    }),
+    
     delNWin: (winId: number) => set((state) => {
       const nWin = new Map(state.nWin);
       nWin.delete(winId);
