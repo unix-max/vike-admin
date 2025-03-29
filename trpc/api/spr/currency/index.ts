@@ -3,8 +3,12 @@ import { currencySprGetList } from "./getList";
 import { currencySprGetElm } from "./getElm";
 import { currencySprSetElm } from "./setElm";
 import { currencySprGetRateList } from "./getRateList";
+import { currencySprGetRateElm } from "./getRateElm";
 
 export const sprCurrencyRouter = mergeRouters(
-
-  currencySprGetList, currencySprGetElm, currencySprSetElm, currencySprGetRateList
+  currencySprGetList,
+  currencySprGetElm,
+  currencySprSetElm,
+  currencySprGetRateList,
+  currencySprGetRateElm
 );

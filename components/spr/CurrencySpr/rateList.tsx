@@ -3,15 +3,16 @@ import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
-import { CurrencyElm } from './elm';
+import { CurrencyRateElm } from './rateElm';
 import { useWinStore } from '@/pages/+client'
 import type { RateRecDto } from '@/trpc/api/spr/currency/getRateList';
 
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
-const addNWin = useWinStore.getState().addNWin;
-const delNWin = useWinStore.getState().delNWin
+
+const addTWin = useWinStore.getState().addTWin;
+//const delNWin = useWinStore.getState().delNWin
 
 export type ICurrencyRateListProps = {
   curId: number;
@@ -49,7 +50,7 @@ export class CurrencyRateList extends React.Component<TWinId, IRateListState>{
 
   onEditElm = (item:RateRecDto) => {
     
-      addNWin(CurrencyElm, {winId: Date.now() ,elmId: item.id, renew: this.reloadList});
+      addTWin(CurrencyRateElm, {elmId: item.id, renew: this.reloadList});
     
   }
 
@@ -67,7 +68,7 @@ export class CurrencyRateList extends React.Component<TWinId, IRateListState>{
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 
-              onNewElm={()=> addNWin(CurrencyElm, {winId: Date.now(), renew: this.reloadList})}
+              onNewElm={()=> addTWin(CurrencyRateElm, { renew: this.reloadList})}
               />
           </div>
 
