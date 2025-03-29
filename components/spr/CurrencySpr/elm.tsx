@@ -9,21 +9,22 @@ import { SuperInput } from '../../inputs/SuperInput';
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;
 
-type CurrencyElmProps  = {
-	winId: number;
+export type CurrencyElmProps  = {
 	elmId?: number;
 	renew?: () => void;
 }
+
+type TWinId = CurrencyElmProps & { winId: number }
 
 type CurrencyElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmState>{
+export class CurrencyElm extends React.Component<TWinId, CurrencyElmState>{
 	newElmData: CurrencyElmState;
 	oldElmData: CurrencyElmState;
 
-	constructor(props: CurrencyElmProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};
