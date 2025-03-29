@@ -3,13 +3,16 @@ import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
-import { CurrencyElm } from './elm';
+import { CurrencyElm, CurrencyElmProps } from './elm';
 import { useWinStore } from '@/pages/+client'
 import { ICurrency } from '@/db/Entitys/Currency'
+import { CurrencyRateList } from './rateList'
+import type { ICurrencyRateListProps } from './rateList';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
-const addNWin = useWinStore.getState().addNWin;
+//const addNWin = useWinStore.getState().addNWin;
+const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin
 
 export type ICurrencySprProps = {
@@ -51,7 +54,7 @@ export class CurrencySpr extends React.Component<ICurrencySprProps, ICurrencySpr
       this.props.onChoice(item);
       delNWin(this.props.winId);
     } else {
-      addNWin(CurrencyElm, {winId: Date.now() ,elmId: item.id, renew: this.reloadList});
+      addTWin<CurrencyElmProps>(CurrencyElm, {elmId: item.id, renew: this.reloadList});
     }
   }
 
@@ -60,6 +63,12 @@ export class CurrencySpr extends React.Component<ICurrencySprProps, ICurrencySpr
       //const list = data?.list.map((item)=> ({id: item.code, ...item}))
     if (data) this.setState({list: data.list as ICurrency[] });
   }
+
+  onOpenRate =() => {
+    if (this.selectElmId)
+    addTWin<ICurrencyRateListProps>(CurrencyRateList, { curId: this.selectElmId, renew: this.reloadList})
+  }
+
   name = () => 'Currency'
   render() {
     console.log(`render CurrencySpr ${this.props.id}`)
@@ -69,8 +78,11 @@ export class CurrencySpr extends React.Component<ICurrencySprProps, ICurrencySpr
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 
-              onNewElm={()=> addNWin(CurrencyElm, {winId: Date.now(), renew: this.reloadList})}
+              onNewElm={()=> addTWin<CurrencyElmProps>(CurrencyElm, { renew: this.reloadList})}
               />
+              <button onClick={this.onOpenRate}>
+                Rate
+                </button>
           </div>
 
           <div className={styles.table}>
