@@ -15,16 +15,14 @@ const requestShema = z.object({
   alias:      z.string()
 }).partial()
 
-type genSprElm = {
-  [key: string]: any,
-  id?: number,
-}
+type inputSprElmType =  z.infer<typeof requestShema> & {[key: string]: any}
+
 export const oksmSprSetElm = router({
   setElm: publicProcedure
     .input(requestShema)
     .mutation(async (opts) => {
       const { pool } = opts.ctx as Context;
-      const { input } = opts as genSprElm;
+      const  input = opts.input as inputSprElmType;
 
       const {id, ...qData } = input;
       const keys: string[] = Object.keys(qData);

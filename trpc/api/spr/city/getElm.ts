@@ -9,11 +9,13 @@ const requestShema = z.object({
   id: z.number()
 })
 
+type reqDataType =  z.infer<typeof requestShema>
+
 export const citySprGetElm = router({
   getElm: publicProcedure
   .input(requestShema)
   .query(async (opts) => {
-    const { input } = opts;
+    const input = opts.input as reqDataType;
 
     //console.log(input.firmId)
     const { pool } = opts.ctx as Context;

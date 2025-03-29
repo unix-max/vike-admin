@@ -7,7 +7,8 @@ import { z } from 'zod';
 export type ExtRateRecDto = {
   id: number;
   begin: string;
-  rate: number
+  rate: number;
+  cur_id: number;
   sokr: string;
   name: string;
 }
@@ -16,11 +17,13 @@ const requestShema = z.object({
   id: z.number()
 })
 
+type reqDataType =  z.infer<typeof requestShema>
+
 export const currencySprGetRateElm = router({
   getRateElm: publicProcedure
   .input(requestShema)
   .query(async (opts) => {
-    const { input } = opts;
+    const input = opts.input as reqDataType;
 
     //console.log(input.firmId)
     const { pool } = opts.ctx as Context;
@@ -30,6 +33,7 @@ export const currencySprGetRateElm = router({
           r.id AS id,
           r.begin AS begin,
           r.rate AS rate,
+          c.id AS cur_id
           c.sokr AS sokr,
           c.name AS name
         FROM currency_rate  AS r

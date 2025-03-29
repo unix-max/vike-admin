@@ -15,11 +15,13 @@ const requestShema = z.object({
   id: z.number()
 })
 
+type reqDataType =  z.infer<typeof requestShema>
+
 export const currencySprGetRateList = router({
   getRateList: publicProcedure
     .input(requestShema)
     .query(async (opts) => {
-      const { input } = opts;
+      const input = opts.input as reqDataType;
       const { pool } = opts.ctx as Context;
       
       const query =format(`

@@ -6,15 +6,12 @@ import { number, z } from 'zod';
 
 const requestShema = z.object({
   id:         z.number(),
-  code:       z.coerce.string(),
-  oldCode:    z.coerce.string(),
-  sokr:       z.string().length(3),
-  symbol:     z.string().max(3),
-  name:       z.string(),
-  alias:      z.string()
-}).partial()
+  begin:      z.string(),
+  rate:       z.coerce.string(),
+  cur_id:     z.number(),
+}).partial();
 
-type inputSprElmType =  z.infer<typeof requestShema> & {[key: string]: any}
+type inputSprElmType =  z.infer<typeof requestShema> & {[key: string]: any,}
 
 export const currencySprSetElm = router({
   setElm: publicProcedure
