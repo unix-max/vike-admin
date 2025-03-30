@@ -13,8 +13,8 @@ const requestShema = z.object({
 
 type inputSprElmType =  z.infer<typeof requestShema> & {[key: string]: any,}
 
-export const currencySprSetElm = router({
-  setElm: publicProcedure
+export const currencySprSetRateElm = router({
+  setRateElm: publicProcedure
     .input(requestShema)
     .mutation(async (opts) => {
       const { pool } = opts.ctx as Context;
@@ -28,13 +28,13 @@ export const currencySprSetElm = router({
       let query:string;
       if (input.id && input.id > 0 ) {
         query = format(`
-          UPDATE currency SET (%I, updated) = (%L, now())
+          UPDATE currency_rate SET (%I, updated) = (%L, NOW())
           WHERE id = %L RETURNING id;`, keys, vals, input.id);   
         }
       else {
         query = format(`
-          INSERT INTO currency (%I, created, updated)
-          VALUES (%L, now(),now())
+          INSERT INTO currency_rate (%I, created, updated)
+          VALUES (%L, NOW(), NOW())
           RETURNING id;`, keys, vals);
       }
       console.log(`${query} `);

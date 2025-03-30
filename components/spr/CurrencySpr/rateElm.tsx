@@ -56,9 +56,9 @@ export class CurrencyRateElm extends React.Component<TWinId, CurrencyElmState>{
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.currency.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				data = await trpc.spr.currency.setRateElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.currency.setElm.mutate({ ...this.newElmData });
+				data = await trpc.spr.currency.setRateElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
@@ -98,8 +98,7 @@ export class CurrencyRateElm extends React.Component<TWinId, CurrencyElmState>{
 							
 							</tbody>
             </table>
-					
-						
+
           </fieldset>
         </form>
 			<button onClick={this.dataSend}>OK</button>

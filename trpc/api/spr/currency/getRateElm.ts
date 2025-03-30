@@ -33,14 +33,14 @@ export const currencySprGetRateElm = router({
           r.id AS id,
           r.begin AS begin,
           r.rate AS rate,
-          c.id AS cur_id
+          c.id AS cur_id,
           c.sokr AS sokr,
           c.name AS name
         FROM currency_rate  AS r
         LEFT JOIN currency AS c ON c.id = r.currency_id
         WHERE r.id = %1$L;`, input.id);
 
-    //console.log(query)
+    console.log(query)
     
     try {
       
