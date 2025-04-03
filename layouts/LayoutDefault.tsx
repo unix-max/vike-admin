@@ -14,11 +14,12 @@ import { CitySpr } from "@/components/spr/CitySpr";
 import { FirmSpr } from "@/components/spr/FirmSpr";
 import { OKSMSpr } from "@/components/spr/OKSMSpr";
 import { BankSpr } from "@/components/spr/BankSpr";
+import { NDSSpr } from "@/components/spr/NdsSpr";
 //Стили
 //import "./style.css";
 
 export default function LayoutDefault({ children }: { children: React.ReactNode }) {
-  const [addWin, addNWin] = useWinStore((state: any)  => [state.addWin, state.addNWin])
+  const [addTWin, addNWin] = useWinStore((state: any)  => [state.addTWin, state.addNWin])
 
   let data: IMenuData[] = [
     {name: "Файл", 
@@ -45,7 +46,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
             addNWin(FirmSpr, {winId: Date.now()})
         }},
         {name: "Налоги", in:[
-          {name: "НДС"},
+          {name: "НДС", click: () => addTWin(NDSSpr, {})},
           {name: "НП"}
         ]},
         {name: "Валюты", click: () => addNWin(CurrencySpr, {winId: Date.now()})},

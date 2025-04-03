@@ -1,9 +1,10 @@
 import { mergeRouters } from "@/trpc/server";
-import { currencySprGetList } from "./getList";
-import { currencySprGetElm } from "./getElm";
-import { currencySprSetElm } from "./setElm";
+import { ndsSprGetList } from "./getList";
+import { ndsSprGetElm } from "./getElm";
+import { ndsSprSetElm } from "./setElm";
 
-export const sprCurrencyRouter = mergeRouters(
-
-  currencySprGetList, currencySprGetElm, currencySprSetElm
+export const sprNdsRouter = mergeRouters(
+  ndsSprGetList,
+  ndsSprGetElm,
+  ndsSprSetElm,
 );

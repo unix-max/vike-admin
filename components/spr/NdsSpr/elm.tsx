@@ -4,26 +4,26 @@ import { trpc } from "@/trpc/client";
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
-import { IOKSM } from '@/db/Entitys/OKSM';
+import { INDS } from '@/db/Entitys/Nds';
 import { SuperInput } from '../../inputs/SuperInput';
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;
 
-type CurrencyElmProps  = {
-	winId: number;
+type NDSElmProps  = {
 	elmId?: number;
 	renew?: () => void;
 }
+type TWinId = NDSElmProps & { winId: number }
 
-type CurrencyElmState = {
+type NDSElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmState>{
-	newElmData: CurrencyElmState;
-	oldElmData: CurrencyElmState;
+export class NDSElm extends React.Component<TWinId, NDSElmState>{
+	newElmData: NDSElmState;
+	oldElmData: NDSElmState;
 
-	constructor(props: CurrencyElmProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};
@@ -31,8 +31,8 @@ export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmSt
 	async componentDidMount() {
 	
 		if(this.props.elmId) {
-			const data = await trpc.spr.currency.getElm.query({ id: this.props.elmId});
-			if (data) this.oldElmData = data.elm;
+			const data = await trpc.spr.nds.getElm.query({ id: this.props.elmId});
+			if (data) this.oldElmData = data.elm as INDS;
 		} else {
 			
 			this.oldElmData = {id: 0, name: 'Новый'};
@@ -54,9 +54,9 @@ export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmSt
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.currency.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				data = await trpc.spr.nds.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.currency.setElm.mutate({ ...this.newElmData });
+				data = await trpc.spr.nds.setElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
@@ -69,7 +69,7 @@ export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmSt
 		//console.log(id)	
 
 	}
-	name=() =>'Валюта'
+	name=() =>'НДС'
 	render() {
 
 		console.log(`Render sprElm ${this.props.elmId}`)
@@ -81,16 +81,13 @@ export class CurrencyElm extends React.Component<CurrencyElmProps, CurrencyElmSt
 				
             <table>
 							<tbody>
-                <tr>
-									<td><SuperInput zagolovok="Code" type="number" value={this.oldElmData.code} onChange={(val) => this.changeData('code', val)}/></td>
-                  <td><SuperInput zagolovok="Sokr"  value={this.oldElmData.sokr} onChange={(val) => this.changeData('sokr', val)}/></td>
-									<td><SuperInput zagolovok="Symbol" value={this.oldElmData.symbol} onChange={(val) => this.changeData('symbol', val)}/></td>
-									
-                        
-                </tr>
+                
 								<tr>
 									<td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
+									<td><SuperInput zagolovok="Значение" value={this.oldElmData.val} onChange={(val) => this.changeData('val', val)}/></td>
+									
 									<td><SuperInput zagolovok="Alias" value={this.oldElmData.alias} onChange={(val) => this.changeData('alias', val)}/></td>
+								
 								</tr>
 							</tbody>
             </table>

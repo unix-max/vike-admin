@@ -8,6 +8,7 @@ import { sprCityRouter } from "./city";
 import { sprOksmRouter } from "./oksm";
 import { sprBankRouter } from "./bank";
 import { sprCurrencyRouter } from "./currency";
+import { sprNdsRouter } from "./nds";
 
 export const sprRouter = router({
   client: sprClientRouter,
@@ -18,5 +19,6 @@ export const sprRouter = router({
   city: sprCityRouter,
   oksm: sprOksmRouter,
   bank: sprBankRouter,
-  currency: sprCurrencyRouter
+  currency: sprCurrencyRouter,
+  nds: sprNdsRouter
 })
