@@ -34,7 +34,7 @@ export const ndsSprSetElm = router({
         }
       else {
         query = format(`
-          INSERT INTO currency (%I, created, updated)
+          INSERT INTO nds (%I, created, updated)
           VALUES (%L, now(),now())
           RETURNING id;`, keys, vals);
       }
