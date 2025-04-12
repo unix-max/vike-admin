@@ -19,11 +19,11 @@ export type NDSSprProps = {
 
 type TWinId = NDSSprProps & { winId: number }
 
-type IOKSMSprState = {
+type INDSSprState = {
   list: INDS[];
 }
 
-export class NDSSpr extends React.Component<TWinId, IOKSMSprState>{
+export class NDSSpr extends React.Component<TWinId, INDSSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<INDS>>;
 
