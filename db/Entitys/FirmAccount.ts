@@ -4,7 +4,7 @@ import { ICurrency } from "./Currency"
 export type IFirmAccount = {
     id: number,
     oldCode?: number,
-    firmId: number,
+    firm_id: number,
     type: IAccountType,
     name: string,
     number: string,
@@ -21,15 +21,16 @@ export type IFirmAccount = {
 const createTable: string = `CREATE TABLE IF NOT EXISTS firm_account (
 	id serial PRIMARY KEY,
     old_code INTEGER,
-    firm INTEGER REFERENCES firm ON DELETE CASCADE,
+    firmId INTEGER REFERENCES firm ON DELETE CASCADE,
 	type INTEGER REFERENCES account_type ON DELETE RESTRICT,
 	name VARCHAR ( 50 ) NOT NULL,
 	number VARCHAR ( 20 ),
-    bank VARCHAR(9) REFERENCES bank ON DELETE RESTRICT,
-    currency INTEGER REFERENCES currency ON DELETE RESTRICT,
+    bank INTEGER REFERENCES bank ON DELETE RESTRICT,
+    currency INTEGER REFERENCES currency,
+    description VARCHAR ( 120 ),
 	alias VARCHAR (15),
     main boolean,
-	created TIMESTAMP NOT NULL,
-	updated TIMESTAMP NOT NULL,
-	deleted TIMESTAMP
+	created TIMESTAMPTZ NOT NULL,
+	updated TIMESTAMPTZ NOT NULL,
+	deleted TIMESTAMPTZ
     );`

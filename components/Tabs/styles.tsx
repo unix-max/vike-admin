@@ -13,7 +13,7 @@ export const { className, styles } = css.resolve`
 .tab-panel__content {
   background-color: #D5D5D5;
   border: 1px solid #9099A2;
-  height: 400px;
+  
 } 
 
 .tab {

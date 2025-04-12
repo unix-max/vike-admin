@@ -7,7 +7,7 @@ interface ITableKeys {
 	body: string[]
 }
 type ITableString = {
-[key: string]: string | number| boolean| Date
+[key: string]: string | number| boolean| Date;
 }
 
 interface IItemTableProps<T>{
@@ -42,15 +42,16 @@ function TBody<T extends ITableString>(props: {
 		tableData?: T[],
 		selectId?: number,
 		skey: string,
-		onSelect?: (item: T) => void,
+		onSelect?: (item: T & {ind:number}) => void,
 		onEdit?: (item: T) => void }
 		) {
 
-	const tData = props.tableData?.map((item) => (
+	const tData = props.tableData?.map((item, index) => (
+
 		<tr key={item[props.skey] as string}
 			data-id={item[props.skey] as string}
 			className={styles.tr}
-			onClick={() => {if (props.onSelect) props.onSelect(item)}}
+			onClick={() => {if (props.onSelect) props.onSelect({ind: index, ...item})}}
 			onDoubleClick={() => {if (props.onEdit) props.onEdit(item)}}
 			
 		>			

@@ -5,37 +5,38 @@ import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
 import { IFirm } from '@/db/Entitys/Firm'; 
-import { SuperInput, BtnInput, CheckInput } from '@/components/inputs';
-import { ItemTable } from '@/components/ItemsTable';
+import { SuperInput } from '../../inputs/SuperInput';
+import { ItemTable } from '@/components/ItemsTable1';
+import { FirmAccSpr } from './accList';
+
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;
 
 type IFirmElmProps  = {
-	winId: number;
 	elmId?: number;
 	renew?: () => void;
 }
+type TWinId = IFirmElmProps & { winId: number }
 
 type IFirmElmState = {
 	[key: string]: any
 }
 
-export class FirmElm extends React.Component<IFirmElmProps, IFirmElmState>{
+export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 	newElmData: IFirmElmState;
 	oldElmData: IFirmElmState;
-	state: IFirmElmState;
 
-	constructor(props: IFirmElmProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};
-		this.state = {}; 
+
 	}
-	async componentDidMount() {
 	
+	async componentDidMount() {
 		if(this.props.elmId) {
 			const data = await trpc.spr.firm.getElm.query({ firmId: this.props.elmId});
-			if (data) this.oldElmData = data.elm;
+			if (data) this.oldElmData = data.elm as IFirm;
 		} else {	
 			this.oldElmData = {id: 0, name: 'Новый'};
 			this.newElmData = {id: 0, name: 'Новый'};
@@ -43,16 +44,7 @@ export class FirmElm extends React.Component<IFirmElmProps, IFirmElmState>{
 		this.forceUpdate();
 	}
 
-	loadAccs = async () => {
-		if(this.props.elmId) {
-			const data = await trpc.spr.firmAcc.getList.query({ firmId: this.props.elmId});
-			console.log(data)
-			this.setState({ accs: data?.list })
-		}
-	}
-	onOpenAccs = () => {
-		if(!this.state.accs) this.loadAccs();
-	}
+
 
 	componentDidUpdate(prevProps: Readonly<IFirmElmProps>, prevState: Readonly<IFirm>, snapshot?: any): void {
 		// console.log(testTreeData===this.state.treeData)
@@ -73,25 +65,25 @@ export class FirmElm extends React.Component<IFirmElmProps, IFirmElmState>{
 	}
 
 	dataSend= async () => {
-		let data: any;
-		try {
-			if (this.props.elmId) {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { id: this.props.elmId, ...this.newElmData }});
-			} else {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { type: 'E', ...this.newElmData }});
+			let data: any;
+			try {
+				if (this.props.elmId) {
+					data = await trpc.spr.firm.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				} else {
+					data = await trpc.spr.firm.setElm.mutate({ ...this.newElmData });
+				}
+			} catch (e: any) {
+				console.log(e);
 			}
-		} catch (e: any) {
-			console.log(e);
+			if (data && 'elm' in data) {
+				if ( this.props.renew && data?.elm?.id > 0 ) this.props.renew();
+			} else alert(data?.message);
+	
+			delNWin(this.props.winId);
+			//console.log(id)	
+	
 		}
-		if ('client' in data) {
-			const id =  data?.client?.id;
-			if ( this.props.renew && id > 0 ) this.props.renew();
-		} else alert(data.message);
 
-		delNWin(this.props.winId);
-		//console.log(id)	
-
-	}
 	name=() =>`Фирма ${this.oldElmData.name}`;
 	render() {
 		if (!Object.hasOwn(this.oldElmData, 'id')) return;
@@ -113,7 +105,7 @@ export class FirmElm extends React.Component<IFirmElmProps, IFirmElmState>{
 									<tr>
 										<td><SuperInput zagolovok="В Документы" value={this.oldElmData.indoc} onChange={(val) => this.changeData('indoc', val)}/></td>
 										<td><SuperInput zagolovok="ОГРН" value={this.oldElmData.ogrn} onChange={(val) => this.changeData('ogrn', val)}/></td>
-										<td><CheckInput zagolovok="Плательщик НДС" value={this.oldElmData.ogrn} onChange={(val) => this.changeData('nds', val)}/></td>
+										{/* <td><CheckInput zagolovok="Плательщик НДС" value={this.oldElmData.ogrn} onChange={(val) => this.changeData('nds', val)}/></td> */}
 									</tr>
 									<tr>
 										<td colSpan={3}><SuperInput zagolovok="Адрес" value={this.oldElmData.address} onChange={(val) => this.changeData('address', val)}/></td>
@@ -130,10 +122,8 @@ export class FirmElm extends React.Component<IFirmElmProps, IFirmElmState>{
           </form>
 				
 			</TabItem>
-			<TabItem title="Счета" onSelect={this.onOpenAccs}>
-			<ItemTable tableKeys={{head:['Id','Name', 'number', 'Валюта', 'Банк'], body:['id','name', 'number', 'currency', 'bank']}}  tableData={this.state.accs}
-			  
-          />
+			<TabItem title="Счета" >
+				<FirmAccSpr firmId={this.props.elmId}/>
 			</TabItem>
 			</TabPanel>
 			<button onClick={this.dataSend}>OK</button>

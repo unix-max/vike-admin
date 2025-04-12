@@ -16,10 +16,10 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS account_type (
 	name VARCHAR ( 50 ) NOT NULL,
 	descript VARCHAR ( 150 ),
 	alias VARCHAR (15),
-	created TIMESTAMP NOT NULL,
-	updated TIMESTAMP NOT NULL,
-	deleted TIMESTAMP
-    );`
+	created TIMESTAMPTZ NOT NULL,
+	updated TIMESTAMPTZ NOT NULL,
+	deleted TIMESTAMPTZ
+  );`
 
 		const add = `
 		insert into account_type (name, descript, alias, created, updated)

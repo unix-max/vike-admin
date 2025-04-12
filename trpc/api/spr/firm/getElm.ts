@@ -9,28 +9,30 @@ const requestShema = z.object({
   firmId: z.number()
 })
 
+type reqDataType =  z.infer<typeof requestShema>
+
 export const firmSprGetElm = router({
   getElm: publicProcedure
   .input(requestShema)
   .query(async (opts) => {
-    const { input } = opts;
+    const input = opts.input as reqDataType;
 
     //console.log(input.firmId)
     const { pool } = opts.ctx as Context;
-    let firm: IFirm ={ id:0 };
 
     const query: string = format(`
         SELECT * FROM firm AS c
         WHERE c.id = %1$L
-        ORDER BY name;`, input.firmId);
+        ;`, input.firmId);
+
+        //console.log(query)
    
     try {
       
-      const dbClient = await pool.connect();
+      const dbClient:PoolClient = await pool.connect();
       const res = await dbClient.query(query);
       dbClient.release();
-      
-      firm = res.rows[0] as IFirm;
+      const firm = res.rows[0] as IFirm;
       //console.log(res2);
       return {elm: firm, tc: pool.totalCount, ic: pool.idleCount}
     } catch(err) {
