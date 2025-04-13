@@ -113,6 +113,19 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
                     
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="acctype">Тип счета:</label><br/>
+                      <input type="text" disabled
+                        defaultValue={this.state.acc?.type.name} name="acctype"/><br/>
+                    </td>
+                    <td>
+                    <label htmlFor="acccur">Валюта счета:</label><br/>
+                      <input type="text" disabled
+                        defaultValue={this.state.acc?.currency.name} name="acccur"/><br/>
+                    
+                    </td>
+                  </tr>
 
                 </table>
               </fieldset>

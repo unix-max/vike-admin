@@ -4,9 +4,14 @@ import { trpc } from "@/trpc/client";
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
+import { BankSpr } from '../BankSpr';
+import { CurrencySpr } from '../CurrencySpr';
+import { AccTypeSpr } from '../AccTypeSpr';
 import { IFirmAccount } from '@/db/Entitys/FirmAccount';
 import { SuperInput } from '../../inputs/SuperInput';
+import { SprInput } from '@/components/inputs/SprInput';
 //import styles from './index.module.css'
+const addTWin = useWinStore.getState().addTWin
 const delNWin = useWinStore.getState().delNWin;
 
 type IFirmAccElmProps  = {
@@ -43,12 +48,15 @@ export class FirmAccElm extends React.Component<TWinId, IFirmAccElmState>{
 	}
 
 	changeData= (key: string, val: any) => {
-		this.oldElmData[key] = val;
-		this.newElmData[key] = val;
-		//this.setState( {[key]: val})
-		console.log(this.newElmData);
-		//if (key=='name')
-		//this.forceUpdate();
+		if (typeof val == 'object') {
+			this.oldElmData[key] = val.name;
+			this.newElmData[key] = val.id;
+			this.forceUpdate();
+		} else {
+			this.oldElmData[key] = val;
+			this.newElmData[key] = val;
+		}
+		
 	}
 
 	dataSend= async () => {
@@ -85,12 +93,16 @@ export class FirmAccElm extends React.Component<TWinId, IFirmAccElmState>{
                 
 								<tr>
 									<td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
-									<td><SuperInput zagolovok="Тип" value={this.oldElmData.type} onChange={(val) => this.changeData('type', val)}/></td>	
+									<td><SprInput zagolovok="Тип" value={this.oldElmData.type}
+									onBtnClick={() => addTWin(AccTypeSpr, { onChoice: (elm: any) => this.changeData('type', elm) })}/></td>
+					
 									<td><SuperInput zagolovok="Номер" value={this.oldElmData.number} onChange={(val) => this.changeData('number', val)}/></td>
 								</tr>
 								<tr>
-									<td><SuperInput zagolovok="Банк" value={this.oldElmData.bank} onChange={(val) => this.changeData('bank', val)}/></td>
-									<td><SuperInput zagolovok="Валюта" value={this.oldElmData.currency} onChange={(val) => this.changeData('currency', val)}/></td>	
+									<td><SprInput zagolovok="Банк" value={this.oldElmData.bank} 
+									onBtnClick={() => addTWin(BankSpr, { onChoice: (elm: any) => this.changeData('bank', elm) })}/></td>
+									<td><SprInput zagolovok="Валюта" value={this.oldElmData.currency}
+									 onBtnClick={() => addTWin(CurrencySpr, { onChoice: (elm: any) => this.changeData('currency', elm) })}/></td>	
 									<td><SuperInput zagolovok="Основной" value={this.oldElmData.main} onChange={(val) => this.changeData('main', val)}/></td>
 								</tr>
 	

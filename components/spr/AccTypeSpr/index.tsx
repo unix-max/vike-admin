@@ -5,27 +5,27 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { NDSElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { INDS } from '@/db/Entitys/Nds'
+import { IAccountType } from '@/db/Entitys/AccountType';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
 const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin
 
-export type NDSSprProps = {
+export type IAccountTypeProps = {
   id?: number;
-  onChoice?: (elm:INDS) => void;
+  onChoice?: (elm:IAccountType) => void;
 }
 
-type TWinId = NDSSprProps & { winId: number }
+type TWinId = IAccountTypeProps & { winId: number }
 
 type IOKSMSprState = {
-  list: INDS[];
+  list: IAccountType[];
 }
 
-export class NDSSpr extends React.Component<TWinId, IOKSMSprState>{
+export class AccTypeSpr extends React.Component<TWinId, IOKSMSprState>{
   selectElmId?: number;
-  itemRef: React.RefObject<ItemTable<INDS>>;
+  itemRef: React.RefObject<ItemTable<IAccountType>>;
 
   constructor(props: TWinId) {
     super(props);
@@ -41,13 +41,13 @@ export class NDSSpr extends React.Component<TWinId, IOKSMSprState>{
     this.reloadList();
   }
 
-  onSelectElm = (item: INDS) => {
+  onSelectElm = (item: IAccountType) => {
     console.log(item);
     this.selectElmId = item.id;
     this.itemRef.current?.selectItem(this.selectElmId);
   }
 
-  onEditElm = (item:INDS) => {
+  onEditElm = (item:IAccountType) => {
     if(this.props.onChoice) {
       this.props.onChoice(item);
       delNWin(this.props.winId);
@@ -57,16 +57,16 @@ export class NDSSpr extends React.Component<TWinId, IOKSMSprState>{
   }
 
   reloadList = async () => {
-    const  data = await trpc.spr.nds.getList.query();
+    const  data = await trpc.spr.accType.getList.query();
       //const list = data?.list.map((item)=> ({id: item.code, ...item}))
-    if (data) this.setState({list: data.list as INDS[]});
+    if (data) this.setState({list: data.list as IAccountType[]});
   }
-  name = () => 'NDS'
+  name = () => 'Типы счетов'
   render() {
-    console.log(`render NDSSpr ${this.props.id}`)
+    console.log(`render AccTypeSpr ${this.props.id}`)
     return (
              
-      <WindowCl winId={this.props.winId} caption='НДС' modal={false} key={this.props.winId} size={{width: '200px', height: '300px'}} >    
+      <WindowCl winId={this.props.winId} caption='Типы счетов' modal={false} key={this.props.winId} size={{width: '200px', height: '300px'}} >    
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 
@@ -75,7 +75,7 @@ export class NDSSpr extends React.Component<TWinId, IOKSMSprState>{
           </div>
 
           <div className={styles.table}>
-          <ItemTable<INDS> 
+          <ItemTable<IAccountType> 
             tableKeys={{head:['Id', 'Name', 'Значение'], body:['id', 'name', 'val']}} 
             tableData={this.state.list}
             skey='id'

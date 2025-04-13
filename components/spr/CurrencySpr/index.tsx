@@ -16,20 +16,21 @@ const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin
 
 export type ICurrencySprProps = {
-  winId: number;
   id?: number;
   onChoice?: (elm:ICurrency) => void;
 }
+
+type TWinId = ICurrencySprProps & { winId: number }
 
 type ICurrencySprState = {
   list: ICurrency[];
 }
 
-export class CurrencySpr extends React.Component<ICurrencySprProps, ICurrencySprState>{
+export class CurrencySpr extends React.Component<TWinId, ICurrencySprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<ICurrency>>;
 
-  constructor(props: ICurrencySprProps) {
+  constructor(props: TWinId) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {

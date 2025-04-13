@@ -13,10 +13,11 @@ const addNWin = useWinStore.getState().addNWin;
 const delNWin = useWinStore.getState().delNWin
 
 export type IBankSprProps = {
-  winId: number;
   id?: number;
   onChoice?: (elm:IBankSprElm) => void;
 }
+
+type TWinId = IBankSprProps & { winId: number }
 
 type IBankSprElm = {
   id: number,
@@ -29,11 +30,11 @@ type IBankSprState = {
   list: IBankSprElm[];
 }
 
-export class BankSpr extends React.Component<IBankSprProps, IBankSprState>{
+export class BankSpr extends React.Component<TWinId, IBankSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<IBankSprElm>>;
 
-  constructor(props: IBankSprProps) {
+  constructor(props: TWinId) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {
