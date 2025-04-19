@@ -155,11 +155,19 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
               </fieldset>
             </div>
             <div>
-              <button onClick={() => addTWin(FirmAccElm, {firmId: this.props.firmId, renew: this.reloadList})}>NEW</button><br/>
-              <button onClick={() => addTWin(FirmAccElm, {elmId: this.selectElmId, renew: this.reloadList})}>Edit</button><br/>
-              <button>Del</button><br/>
+              <button className={styles.butt}
+                onClick={() => addTWin(FirmAccElm, {firmId: this.props.firmId, renew: this.reloadList})}
+                >
+                  NEW
+              </button><br/>
+              <button className={styles.butt}
+                onClick={() => addTWin(FirmAccElm, {elmId: this.selectElmId, renew: this.reloadList})}
+                >
+                  Edit
+                </button><br/>
+              <button className={styles.butt}>Del</button><br/>
               <br/>
-              <button onClick={this.setMainAcc}>Main</button>
+              <button className={styles.butt} onClick={this.setMainAcc}>Main</button>
             </div>
             </Flex>
 

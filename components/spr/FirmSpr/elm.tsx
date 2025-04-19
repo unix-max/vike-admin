@@ -111,7 +111,7 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 											<label>Тип учета</label><br/>
 											<select 
 												onChange={e => this.changeData('tax_sys', e.target.value)}
-												value={this.oldElmData.tax_sys}
+												value={this.oldElmData.tax_sys ? this.oldElmData.tax_sys : ""}
 												>
 													<option value="osno">ОСНО</option>
 													<option value="usn6">УСН 6</option>

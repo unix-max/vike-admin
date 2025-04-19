@@ -24,7 +24,7 @@ export interface IFirm {
 
 
 }
-const createTaxSysType: string = `CREATE TYPE tax_sys AS ENUM ('osno', 'usn', 'ausn', 'psn', 'npd', 'eshn');`;
+const createTaxSysType: string = `CREATE TYPE tax_sys AS ENUM ('osno', 'usn6', 'usn15', 'ausn', 'psn', 'npd', 'eshn');`;
 
 const createTable: string = `CREATE TABLE IF NOT EXISTS firm (
 	id serial PRIMARY KEY,
