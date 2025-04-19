@@ -107,7 +107,17 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 									<tr>
 										<td><SuperInput zagolovok="В Документы" value={this.oldElmData.indoc} onChange={(val) => this.changeData('indoc', val)}/></td>
 										<td><SuperInput zagolovok="ОГРН" value={this.oldElmData.ogrn} onChange={(val) => this.changeData('ogrn', val)}/></td>
-										{/* <td><CheckInput zagolovok="Плательщик НДС" value={this.oldElmData.ogrn} onChange={(val) => this.changeData('nds', val)}/></td> */}
+										<td>
+											<label>Тип учета</label><br/>
+											<select 
+												onChange={e => this.changeData('tax_sys', e.target.value)}
+												value={this.oldElmData.tax_sys}
+												>
+													<option value="osno">ОСНО</option>
+													<option value="usn6">УСН 6</option>
+													<option value="usn15">УСН 15</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<td colSpan={3}><SuperInput zagolovok="Адрес" value={this.oldElmData.address} onChange={(val) => this.changeData('address', val)}/></td>
