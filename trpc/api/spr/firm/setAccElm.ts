@@ -6,9 +6,9 @@ import { number, z } from 'zod';
 import { IFirm } from "@/db/Entitys/Firm";
 
 const requestShema =z.object({
-  id:         z.number(),
-  oldCode:    z.number(),
-  firm_id:     z.coerce.number(),
+  id:         z.coerce.number(),
+  oldCode:    z.coerce.number(),
+  firm_id:    z.coerce.number(),
   type:       z.coerce.number(),
   name:       z.string(),
   number:     z.string(),

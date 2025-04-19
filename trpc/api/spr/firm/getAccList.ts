@@ -25,17 +25,16 @@ export const firmAccSprGetList = router({
     const { pool } = opts.ctx as Context;   
     const query =  format(`
       SELECT
-      f.id AS firm_acc_id,
-      f.firm_id AS firm_id,
-      f.type AS firm_acc_type,
-      f.name AS firm_acc_name,
-      f.number AS firm_acc_number,
-      f.bank AS firm_acc_bank_code,
-      f.currency AS firm_acc_currency_code,
-      f.alias AS firm_acc_alias,
-      f.main AS firm_acc_main,
-      f.created AS firm_acc_created,
-      f.updated AS firm_acc_updated,
+      a.id AS firm_acc_id,
+      a.firm_id AS firm_id,
+      a.type AS firm_acc_type,
+      a.name AS firm_acc_name,
+      a.number AS firm_acc_number,
+      a.bank AS firm_acc_bank_code,
+      a.currency AS firm_acc_currency_code,
+      a.alias AS firm_acc_alias,
+      a.created AS firm_acc_created,
+      a.updated AS firm_acc_updated,
       t.id AS type_acc_id,
       t.name AS type_acc_name,
       v.code AS currency_acc_code,
@@ -50,12 +49,12 @@ export const firmAccSprGetList = router({
       c.name AS city_acc_name,
       c.full_name AS city_acc_fullname
       FROM
-      firm_account as f
-      LEFT JOIN account_type AS t ON t.id = f.type
-      LEFT JOIN currency AS V ON v.id = f.currency
-      LEFT JOIN bank as b on f.bank = b.id
+      firm_account as a
+      LEFT JOIN account_type AS t ON t.id = a.type
+      LEFT JOIN currency AS V ON v.id = a.currency
+      LEFT JOIN bank as b on a.bank = b.id
       LEFT JOIN city as c ON c.id = b.city
-      WHERE f.firm_id = %1$L;`, input.firmId);
+      WHERE a.firm_id = %1$L;`, input.firmId);
     try {
       const dbClient:PoolClient = await pool.connect();
       const res = await dbClient.query(query);

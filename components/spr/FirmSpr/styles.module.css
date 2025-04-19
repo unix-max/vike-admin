@@ -14,3 +14,14 @@
   grid-column: 1 /  3;
   grid-row: 2 / 3;
 }
+.first_box {
+  display: flex;
+  flex-direction: column;
+}
+.table_box {
+  flex: auto;
+}
+.main_acc_box {
+  flex: none;
+  
+}

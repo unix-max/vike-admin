@@ -34,7 +34,11 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 	}
 	
 	async componentDidMount() {
-		if(this.props.elmId) {
+		this.reload();
+	}
+
+ reload = async () => {
+	if(this.props.elmId) {
 			const data = await trpc.spr.firm.getElm.query({ firmId: this.props.elmId});
 			if (data) this.oldElmData = data.elm as IFirm;
 		} else {	
@@ -42,9 +46,7 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 			this.newElmData = {id: 0, name: 'Новый'};
 		}
 		this.forceUpdate();
-	}
-
-
+}
 
 	componentDidUpdate(prevProps: Readonly<IFirmElmProps>, prevState: Readonly<IFirm>, snapshot?: any): void {
 		// console.log(testTreeData===this.state.treeData)
@@ -123,7 +125,10 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 				
 			</TabItem>
 			<TabItem title="Счета" >
-				<FirmAccSpr firmId={this.props.elmId}/>
+				<FirmAccSpr 
+					firmId={this.props.elmId}
+					mainAcc={this.oldElmData.main_acc}
+					renew={this.reload}/>
 			</TabItem>
 			</TabPanel>
 			<button onClick={this.dataSend}>OK</button>

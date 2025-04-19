@@ -43,6 +43,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS firm (
 	email VARCHAR (100),
 	sklad INTEGER REFERENCES sklad,
 	www VARCHAR (100),
+	main_acc INTEGER REFERENCES firm_account,
 	created TIMESTAMPTZ NOT NULL,
 	updated TIMESTAMPTZ NOT NULL,
 	deleted TIMESTAMPTZ

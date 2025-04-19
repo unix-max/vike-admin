@@ -27,7 +27,6 @@ export const firmAccSprGetElm = router({
       f.bank AS firm_acc_bank_code,
       f.currency AS firm_acc_currency_id,
       f.alias AS firm_acc_alias,
-      f.main AS firm_acc_main,
       f.created AS firm_acc_created,
       f.updated AS firm_acc_updated,
       t.id AS type_acc_id,

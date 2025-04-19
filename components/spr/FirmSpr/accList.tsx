@@ -14,6 +14,8 @@ const delNWin = useWinStore.getState().delNWin
 
 export type IFirmAccSprProps = {
   firmId?: number;
+  mainAcc?: number;
+  renew?: ()=>void;
 }
 
 type IFirmAccSprState = {
@@ -46,8 +48,7 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
     }
   
     onEditElm = (item:accListRecDto) => {
-
-        addTWin(FirmAccElm, {elmId: item.id, renew: this.reloadList});
+      addTWin(FirmAccElm, {elmId: item.id, renew: this.reloadList});
     }
   
     reloadList = async () => {
@@ -59,11 +60,27 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
       }
       
     }
-
+  assNumber = () => {
+    if (this.props.mainAcc && this.list.length > 0) {
+      let arr =  this.list.filter((elm, ind)=> {
+      if (elm.id == this.props.mainAcc) return true
+      })
+      return arr[0]
+    }
+    return {name: "Не назначен", number: 0}
+  }
+  setMainAcc =async () => {
+    if (this.props.firmId && this.selectElmId && this.selectElmId > 0) {
+      const resp = await trpc.spr.firm.setMainAcc.mutate({ id: this.props.firmId, main_id: this.selectElmId });
+      if (resp && this.props.renew) this.props.renew(); 
+    }
+  }
     render() {
       console.log(`render FirmAccSpr ${this.props.firmId}`)
-      return (
-            <Flex>
+      return (<>
+          <Flex>
+            <div className={styles.first_box}>
+              <div className={styles.table_box}>
             <ItemTable<accListRecDto> 
               tableKeys={{head:['Id', 'Name', 'Номер'], body:['id', 'name', 'number']}} 
               tableData={this.list}
@@ -71,10 +88,17 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
             onSelect={this.onSelectElm}
             onEdit={this.onEditElm}
             ref={this.itemRef}
-            /><div>
+            /></div>
+            
+            <span className={styles.main_acc_box}>Основоной счет: {this.assNumber().name}<br/>
+            {this.assNumber().number}
+            </span>
+            </div>
+            <div>
               <fieldset>
               <legend>Счет</legend>
                 <table>
+                  <tbody>
                   <tr>
                     <td>
                       <label htmlFor="fname">Наименование:</label><br/>
@@ -126,7 +150,7 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
                     
                     </td>
                   </tr>
-
+                  </tbody>
                 </table>
               </fieldset>
             </div>
@@ -134,9 +158,12 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
               <button onClick={() => addTWin(FirmAccElm, {firmId: this.props.firmId, renew: this.reloadList})}>NEW</button><br/>
               <button onClick={() => addTWin(FirmAccElm, {elmId: this.selectElmId, renew: this.reloadList})}>Edit</button><br/>
               <button>Del</button><br/>
+              <br/>
+              <button onClick={this.setMainAcc}>Main</button>
             </div>
             </Flex>
-  
+
+            </>
     )
     }
 }

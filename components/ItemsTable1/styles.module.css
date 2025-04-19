@@ -1,6 +1,8 @@
 .container {
   display: inline-block;
-  overflow: auto
+  overflow: auto;
+  border: 1px solid green;
+  height: 100%;
 }
 
 .container table th {

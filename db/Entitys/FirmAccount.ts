@@ -29,7 +29,6 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS firm_account (
     currency INTEGER REFERENCES currency,
     description VARCHAR ( 120 ),
 	alias VARCHAR (15),
-    main boolean,
 	created TIMESTAMPTZ NOT NULL,
 	updated TIMESTAMPTZ NOT NULL,
 	deleted TIMESTAMPTZ
