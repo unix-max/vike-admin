@@ -56,8 +56,8 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS client (
 	phone VARCHAR (50),
 	email VARCHAR (100),
 	www VARCHAR (100),
-	nds INTEGER REFERENCES nds ON DELETE RESTRICT,
-	np INTEGER REFERENCES np ON DELETE RESTRICT,
+	main_acc INTEGER REFERENCES client_account,
+	tax_sys tax_sys,
 	created TIMESTAMPZ NOT NULL DEFAULT now(),
 	updated TIMESTAMPZ NOT NULL DEFAULT now(),
 	deleted TIMESTAMPZ

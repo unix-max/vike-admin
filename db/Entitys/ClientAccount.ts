@@ -25,10 +25,10 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS client_account (
 	type INTEGER REFERENCES account_type ON DELETE RESTRICT,
 	name VARCHAR ( 50 ) NOT NULL,
 	number VARCHAR ( 20 ),
-    bank VARCHAR(9) REFERENCES bank ON DELETE RESTRICT,
+    bank INTEGER REFERENCES bank ON DELETE RESTRICT,
     currency INTEGER REFERENCES currency ON DELETE RESTRICT,
+    description VARCHAR ( 120 ),
 	alias VARCHAR (15),
-    main boolean,
 	created TIMESTAMP NOT NULL,
 	updated TIMESTAMP NOT NULL,
 	deleted TIMESTAMP
