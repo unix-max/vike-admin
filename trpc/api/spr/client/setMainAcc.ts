@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format, { string } from 'pg-format'
 import { number, z } from 'zod';
-import { IFirm } from "@/db/Entitys/Firm";
+import { IClient } from "@/db/Entitys/Client";
 
 const requestShema =z.object({
   id:       z.coerce.number().positive(),
@@ -12,7 +12,7 @@ const requestShema =z.object({
 
 type inputSprElmType =  z.infer<typeof requestShema> & {[key: string]: any}
 
-export const firmSprSetMainAcc = router({
+export const clientSprSetMainAcc = router({
   setMainAcc: publicProcedure
     .input(requestShema)
     .mutation(async (opts) => {
@@ -20,7 +20,7 @@ export const firmSprSetMainAcc = router({
       const  input = opts.input as inputSprElmType;
 
       let query:string = format(`
-        UPDATE firm SET (main_acc, updated) = (%L, now())
+        UPDATE client SET (main_acc, updated) = (%L, now())
         WHERE id = %L RETURNING id;`, input.main_id, input.id);
 
       console.log(`${query} `);

@@ -69,7 +69,8 @@ export class KlientElm extends React.Component<TWinId, IClientElmState>{
 	}
 
 	dataSend= async () => {
-		let data: any;
+		if (Object.keys(this.newElmData).length > 0) {
+			let data: any;
 		try {
 			if (this.props.elmId) {
 				data = await trpc.spr.client.insertElm.mutate({ id: this.props.elmId, ...this.newElmData });
@@ -80,10 +81,10 @@ export class KlientElm extends React.Component<TWinId, IClientElmState>{
 			console.log(e);
 		}
 		if ('elm' in data) {
-			const id =  data?.client?.id;
+			const id =  data?.elm?.id;
 			if ( this.props.renew && id > 0 ) this.props.renew();
 		} else alert(data.message);
-
+		}
 		delNWin(this.props.winId);
 		//console.log(id)	
 

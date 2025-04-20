@@ -6,6 +6,7 @@ import { clientSprInsertElm } from "./insertElm";
 import { clientAccSprGetList } from "./getAccList";
 import { clientAccSprGetElm } from "./getAccElm";
 import { clientAccSprSetElm } from "./setAccElm";
+import { clientSprSetMainAcc } from "./setMainAcc";
 import { mergeRouters } from "@/trpc/server";
 
 export const sprClientRouter = mergeRouters(
@@ -17,4 +18,5 @@ export const sprClientRouter = mergeRouters(
   clientAccSprGetList,
   clientAccSprGetElm,
   clientAccSprSetElm,
+  clientSprSetMainAcc
 );

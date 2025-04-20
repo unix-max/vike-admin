@@ -66,6 +66,7 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 	}
 
 	dataSend= async () => {
+		if (Object.keys(this.newElmData).length > 0) {
 			let data: any;
 			try {
 				if (this.props.elmId) {
@@ -79,7 +80,7 @@ export class FirmElm extends React.Component<TWinId, IFirmElmState>{
 			if (data && 'elm' in data) {
 				if ( this.props.renew && data?.elm?.id > 0 ) this.props.renew();
 			} else alert(data?.message);
-	
+		}	
 			delNWin(this.props.winId);
 			//console.log(id)	
 	

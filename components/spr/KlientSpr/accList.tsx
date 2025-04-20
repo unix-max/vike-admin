@@ -71,8 +71,8 @@ export class ClientAccSpr extends React.Component<IClientAccSprProps, IClientAcc
   }
   setMainAcc =async () => {
     if (this.props.clientId && this.selectElmId && this.selectElmId > 0) {
-      //const resp = await trpc.spr.client.setMainAcc.mutate({ id: this.props.clientId, main_id: this.selectElmId });
-      //if (resp && this.props.renew) this.props.renew(); 
+      const resp = await trpc.spr.client.setMainAcc.mutate({ id: this.props.clientId, main_id: this.selectElmId });
+      if (resp && this.props.renew) this.props.renew(); 
     }
   }
     render() {
