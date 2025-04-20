@@ -4,7 +4,7 @@ import { Tree, ITreeData, ITreeItem } from '../../Tree'
 //import {Window, IWinProps} from '../Window'
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
-import { ItemTable } from '../../ItemsTable'
+import { ItemTable } from '../../ItemsTable1'
 import { KlientElm } from './elm';
 import { KlientGrp } from './grp'
 import { useWinStore } from '@/pages/+client'
@@ -30,7 +30,7 @@ export class KlientSpr extends React.Component<TWinId, IKlientSprState>{
   selectElmId?: number;
   selectGrpId: number;
   treeRef: React.RefObject<Tree>;
-  itemRef: React.RefObject<ItemTable>;
+  itemRef: React.RefObject<ItemTable<IClient>>;
 
   constructor(props: TWinId) {
     super(props);
@@ -64,10 +64,10 @@ export class KlientSpr extends React.Component<TWinId, IKlientSprState>{
     //console.log(nextState.treeData===this.state.treeData)
     return true;
   }
-  onSelectElm = (elmId: number) => {
+  onSelectElm = (item: IClient) => {
     //console.log(elmId+110);
-    this.selectElmId = elmId;
-    this.itemRef.current?.selectItem(elmId);
+    this.selectElmId = item.id;
+    this.itemRef.current?.selectItem(this.selectElmId);
 
   }
   onEditElm = (elm: IClient) => {
@@ -125,10 +125,13 @@ export class KlientSpr extends React.Component<TWinId, IKlientSprState>{
           </div>
 
           <div className="table">
-          <ItemTable tableKeys={{head:['Id1','Name','Тел','Path'], body:['id','name','phone','path']}} tableData={this.state.list}
-          onSelect={this.onSelectElm}
-          onEdit={this.onEditElm}
-          ref={this.itemRef}
+          <ItemTable<IClient> 
+            tableKeys={{head:['Id1','Name','Тел','Path'], body:['id','name','phone','path']}}
+            tableData={this.state.list}
+            skey='id'
+            onSelect={this.onSelectElm}
+            onEdit={this.onEditElm}
+            ref={this.itemRef}
           />
           </div>
         </div>
