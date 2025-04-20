@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
-import { INDS } from "@/db/Entitys/Nds"; 
+import { IAccountType } from "@/db/Entitys/AccountType"; 
 
 const requestShema = z.object({
   id: z.number()
@@ -11,7 +11,7 @@ const requestShema = z.object({
 
 type reqDataType =  z.infer<typeof requestShema>
 
-export const ndsSprGetElm = router({
+export const accTypeSprGetElm = router({
   getElm: publicProcedure
   .input(requestShema)
   .query(async (opts) => {
@@ -21,7 +21,7 @@ export const ndsSprGetElm = router({
     const { pool } = opts.ctx as Context;
     
     const query: string = format(`
-      SELECT * FROM nds  
+      SELECT * FROM account_type  
         WHERE id = %1$L  
       ;`, input.id);
 
@@ -32,7 +32,7 @@ export const ndsSprGetElm = router({
       const dbClient:PoolClient = await pool.connect();
       const res = await dbClient.query(query);
       dbClient.release();  
-      const nds = res.rows[0] as INDS;
+      const nds = res.rows[0] as IAccountType;
       //console.log(res2);
       return {elm: nds, tc: pool.totalCount, ic: pool.idleCount}
     } catch(err) {

@@ -3,7 +3,7 @@ import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
-import { NDSElm } from './elm';
+import { AccTypeElm } from './elm';
 import { useWinStore } from '@/pages/+client'
 import { IAccountType } from '@/db/Entitys/AccountType';
 //import shallow from 'zustand/shallow'
@@ -19,11 +19,11 @@ export type IAccountTypeProps = {
 
 type TWinId = IAccountTypeProps & { winId: number }
 
-type IOKSMSprState = {
+type IAccTypeSprState = {
   list: IAccountType[];
 }
 
-export class AccTypeSpr extends React.Component<TWinId, IOKSMSprState>{
+export class AccTypeSpr extends React.Component<TWinId, IAccTypeSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<IAccountType>>;
 
@@ -52,7 +52,7 @@ export class AccTypeSpr extends React.Component<TWinId, IOKSMSprState>{
       this.props.onChoice(item);
       delNWin(this.props.winId);
     } else {
-      addTWin(NDSElm, {elmId: item.id, renew: this.reloadList});
+      addTWin(AccTypeElm, {elmId: item.id, renew: this.reloadList});
     }
   }
 
@@ -70,13 +70,13 @@ export class AccTypeSpr extends React.Component<TWinId, IOKSMSprState>{
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 
-              onNewElm={()=> addTWin(NDSElm, { renew: this.reloadList})}
+              onNewElm={()=> addTWin(AccTypeElm, { renew: this.reloadList})}
               />
           </div>
 
           <div className={styles.table}>
           <ItemTable<IAccountType> 
-            tableKeys={{head:['Id', 'Name', 'Значение'], body:['id', 'name', 'val']}} 
+            tableKeys={{head:['Id', 'Name', 'Описание'], body:['id', 'name', 'descript']}} 
             tableData={this.state.list}
             skey='id'
           onSelect={this.onSelectElm}

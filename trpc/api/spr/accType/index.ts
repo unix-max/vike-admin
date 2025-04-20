@@ -1,10 +1,10 @@
 import { mergeRouters } from "@/trpc/server";
 import { accTypeSprGetList } from "./getList";
-import { ndsSprGetElm } from "./getElm";
-import { ndsSprSetElm } from "./setElm";
+import { accTypeSprGetElm } from "./getElm";
+import { accTypeSprSetElm } from "./setElm";
 
 export const sprAccTypeRouter = mergeRouters(
   accTypeSprGetList,
-  ndsSprGetElm,
-  ndsSprSetElm,
+  accTypeSprGetElm,
+  accTypeSprSetElm,
 );

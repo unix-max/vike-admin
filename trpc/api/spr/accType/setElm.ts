@@ -3,18 +3,18 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format, { string } from 'pg-format'
 import { number, z } from 'zod';
-import { INDS } from "@/db/Entitys/Nds";
+import { IAccountType } from "@/db/Entitys/AccountType";
 
 const requestShema = z.object({
   id:         z.number(),
   name:       z.string(),
-  val:    z.coerce.string(),
+  descript:   z.coerce.string(),
   alias:      z.string()
 }).partial()
 
 type inputSprElmType =  z.infer<typeof requestShema> & {[key: string]: any}
 
-export const ndsSprSetElm = router({
+export const accTypeSprSetElm = router({
   setElm: publicProcedure
     .input(requestShema)
     .mutation(async (opts) => {
@@ -29,12 +29,12 @@ export const ndsSprSetElm = router({
       let query:string;
       if (input.id && input.id > 0 ) {
         query = format(`
-          UPDATE nds SET (%I, updated) = (%L, now())
+          UPDATE account_type SET (%I, updated) = (%L, now())
           WHERE id = %L RETURNING id;`, keys, vals, input.id);   
         }
       else {
         query = format(`
-          INSERT INTO nds (%I, created, updated)
+          INSERT INTO account_type (%I, created, updated)
           VALUES (%L, now(),now())
           RETURNING id;`, keys, vals);
       }
@@ -44,7 +44,7 @@ export const ndsSprSetElm = router({
         const dbClient: PoolClient = await pool.connect();
         const res = await dbClient.query(query);
         dbClient.release();
-        const elm = res.rows[0] as INDS;
+        const elm = res.rows[0] as IAccountType;
         return {elm: elm}
       } catch (err: any) {
         return { message: err.message };

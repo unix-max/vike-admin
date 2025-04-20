@@ -15,6 +15,7 @@ import { FirmSpr } from "@/components/spr/FirmSpr";
 import { OKSMSpr } from "@/components/spr/OKSMSpr";
 import { BankSpr } from "@/components/spr/BankSpr";
 import { NDSSpr } from "@/components/spr/NdsSpr";
+import { AccTypeSpr } from "@/components/spr/AccTypeSpr";
 //Стили
 //import "./style.css";
 
@@ -50,6 +51,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
           {name: "НП"}
         ]},
         {name: "Валюты", click: () => addNWin(CurrencySpr, {winId: Date.now()})},
+        {name: "Типы счетов", click: () => addTWin(AccTypeSpr, {})},
         {name: "Склады", click: () => addNWin(SkladSpr, {winId: Date.now()})},
         {name: "Банки", click: () => addNWin(BankSpr, {winId: Date.now()})},
         {name: "Города", click: () => addNWin(CitySpr, {winId: Date.now()})},

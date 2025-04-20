@@ -3,25 +3,24 @@ import { trpc } from "@/trpc/client";
 //import {Window, IWinProps} from '../Window'
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
-import { TabPanel, TabItem} from '../../Tabs';
-import { INDS } from '@/db/Entitys/Nds';
+import { IAccountType } from '@/db/Entitys/AccountType';
 import { SuperInput } from '../../inputs/SuperInput';
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;
 
-type NDSElmProps  = {
+type AccTypeElmProps  = {
 	elmId?: number;
 	renew?: () => void;
 }
-type TWinId = NDSElmProps & { winId: number }
+type TWinId = AccTypeElmProps & { winId: number }
 
-type NDSElmState = {
+type AccTypeElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class NDSElm extends React.Component<TWinId, NDSElmState>{
-	newElmData: NDSElmState;
-	oldElmData: NDSElmState;
+export class AccTypeElm extends React.Component<TWinId, AccTypeElmState>{
+	newElmData: AccTypeElmState;
+	oldElmData: AccTypeElmState;
 
 	constructor(props: TWinId) {
 		super(props);
@@ -31,8 +30,8 @@ export class NDSElm extends React.Component<TWinId, NDSElmState>{
 	async componentDidMount() {
 	
 		if(this.props.elmId) {
-			const data = await trpc.spr.nds.getElm.query({ id: this.props.elmId});
-			if (data) this.oldElmData = data.elm as INDS;
+			const data = await trpc.spr.accType.getElm.query({ id: this.props.elmId});
+			if (data) this.oldElmData = data.elm as IAccountType;
 		} else {
 			
 			this.oldElmData = {id: 0, name: 'Новый'};
@@ -54,9 +53,9 @@ export class NDSElm extends React.Component<TWinId, NDSElmState>{
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.nds.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				data = await trpc.spr.accType.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.nds.setElm.mutate({ ...this.newElmData });
+				data = await trpc.spr.accType.setElm.mutate({ ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
@@ -69,10 +68,10 @@ export class NDSElm extends React.Component<TWinId, NDSElmState>{
 		//console.log(id)	
 
 	}
-	name=() =>'НДС'
+	name=() =>'Тип счета'
 	render() {
 
-		console.log(`Render sprElm ${this.props.elmId}`)
+		console.log(`Render accTypeSprElm ${this.props.elmId}`)
 		return (           
 		<WindowCl winId={this.props.winId} caption={`${this.oldElmData.name} id:${this.oldElmData.id}`} modal={false} key={this.props.winId}>
 			<form className="main">
@@ -84,7 +83,7 @@ export class NDSElm extends React.Component<TWinId, NDSElmState>{
                 
 								<tr>
 									<td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
-									<td><SuperInput zagolovok="Значение" value={this.oldElmData.val} onChange={(val) => this.changeData('val', val)}/></td>
+									<td><SuperInput zagolovok="Описание" value={this.oldElmData.descript} onChange={(val) => this.changeData('descript', val)}/></td>
 									
 									<td><SuperInput zagolovok="Alias" value={this.oldElmData.alias} onChange={(val) => this.changeData('alias', val)}/></td>
 								
