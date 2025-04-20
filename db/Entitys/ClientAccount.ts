@@ -21,7 +21,7 @@ export interface IClientAccount {
 const createTable: string = `CREATE TABLE IF NOT EXISTS client_account (
 	id serial PRIMARY KEY,
     old_code INTEGER,
-    client INTEGER REFERENCES client ON DELETE CASCADE,
+    clientId INTEGER REFERENCES client ON DELETE CASCADE,
 	type INTEGER REFERENCES account_type ON DELETE RESTRICT,
 	name VARCHAR ( 50 ) NOT NULL,
 	number VARCHAR ( 20 ),
@@ -29,7 +29,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS client_account (
     currency INTEGER REFERENCES currency ON DELETE RESTRICT,
     description VARCHAR ( 120 ),
 	alias VARCHAR (15),
-	created TIMESTAMP NOT NULL,
-	updated TIMESTAMP NOT NULL,
-	deleted TIMESTAMP
+	created TIMESTAMPTZ NOT NULL,
+	updated TIMESTAMPTZ NOT NULL,
+	deleted TIMESTAMPTZ
     );`

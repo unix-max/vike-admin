@@ -56,11 +56,11 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS client (
 	phone VARCHAR (50),
 	email VARCHAR (100),
 	www VARCHAR (100),
-	main_acc INTEGER REFERENCES client_account,
+	--main_acc INTEGER REFERENCES client_account,
 	tax_sys tax_sys,
-	created TIMESTAMPZ NOT NULL DEFAULT now(),
-	updated TIMESTAMPZ NOT NULL DEFAULT now(),
-	deleted TIMESTAMPZ
+	created TIMESTAMPTZ NOT NULL DEFAULT now(),
+	updated TIMESTAMPTZ NOT NULL DEFAULT now(),
+	deleted TIMESTAMPTZ
 	
     );
 		CREATE INDEX client_path_idx ON client USING BTREE (path);
