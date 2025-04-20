@@ -14,13 +14,13 @@ export const clientAccSprGetElm = router({
   .input(requestShema)
   .query(async (opts) => {
     const { input } = opts;
-    //console.log(input.firmId)
+    //console.log(input.id)
 
     const { pool } = opts.ctx as Context;   
     const query =  format(`
       SELECT
       a.id AS client_acc_id,
-      a.firm_id AS client_id,
+      a.client_id AS client_id,
       a.type AS client_acc_type,
       a.name AS client_acc_name,
       a.number AS client_acc_number,
@@ -49,7 +49,7 @@ export const clientAccSprGetElm = router({
       LEFT JOIN currency AS v ON v.id = a.currency
       LEFT JOIN bank as b on a.bank = b.id
       LEFT JOIN city as c ON c.id = b.city
-      WHERE f.id = %1$L;`, input.id);
+      WHERE a.id = %1$L;`, input.id);
     try {
       const dbClient:PoolClient = await pool.connect();
       const res = await dbClient.query(query);
