@@ -6,6 +6,8 @@ import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
 import { IClient, IClientCatalog } from '@/db/Entitys/Client';
 import { SuperInput } from '../../inputs/SuperInput';
+import { ClientAccSpr } from './accList';
+
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;
 
@@ -32,22 +34,20 @@ export class KlientElm extends React.Component<TWinId, IClientElmState>{
 		this.path = null; 
 	}
 	async componentDidMount() {
-		console.log(this?.props?.parentId)
+		this.reload();
+	}
+	
+	reload = async ()=> {
+		//console.log(this?.props?.parentId)
 		if(this.props.elmId) {
 			const data = await trpc.spr.client.getElm.query( {id: this.props.elmId});
 			if (data) this.oldElmData = data.elm;
 			console.log(data)
 		} else {
-			if (typeof(this?.props?.parentId)=='number' && this?.props?.parentId > 0) {
-				//const {data} = await gClient({query: clientQuery, variables: {id: this.props.parentId}});
-				//this.path = data?.clientById?.path;
-				//console.log(this.path);
-			}
 			this.oldElmData = {id: 0, name: 'Новый'};
 			this.newElmData = {id: 0, name: 'Новый'};
 		}
 		this.forceUpdate();
-
 	}
 
 	componentDidUpdate(prevProps: Readonly<IKlientElmProps>, prevState: Readonly<IClient>, snapshot?: any): void {
@@ -117,9 +117,11 @@ export class KlientElm extends React.Component<TWinId, IClientElmState>{
           </form>
 				
 			</TabItem>
-			<TabItem title="Tab2">
-				<h3>NewElm </h3>
-				<span>Name </span>
+			<TabItem title="Счета">
+				<ClientAccSpr 
+									clientId={this.props.elmId}
+									mainAcc={this.oldElmData.main_acc}
+									renew={this.reload}/>
 			</TabItem>
 			</TabPanel>
 			<button onClick={this.dataSend}>OK</button>

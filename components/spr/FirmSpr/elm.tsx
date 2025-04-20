@@ -5,8 +5,7 @@ import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
 import { IFirm } from '@/db/Entitys/Firm'; 
-import { SuperInput } from '../../inputs/SuperInput';
-import { ItemTable } from '@/components/ItemsTable1';
+import { SuperInput } from '../../inputs/SuperInput';		
 import { FirmAccSpr } from './accList';
 
 //import styles from './index.module.css'

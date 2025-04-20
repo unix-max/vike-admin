@@ -7,27 +7,27 @@ import { TabPanel, TabItem} from '../../Tabs';
 import { BankSpr } from '../BankSpr';
 import { CurrencySpr } from '../CurrencySpr';
 import { AccTypeSpr } from '../AccTypeSpr';
-import { IFirmAccount } from '@/db/Entitys/FirmAccount';
+import { IClientAccount } from '@/db/Entitys/ClientAccount';
 import { SuperInput } from '../../inputs/SuperInput';
 import { SprInput } from '@/components/inputs/SprInput';
 //import styles from './index.module.css'
 const addTWin = useWinStore.getState().addTWin
 const delNWin = useWinStore.getState().delNWin;
 
-type IFirmAccElmProps  = {
+type IClientAccElmProps  = {
 	elmId?: number;
-	firmId?: number;
+	clientId?: number;
 	renew?: () => void;
 }
-type TWinId = IFirmAccElmProps & { winId: number }
+type TWinId = IClientAccElmProps & { winId: number }
 
-type IFirmAccElmState = {
+type IClientAccElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class FirmAccElm extends React.Component<TWinId, IFirmAccElmState>{
-	newElmData: IFirmAccElmState;
-	oldElmData: IFirmAccElmState;
+export class ClientAccElm extends React.Component<TWinId, IClientAccElmState>{
+	newElmData: IClientAccElmState;
+	oldElmData: IClientAccElmState;
 
 	constructor(props: TWinId) {
 		super(props);
@@ -37,8 +37,8 @@ export class FirmAccElm extends React.Component<TWinId, IFirmAccElmState>{
 	async componentDidMount() {
 	
 		if(this.props.elmId) {
-			const data = await trpc.spr.firm.getAccElm.query({ id: this.props.elmId});
-			if (data) this.oldElmData = data.elm as IFirmAccount;
+			const data = await trpc.spr.client.getAccElm.query({ id: this.props.elmId});
+			if (data) this.oldElmData = data.elm as IClientAccount;
 		} else {
 			
 			this.oldElmData = {id: 0, name: 'Новый'};
@@ -63,9 +63,9 @@ export class FirmAccElm extends React.Component<TWinId, IFirmAccElmState>{
 		let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.firm.setAccElm.mutate({ id: this.props.elmId, ...this.newElmData });
+				data = await trpc.spr.client.setAccElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.firm.setAccElm.mutate({ firm_id: this.props.firmId,  ...this.newElmData });
+				data = await trpc.spr.client.setAccElm.mutate({ client_id: this.props.clientId,  ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);

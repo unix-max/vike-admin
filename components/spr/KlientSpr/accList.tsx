@@ -1,7 +1,7 @@
 import React from 'react'
 import { trpc } from "@/trpc/client";
 import { ItemTable } from '../../ItemsTable1'
-import { FirmAccElm } from './accElm';
+import { ClientAccElm } from './accElm';
 import { useWinStore } from '@/pages/+client'
 import { accListRecDto } from '@/trpc/api/spr/firm/getAccList';
 import { Flex } from '@/components/layout/flex';
@@ -12,28 +12,28 @@ const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin
 
 
-export type IFirmAccSprProps = {
-  firmId?: number;
+export type IClientAccSprProps = {
+  clientId?: number;
   mainAcc?: number;
   renew?: ()=>void;
 }
 
-type IFirmAccSprState = {
+type IClientAccSprState = {
  acc?:accListRecDto;
 }
 
-export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprState>{
+export class ClientAccSpr extends React.Component<IClientAccSprProps, IClientAccSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<accListRecDto>>;
   list:accListRecDto[]
-  constructor(props: IFirmAccSprProps) {
+  constructor(props: IClientAccSprProps) {
     super(props);
     this.itemRef = React.createRef();
     this.list = [];
     this.state = {
       
     }
-  console.log(`Constructor FirmSpr ${this.props.firmId}`)
+  console.log(`Constructor ClientAccSprList ${this.props.clientId}`)
   }
 
   async componentDidMount() {
@@ -48,12 +48,12 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
     }
   
     onEditElm = (item:accListRecDto) => {
-      addTWin(FirmAccElm, {elmId: item.id, renew: this.reloadList});
+      addTWin(ClientAccElm, {elmId: item.id, renew: this.reloadList});
     }
   
     reloadList = async () => {
-      if (this.props.firmId) {
-        const  data = await trpc.spr.firm.getAccList.query({firmId: this.props.firmId});
+      if (this.props.clientId) {
+        const  data = await trpc.spr.client.getAccList.query({clientId: this.props.clientId});
         //const list = data?.list.map((item)=> ({id: item.code, ...item}))
       if (data) this.list = data.list;
       this.forceUpdate();
@@ -70,13 +70,13 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
     return {name: "Не назначен", number: 0}
   }
   setMainAcc =async () => {
-    if (this.props.firmId && this.selectElmId && this.selectElmId > 0) {
-      const resp = await trpc.spr.firm.setMainAcc.mutate({ id: this.props.firmId, main_id: this.selectElmId });
-      if (resp && this.props.renew) this.props.renew(); 
+    if (this.props.clientId && this.selectElmId && this.selectElmId > 0) {
+      //const resp = await trpc.spr.client.setMainAcc.mutate({ id: this.props.clientId, main_id: this.selectElmId });
+      //if (resp && this.props.renew) this.props.renew(); 
     }
   }
     render() {
-      console.log(`render FirmAccSpr ${this.props.firmId}`)
+      console.log(`render FirmAccSpr ${this.props.clientId}`)
       return (<>
           <Flex>
             <div className={styles.first_box}>
@@ -156,12 +156,12 @@ export class FirmAccSpr extends React.Component<IFirmAccSprProps, IFirmAccSprSta
             </div>
             <div>
               <button className={styles.butt}
-                onClick={() => addTWin(FirmAccElm, {firmId: this.props.firmId, renew: this.reloadList})}
+                onClick={() => addTWin(ClientAccElm, {clientId: this.props.clientId, renew: this.reloadList})}
                 >
                   NEW
               </button><br/>
               <button className={styles.butt}
-                onClick={() => addTWin(FirmAccElm, {elmId: this.selectElmId, renew: this.reloadList})}
+                onClick={() => addTWin(ClientAccElm, {elmId: this.selectElmId, renew: this.reloadList})}
                 >
                   Edit
                 </button><br/>
