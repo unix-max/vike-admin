@@ -32,9 +32,9 @@ export const accTypeSprGetElm = router({
       const dbClient:PoolClient = await pool.connect();
       const res = await dbClient.query(query);
       dbClient.release();  
-      const nds = res.rows[0] as IAccountType;
+      const elm = res.rows[0] as IAccountType;
       //console.log(res2);
-      return {elm: nds, tc: pool.totalCount, ic: pool.idleCount}
+      return {elm: elm, tc: pool.totalCount, ic: pool.idleCount}
     } catch(err) {
       console.log("Error", err);
     }
