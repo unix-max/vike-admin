@@ -8,22 +8,23 @@ import { SuperInput } from '../../inputs/SuperInput';
 const delNWin = useWinStore.getState().delNWin;
 
 type IKlientGrpProps  = {
-	winId: number;
 	grpId?: number;
 	parentId?: number;
 	renew?: (id: number) => void;
 }
+type TWinId = IKlientGrpProps & { winId: number }
+
 type IKlientGrpState  = {
 	[key: string]: any;
 	
 }
 
-export class KlientGrp extends React.Component<IKlientGrpProps, IKlientGrpState>{
+export class KlientGrp extends React.Component<TWinId, IKlientGrpState>{
 	oldGrpData: IKlientGrpState;
 	newGrpData: IKlientGrpState;
 	path: string| null;
 
-	constructor(props: IKlientGrpProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.oldGrpData = {}
 		this.newGrpData = {}

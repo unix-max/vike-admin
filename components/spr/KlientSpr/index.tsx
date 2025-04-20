@@ -12,25 +12,27 @@ import { IClient, IClientCatalog } from '../../../db/Entitys/Client'
 //import shallow from 'zustand/shallow'
 import styles from './styles'
 //console.log(styles)
-const addNWin = useWinStore.getState().addNWin;
+const addTWin = useWinStore.getState().addTWin;
+const delNWin = useWinStore.getState().delNWin
 
 export type IKlientSprProps = {
-  winId: number;
   id?: number;
+  onChoice?: (elm:IClient) => void;
 }
+type TWinId = IKlientSprProps & { winId: number }
 
 type IKlientSprState = {
   treeData: ITreeData;
   list: IClient[];
 }
 
-export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>{
+export class KlientSpr extends React.Component<TWinId, IKlientSprState>{
   selectElmId?: number;
   selectGrpId: number;
   treeRef: React.RefObject<Tree>;
   itemRef: React.RefObject<ItemTable>;
 
-  constructor(props: IKlientSprProps) {
+  constructor(props: TWinId) {
     super(props);
     this.treeRef = React.createRef();
     this.itemRef = React.createRef();
@@ -71,9 +73,9 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
   onEditElm = (elm: IClient) => {
     //console.log(elmId)
     if (elm.type == 'F') {
-      addNWin(KlientGrp, {winId: Date.now(), grpId: this.selectElmId, renew: this.reloadTree});
+      addTWin(KlientGrp, { grpId: this.selectElmId, renew: this.reloadTree});
     } else {
-      addNWin(KlientElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
+      addTWin(KlientElm, {elmId: this.selectElmId, renew: this.reloadList});
     }
   }
   reloadList = async () => {
@@ -92,7 +94,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
   }
   onEditGrp = (grpId: number) => {
     //console.log(grpId)
-    addNWin(KlientGrp, {winId: Date.now(), grpId: this.selectGrpId, renew: this.reloadTree})
+    addTWin(KlientGrp, { grpId: this.selectGrpId, renew: this.reloadTree})
   }
   reloadTree = async (grpId: number) => {
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'client'});
@@ -110,8 +112,8 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
         <div className="container">
           <div className='buttons'>
             <SprButtons 
-              onNewFolder={()=> addNWin(KlientGrp, {winId: Date.now(), parentId: this.selectGrpId, renew: this.reloadTree})}
-              onNewElm={()=> addNWin(KlientElm, {winId: Date.now(), parentId: this.selectGrpId, renew: this.reloadList})}
+              onNewFolder={()=> addTWin(KlientGrp, {parentId: this.selectGrpId, renew: this.reloadTree})}
+              onNewElm={()=> addTWin(KlientElm, {parentId: this.selectGrpId, renew: this.reloadList})}
               />
               
           </div>
@@ -130,7 +132,7 @@ export class KlientSpr extends React.Component<IKlientSprProps, IKlientSprState>
           />
           </div>
         </div>
-        {/* <button onClick={this.onLoadTable}> Load </button> */}
+        {/* <button onClick={this.onLoadTable}> Load </button>  */}
         <style jsx>{styles}</style>
       </WindowCl>
 

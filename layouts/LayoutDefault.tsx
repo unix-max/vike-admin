@@ -27,7 +27,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
       {name: "Клиент",
       click: () => {
         
-        addNWin(KlientSpr, {winId: Date.now()})
+        addTWin(KlientSpr, {})
       }
     },
     {name: "Товар",
