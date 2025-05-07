@@ -3,7 +3,7 @@ import { trpc } from "@/trpc/client";
 import { Tree, ITreeData, ITreeItem } from '../../Tree'
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
-import { ItemTable } from '../../ItemsTable'
+import { ItemTable } from '../../ItemsTable1'
 import { TovarElm } from './elm';
 import { TovarGrp } from './grp'
 import { useWinStore } from '@/pages/+client'
@@ -11,25 +11,27 @@ import { ITovar} from '@/db/Entitys/Tovar'
 //import shallow from 'zustand/shallow'
 import styles from './styles'
 //console.log(styles)
-const addNWin = useWinStore.getState().addNWin;
+const addTWin = useWinStore.getState().addTWin;
 
-export type IKlientSprProps = {
-  winId: number;
+export type ITovarSprProps = {
   id?: number;
+  onChoice?: (elm:ITovar) => void;
 }
 
-type IKlientSprState = {
+type TWinId = ITovarSprProps & { winId: number }
+
+type ITovarSprState = {
   treeData: ITreeData;
   list: ITovar[];
 }
 
-export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
+export class TovarSpr extends React.Component<TWinId, ITovarSprState>{
   selectElmId?: number;
   selectGrpId: number;
   treeRef: React.RefObject<Tree>;
-  itemRef: React.RefObject<ItemTable>;
+  itemRef: React.RefObject<ItemTable<ITovar>>;
 
-  constructor(props: IKlientSprProps) {
+  constructor(props: TWinId) {
     super(props);
     this.treeRef = React.createRef();
     this.itemRef = React.createRef();
@@ -38,13 +40,13 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
       treeData: {name: "New Tree"},
       list: [{id: 0, }]
   }
-  console.log(`Constructor KlientSpr ${this.props.id}`)
+  console.log(`Constructor TovarSpr ${this.props.id}`)
   this.name = this.name.bind(this);
   }
   async componentDidMount() {
     //console.log(initRequest)
 
-    const  data = await trpc.spr.client.getList.query({tName:'tovar', tData:['name'], id: 0});
+    const  data = await trpc.spr.tovar.getList.query({tName:'tovar', tData:['name'], id: 0});
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'tovar'});
     if (treeJson && data) this.setState({ treeData: treeJson, list: data.list });
     
@@ -52,26 +54,26 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
     console.log(data)
     this.treeRef.current?.selectItem(0);
   }
-  componentDidUpdate(prevProps: Readonly<IKlientSprProps>, prevState: Readonly<IKlientSprState>, snapshot?: any): void {
+  componentDidUpdate(prevProps: Readonly<ITovarSprProps>, prevState: Readonly<ITovarSprState>, snapshot?: any): void {
    // console.log(testTreeData===this.state.treeData)
    // testTreeData = this.state.treeData;
   }
-  shouldComponentUpdate(nextProps: IKlientSprProps, nextState: IKlientSprState) {
+  shouldComponentUpdate(nextProps: ITovarSprProps, nextState: ITovarSprState) {
     //console.log(nextState.treeData===this.state.treeData)
     return true;
   }
-  onSelectElm = (elmId: number) => {
+  onSelectElm = (item: ITovar) => {
     //console.log(elmId+110);
-    this.selectElmId = elmId;
-    this.itemRef.current?.selectItem(elmId);
+    this.selectElmId = item.id;
+    this.itemRef.current?.selectItem(this.selectElmId );
 
   }
   onEditElm = (elm: ITovar) => {
     //console.log(elmId)
     if (elm.type == 'F') {
-      addNWin(TovarGrp, {winId: Date.now(), grpId: this.selectElmId, renew: this.reloadTree});
+      addTWin(TovarGrp, { grpId: this.selectElmId, renew: this.reloadTree});
     } else {
-      addNWin(TovarElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
+      addTWin(TovarElm, { elmId: this.selectElmId, renew: this.reloadList});
     }
   }
   reloadList = async () => {
@@ -91,7 +93,7 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
   }
   onEditGrp = (grpId: number) => {
     //console.log(grpId)
-    addNWin(TovarGrp, {winId: Date.now(), grpId: this.selectGrpId, renew: this.reloadTree})
+    addTWin(TovarGrp, {grpId: this.selectGrpId, renew: this.reloadTree})
   }
   reloadTree = async (grpId: number) => {
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'tovar'});
@@ -99,15 +101,15 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
   }
   
   render() {
-    console.log(`render KlientSpr ${this.props.id}`)
+    console.log(`render TovarSpr ${this.props.id}`)
     return (
-             
-      <WindowCl winId={this.props.winId} caption='Товары' modal={false} key={this.props.winId} >    
+
+      <WindowCl winId={this.props.winId} caption='Товары' modal={false} key={this.props.winId}>    
         <div className="container">
           <div className='buttons'>
             <SprButtons 
-              onNewFolder={()=> addNWin(TovarGrp, {winId: Date.now(), parentId: this.selectGrpId, renew: this.reloadTree})}
-              onNewElm={()=> addNWin(TovarElm, {winId: Date.now(), parentId: this.selectGrpId, renew: this.reloadList})}
+              onNewFolder={()=> addTWin(TovarGrp, {parentId: this.selectGrpId, renew: this.reloadTree})}
+              onNewElm={()=> addTWin(TovarElm, {parentId: this.selectGrpId, renew: this.reloadList})}
               />
           </div>
 
@@ -118,10 +120,13 @@ export class TovarSpr extends React.Component<IKlientSprProps, IKlientSprState>{
           </div>
 
           <div className="table">
-          <ItemTable tableKeys={{head:['Id','Name', 'Path'], body:['id','name', 'path']}} tableData={this.state.list}
-          onSelect={this.onSelectElm}
-          onEdit={this.onEditElm}
-          ref={this.itemRef}
+          <ItemTable<ITovar> 
+            tableKeys={{head:['Id','Name', 'Path'], body:['id','name', 'path']}}
+            tableData={this.state.list}
+            skey='id'
+            onSelect={this.onSelectElm}
+            onEdit={this.onEditElm}
+            ref={this.itemRef}
           />
           </div>
         </div>

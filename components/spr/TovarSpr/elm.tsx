@@ -10,22 +10,23 @@ import { SuperInput } from '../../inputs/SuperInput';
 const delNWin = useWinStore.getState().delNWin;
 
 type ITovarElmProps  = {
-	winId: number;
 	elmId?: number;
 	parentId?: number;
 	renew?: () => void;
 }
 
+type TWinId = ITovarElmProps & { winId: number }
+
 type ITovarElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class TovarElm extends React.Component<ITovarElmProps, ITovarElmState>{
+export class TovarElm extends React.Component<TWinId, ITovarElmState>{
 	newElmData: ITovarElmState;
 	oldElmData: ITovarElmState;
 	path: string| null;
 
-	constructor(props: ITovarElmProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};

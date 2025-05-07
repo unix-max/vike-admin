@@ -8,22 +8,23 @@ import { SuperInput } from '../../inputs/SuperInput';
 const delNWin = useWinStore.getState().delNWin;
 
 type ITovarGrpProps  = {
-	winId: number;
 	grpId?: number;
 	parentId?: number;
 	renew?: (id: number) => void;
 }
+type TWinId = ITovarGrpProps & { winId: number }
+
 type ITovarGrpState  = {
 	[key: string]: any;
 	id: number;
 	name: string;
 }
 
-export class TovarGrp extends React.Component<ITovarGrpProps, ITovarGrpState>{
+export class TovarGrp extends React.Component<TWinId, ITovarGrpState>{
 	newGrpData: {[key: string]: any};
 	path: string| null;
 
-	constructor(props: ITovarGrpProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newGrpData = {}
 		this.state = {id: 0, name: 'Новый'};
