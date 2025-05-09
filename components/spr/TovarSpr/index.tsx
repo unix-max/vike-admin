@@ -47,7 +47,7 @@ export class TovarSpr extends React.Component<TWinId, ITovarSprState>{
     //console.log(initRequest)
 
     const  data = await trpc.spr.tovar.getList.query({tName:'tovar', tData:['name'], id: 0});
-    const  treeJson = await trpc.spr.client.getTree.query({tName: 'tovar'});
+    const  treeJson = await trpc.spr.tovar.getTree.query();
     if (treeJson && data) this.setState({ treeData: treeJson, list: data.list });
     
     //const thiDate = await trpc.demo.query(10);
@@ -99,6 +99,9 @@ export class TovarSpr extends React.Component<TWinId, ITovarSprState>{
     const  treeJson = await trpc.spr.client.getTree.query({tName: 'tovar'});
     if (treeJson ) this.setState({ treeData: treeJson });
   }
+   onLoadTable = async () => {
+      let a = await trpc.spr.tovar.loadTable.query()
+    }
   
   render() {
     console.log(`render TovarSpr ${this.props.id}`)
@@ -130,6 +133,7 @@ export class TovarSpr extends React.Component<TWinId, ITovarSprState>{
           />
           </div>
         </div>
+        {/* <button onClick={this.onLoadTable}> Load </button>  */}
         <style jsx>{styles}</style>
       </WindowCl>
 

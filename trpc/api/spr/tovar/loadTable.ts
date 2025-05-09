@@ -16,6 +16,7 @@ const query = `
         , name
         , okei
 	    , oksm
+        , nds
         , minost
         , currency_accounting
         , currency_sale
@@ -31,9 +32,10 @@ const query = `
         , $4 --name
         , $5 --okei
         , $6 --oksm
-        , $7 --minost
-        , $8 --currency_accounting
-        , $9 --currency_sale
+        , $7 --nds
+        , $8 --minost
+        , $9 --currency_accounting
+        , $10 --currency_sale
         ,NOW() --created
         ,NOW() --updated
     )
@@ -91,11 +93,12 @@ const query = `
             }
             
             itemLoad.name = itemJson['@_Наименование'];
-            itemLoad.okei = 796;
-            itemLoad.oksm = 643;
+            itemLoad.okei = 1;
+            itemLoad.oksm = 1;
+            itemLoad.nds = 5;
             itemLoad.minost = 0;
-            itemLoad.currencyAccounting = 643;
-            itemLoad.currencySale = 643; 
+            itemLoad.currencyAccounting = 1;
+            itemLoad.currencySale = 1; 
             //itemLoad.address = itemJson['@_Адрес'];
             //itemLoad.urAddress = itemJson['@_ЮрАдрес'];
             //console.log(cl);
@@ -107,9 +110,10 @@ const query = `
                 itemLoad.name,   //$4
                 itemLoad.okei,  //$5 
                 itemLoad.oksm,    //$6
-                itemLoad.minost,    //$7
-                itemLoad.currencyAccounting,    //$8
-                itemLoad.currencySale   //$9
+                itemLoad.nds,    //$7
+                itemLoad.minost,    //$8
+                itemLoad.currencyAccounting,    //$9
+                itemLoad.currencySale   //$10
                // itemLoad.address,    //$10
                // itemLoad.urAddress,  //$11
              

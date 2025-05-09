@@ -27,6 +27,7 @@ const createTable: string = `CREATE TABLE IF NOT EXISTS tovar (
 	name VARCHAR ( 150 ) NOT NULL,
 	okei INTEGER REFERENCES okei,
 	oksm INTEGER REFERENCES oksm,
+	nds INTEGER REFERENCES nds,
 	minost decimal,
 	currency_accounting INTEGER REFERENCES currency,
 	currency_sale INTEGER REFERENCES currency,
