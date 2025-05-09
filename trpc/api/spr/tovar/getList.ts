@@ -11,7 +11,7 @@ const requestShema = z.object({
   id: z.number()
 })
 
-export const clientSprGetList = router({
+export const tovarSprGetList = router({
   getList: publicProcedure
     .input(requestShema)
     .query(async (opts) => {
