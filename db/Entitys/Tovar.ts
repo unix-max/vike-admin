@@ -10,9 +10,10 @@ export interface ITovar {
     name?: string,       
 	okei?: number,
 	oksm?: number,
+	nds?:	 number,
 	minost?: number,
-	currencyAccounting?: number,
-	currencySale?: number,
+	currency_accounting?: number,
+	currency_sale?: number,
 	in?: [ITovar]
 
 }

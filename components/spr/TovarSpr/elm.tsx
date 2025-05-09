@@ -4,9 +4,15 @@ import { trpc } from "@/trpc/client";
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
+import { CurrencySpr } from '../CurrencySpr';
+import { OKEISpr } from '../OKEISpr';
+import { OKSMSpr } from '../OKSMSpr';
 import { ITovar } from '@/db/Entitys/Tovar';
 import { SuperInput } from '../../inputs/SuperInput';
+import { SprInput } from '@/components/inputs/SprInput';
+import { IOKSM } from '@/db/Entitys/OKSM';
 //import styles from './index.module.css'
+const addTWin = useWinStore.getState().addTWin
 const delNWin = useWinStore.getState().delNWin;
 
 type ITovarElmProps  = {
@@ -33,23 +39,22 @@ export class TovarElm extends React.Component<TWinId, ITovarElmState>{
 		this.path = null; 
 	}
 	async componentDidMount() {
-		console.log(this?.props?.parentId)
-		if(this.props.elmId) {
-			const data = await trpc.spr.client.getElm.query({tName:'tovar', tData:['name','oksm', 'okei'], id: this.props.elmId});
-			if (data) this.oldElmData = data.elm;
-		} else {
-			if (typeof(this?.props?.parentId)=='number' && this?.props?.parentId > 0) {
-				//const {data} = await gClient({query: clientQuery, variables: {id: this.props.parentId}});
-				//this.path = data?.clientById?.path;
-				//console.log(this.path);
-			}
-			this.oldElmData = {id: 0, name: 'Новый'};
-			this.newElmData = {id: 0, name: 'Новый'};
+			this.reload();
 		}
+		
+	reload = async ()=> {
+		//console.log(this?.props?.parentId)
+		if(this.props.elmId) {
+			const data = await trpc.spr.tovar.getElm.query( {id: this.props.elmId});
+			if (data) this.oldElmData = data.elm;
+				console.log(data)
+			} else {
+				this.oldElmData = {id: 0, name: 'Новый'};
+				this.newElmData = {id: 0, name: 'Новый'};
+			}
 		this.forceUpdate();
-
 	}
-
+	
 	componentDidUpdate(prevProps: Readonly<ITovarElmProps>, prevState: Readonly<ITovar>, snapshot?: any): void {
 		// console.log(testTreeData===this.state.treeData)
 		console.log(this.newElmData)
@@ -69,25 +74,26 @@ export class TovarElm extends React.Component<TWinId, ITovarElmState>{
 	}
 
 	dataSend= async () => {
-		let data: any;
+		if (Object.keys(this.newElmData).length > 0) {
+			let data: any;
 		try {
 			if (this.props.elmId) {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { id: this.props.elmId, ...this.newElmData }});
+				data = await trpc.spr.tovar.setElm.mutate({ id: this.props.elmId, ...this.newElmData });
 			} else {
-				data = await trpc.spr.client.insertElm.mutate({ tName: 'tovar', tData: { parentId: this.props.parentId, type: 'E', ...this.newElmData }});
+				data = await trpc.spr.tovar.setElm.mutate({ parentId: this.props.parentId, type: 'E', ...this.newElmData });
 			}
 		} catch (e: any) {
 			console.log(e);
 		}
-		if ('client' in data) {
-			const id =  data?.client?.id;
+		if ('elm' in data) {
+			const id =  data?.elm?.id;
 			if ( this.props.renew && id > 0 ) this.props.renew();
 		} else alert(data.message);
-
+		}
 		delNWin(this.props.winId);
-		//console.log(id)	
-
+			//console.log(id)	
 	}
+
 	name=() =>`Товар ${this.oldElmData.name}`;
 	render() {
 		if (!Object.hasOwn(this.oldElmData, 'id')) return;
@@ -103,7 +109,8 @@ export class TovarElm extends React.Component<TWinId, ITovarElmState>{
 									<tbody>
                   <tr>
                     <td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
-										<td><SuperInput zagolovok="OKSM" value={this.oldElmData.oksm} onChange={(val) => this.changeData('oksm', val)}/></td>
+										<td><SprInput zagolovok="OKSM" value={this.oldElmData.oksm}
+											onBtnClick={() => addTWin(OKSMSpr, { onChoice: (elm: IOKSM) => this.changeData('oksm', elm) })}/></td>
                     <td><SuperInput zagolovok="OKEI" value={this.oldElmData.okei} onChange={(val) => this.changeData('okei', val)}/></td>      
                   </tr>
               	
