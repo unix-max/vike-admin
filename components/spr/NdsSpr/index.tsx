@@ -5,7 +5,7 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { NDSElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { INDS } from '@/db/Entitys/Nds'
+import { INDS } from '@/db/Entitys/spr/Nds'
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)

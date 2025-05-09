@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
-import { IFirmAccount } from "@/db/Entitys/FirmAccount"; 
+import { IFirmAccount } from "@/db/Entitys/spr/FirmAccount"; 
 
 export type accListRecDto = {
   id: number;

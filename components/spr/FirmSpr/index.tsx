@@ -5,7 +5,7 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { FirmElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { IFirm } from '@/db/Entitys/Firm';
+import { IFirm } from '@/db/Entitys/spr/Firm';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)

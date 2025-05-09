@@ -5,7 +5,7 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { CurrencyElm, CurrencyElmProps } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { ICurrency } from '@/db/Entitys/Currency'
+import { ICurrency } from '@/db/Entitys/spr/Currency'
 import { CurrencyRateList } from './rateList'
 import type { ICurrencyRateListProps } from './rateList';
 //import shallow from 'zustand/shallow'

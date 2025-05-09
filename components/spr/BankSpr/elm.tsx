@@ -4,7 +4,7 @@ import { trpc } from "@/trpc/client";
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
-import { ICity } from '@/db/Entitys/City';
+import { ICity } from '@/db/Entitys/spr/City';
 
 import { SuperInput } from '../../inputs/SuperInput';
 import { SprInput } from '@/components/inputs/SprInput';

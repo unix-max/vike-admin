@@ -5,7 +5,7 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { SkladElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { ISklad} from '@/db/Entitys/Sklad'
+import { ISklad} from '@/db/Entitys/spr/Sklad'
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 

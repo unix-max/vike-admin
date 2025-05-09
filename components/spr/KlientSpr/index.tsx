@@ -8,7 +8,7 @@ import { ItemTable } from '../../ItemsTable1'
 import { KlientElm } from './elm';
 import { KlientGrp } from './grp'
 import { useWinStore } from '@/pages/+client'
-import { IClient, IClientCatalog } from '../../../db/Entitys/Client'
+import { IClient, IClientCatalog } from '../../../db/Entitys/spr/Client'
 //import shallow from 'zustand/shallow'
 import styles from './styles'
 //console.log(styles)

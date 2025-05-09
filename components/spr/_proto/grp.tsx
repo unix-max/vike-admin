@@ -3,7 +3,7 @@ import React, { ReactComponentElement, useState, useEffect } from 'react'
 //import {Window, IWinProps} from '../Window'
 import { useWinStore } from '../../../pages/+client'
 import { WindowCl } from '../../Window/winCl'
-import { IClient, IClientCatalog } from '../../../db/Entitys/Client';
+import { IClient, IClientCatalog } from '../../../db/Entitys/spr/Client';
 import { SuperInput } from '../../inputs/SuperInput';
 import { fetcher, useDataSend } from '../../../helpers/fetch';
 //import styles from './index.module.css'

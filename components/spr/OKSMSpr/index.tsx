@@ -5,7 +5,7 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { OKSMElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { IOKSM } from '@/db/Entitys/OKSM'
+import { IOKSM } from '@/db/Entitys/spr/OKSM'
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)

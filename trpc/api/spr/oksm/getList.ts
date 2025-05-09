@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
-import { IOKSM } from "@/db/Entitys/OKSM";
+import { IOKSM } from "@/db/Entitys/spr/OKSM";
 
 
 export const oksmSprGetList = router({

@@ -7,7 +7,7 @@ import { TabPanel, TabItem} from '../../Tabs';
 import { CurrencySpr } from '../CurrencySpr';
 import { OKEISpr } from '../OKEISpr';
 import { OKSMSpr } from '../OKSMSpr';
-import { ITovar } from '@/db/Entitys/Tovar';
+import { ITovar } from '@/db/Entitys/spr/Tovar';
 import { SuperInput } from '../../inputs/SuperInput';
 import { SprInput } from '@/components/inputs/SprInput';
 import { NDSSpr } from '../NdsSpr';

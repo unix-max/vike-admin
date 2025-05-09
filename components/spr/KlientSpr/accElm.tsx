@@ -7,7 +7,7 @@ import { TabPanel, TabItem} from '../../Tabs';
 import { BankSpr } from '../BankSpr';
 import { CurrencySpr } from '../CurrencySpr';
 import { AccTypeSpr } from '../AccTypeSpr';
-import { IClientAccount } from '@/db/Entitys/ClientAccount';
+import { IClientAccount } from '@/db/Entitys/spr/ClientAccount';
 import { SuperInput } from '../../inputs/SuperInput';
 import { SprInput } from '@/components/inputs/SprInput';
 //import styles from './index.module.css'

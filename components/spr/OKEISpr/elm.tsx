@@ -4,7 +4,7 @@ import { trpc } from "@/trpc/client";
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
-import { IOKEI } from '@/db/Entitys/OKEI';
+import { IOKEI } from '@/db/Entitys/spr/OKEI';
 import { SuperInput } from '../../inputs/SuperInput';
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;

@@ -3,7 +3,7 @@ import { trpc } from "@/trpc/client";
 //import {Window, IWinProps} from '../Window'
 import { useWinStore } from '@/pages/+client'
 import { WindowCl } from '../../Window/winCl'
-import { IAccountType } from '@/db/Entitys/AccountType';
+import { IAccountType } from '@/db/Entitys/spr/AccountType';
 import { SuperInput } from '../../inputs/SuperInput';
 //import styles from './index.module.css'
 const delNWin = useWinStore.getState().delNWin;

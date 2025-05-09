@@ -7,7 +7,7 @@ import { ItemTable } from '../../ItemsTable1'
 import { TovarElm } from './elm';
 import { TovarGrp } from './grp'
 import { useWinStore } from '@/pages/+client'
-import { ITovar} from '@/db/Entitys/Tovar'
+import { ITovar} from '@/db/Entitys/spr/Tovar'
 //import shallow from 'zustand/shallow'
 import styles from './styles'
 //console.log(styles)

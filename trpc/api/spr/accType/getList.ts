@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
-import { IAccountType } from "@/db/Entitys/AccountType";
+import { IAccountType } from "@/db/Entitys/spr/AccountType";
 
 export const accTypeSprGetList = router({
   getList: publicProcedure

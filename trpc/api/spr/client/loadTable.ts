@@ -5,7 +5,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import { open } from 'node:fs/promises';
 import xml from 'fast-xml-parser';
-import { IClient, IClientCatalog } from '@/db/Entitys/Client'
+import { IClient, IClientCatalog } from '@/db/Entitys/spr/Client'
 import { string } from 'prop-types';
 const {XMLParser, XMLBuilder, XMLValidator} = xml;
 

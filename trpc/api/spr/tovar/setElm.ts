@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
-import { ITovar } from "@/db/Entitys/Tovar";
+import { ITovar } from "@/db/Entitys/spr/Tovar";
 
 const requestShema =z.object({
   id:         z.number(),

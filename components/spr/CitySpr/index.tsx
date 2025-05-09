@@ -4,7 +4,7 @@ import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { CityElm } from './elm';
-import { ICity}  from '@/db/Entitys/City'
+import { ICity}  from '@/db/Entitys/spr/City'
 import { useWinStore } from '@/pages/+client'
 //import { ITableString } from '../../ItemsTable1';
 //import shallow from 'zustand/shallow'

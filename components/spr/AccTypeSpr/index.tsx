@@ -5,7 +5,7 @@ import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
 import { AccTypeElm } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { IAccountType } from '@/db/Entitys/AccountType';
+import { IAccountType } from '@/db/Entitys/spr/AccountType';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)

@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import { open } from 'node:fs/promises';
 import xml from 'fast-xml-parser';
-import { ITovar, ITovarCatalog } from '@/db/Entitys/Tovar'
+import { ITovar, ITovarCatalog } from '@/db/Entitys/spr/Tovar'
 import { string } from 'prop-types';
 const {XMLParser, XMLBuilder, XMLValidator} = xml;
 

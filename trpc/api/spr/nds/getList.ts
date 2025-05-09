@@ -3,7 +3,7 @@ import type { Context } from "@/server/trpc-handler";
 import type { PoolClient } from "pg";
 import format from 'pg-format'
 import { z } from 'zod';
-import { INDS } from '@/db/Entitys/Nds'
+import { INDS } from '@/db/Entitys/spr/Nds'
 
 export const ndsSprGetList = router({
   getList: publicProcedure
