@@ -57,7 +57,7 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
         {name: "Склады", click: () => addNWin(SkladSpr, {winId: Date.now()})},
         {name: "Банки", click: () => addNWin(BankSpr, {winId: Date.now()})},
         {name: "Города", click: () => addNWin(CitySpr, {winId: Date.now()})},
-        {name: "Страны", click: () => addNWin(OKSMSpr, {winId: Date.now()})}
+        {name: "Страны", click: () => addNWin(OKSMSpr, {})}
         ]},
         { name: "Клиент", click: () => addNWin(KlientSpr, {winId: Date.now()})},
       

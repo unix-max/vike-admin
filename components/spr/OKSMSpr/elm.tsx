@@ -10,20 +10,20 @@ import { SuperInput } from '../../inputs/SuperInput';
 const delNWin = useWinStore.getState().delNWin;
 
 type IOKSMElmProps  = {
-	winId: number;
 	elmId?: number;
 	renew?: () => void;
 }
+type TWinId = IOKSMElmProps & { winId: number }
 
 type IOKSMElmState = {
 	[key: string]: any
 }
 //const { data: elm, error: e1 } = useSWR(`/api/spr/client/elm/${props.elmId}`, fetcher);
-export class OKSMElm extends React.Component<IOKSMElmProps, IOKSMElmState>{
+export class OKSMElm extends React.Component<TWinId, IOKSMElmState>{
 	newElmData: IOKSMElmState;
 	oldElmData: IOKSMElmState;
 
-	constructor(props: IOKSMElmProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};

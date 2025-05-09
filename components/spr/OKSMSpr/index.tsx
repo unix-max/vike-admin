@@ -9,24 +9,24 @@ import { IOKSM } from '@/db/Entitys/OKSM'
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
-const addNWin = useWinStore.getState().addNWin;
+const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin
 
 export type IOKSMSprProps = {
-  winId: number;
   id?: number;
   onChoice?: (elm:IOKSM) => void;
 }
+type TWinId = IOKSMSprProps & { winId: number }
 
 type IOKSMSprState = {
   list: IOKSM[];
 }
 
-export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
+export class OKSMSpr extends React.Component<TWinId, IOKSMSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<IOKSM>>;
 
-  constructor(props: IOKSMSprProps) {
+  constructor(props: TWinId) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {
@@ -51,7 +51,7 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
       this.props.onChoice(item);
       delNWin(this.props.winId);
     } else {
-      addNWin(OKSMElm, {winId: Date.now() ,elmId: item.id, renew: this.reloadList});
+      addTWin(OKSMElm, {elmId: item.id, renew: this.reloadList});
     }
   
       
@@ -71,7 +71,7 @@ export class OKSMSpr extends React.Component<IOKSMSprProps, IOKSMSprState>{
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 
-              onNewElm={()=> addNWin(OKSMElm, {winId: Date.now(), renew: this.reloadList})}
+              onNewElm={()=> addTWin(OKSMElm, { renew: this.reloadList})}
               />
           </div>
 
