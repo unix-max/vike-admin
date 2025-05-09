@@ -3,6 +3,7 @@ import { publicProcedure } from "./server";
 import type { Context } from "../server/trpc-handler";
 import { z } from 'zod'; 
 import { sprRouter } from "./api/spr";
+import { docRouter } from "./api/doc";
 /**
  * Initialization of tRPC backend
  * Should be done only once per backend!
@@ -10,6 +11,7 @@ import { sprRouter } from "./api/spr";
 
 export const appRouter = router({
   spr: sprRouter,
+  doc: docRouter,
   demo: publicProcedure
     .input(z.number())
     .query(async (opts) => {
