@@ -10,7 +10,7 @@ import { OKSMSpr } from '../OKSMSpr';
 import { ITovar } from '@/db/Entitys/Tovar';
 import { SuperInput } from '../../inputs/SuperInput';
 import { SprInput } from '@/components/inputs/SprInput';
-import { IOKSM } from '@/db/Entitys/OKSM';
+import { NDSSpr } from '../NdsSpr';
 //import styles from './index.module.css'
 const addTWin = useWinStore.getState().addTWin
 const delNWin = useWinStore.getState().delNWin;
@@ -65,12 +65,15 @@ export class TovarElm extends React.Component<TWinId, ITovarElmState>{
 		return this.state[key]
 	 } */
 	changeData= (key: string, val: any) => {
-		this.oldElmData[key] = val;
-		this.newElmData[key] = val;
-		//this.setState( {[key]: val})
-		//console.log(this.newElmData);
-		//if (key=='name')
-		this.forceUpdate();
+		if (typeof val == 'object') {
+			this.oldElmData[key] = val.name;
+			this.newElmData[key] = val.id;
+			this.forceUpdate();
+		} else {
+			this.oldElmData[key] = val;
+			this.newElmData[key] = val;
+		}
+		
 	}
 
 	dataSend= async () => {
@@ -110,10 +113,20 @@ export class TovarElm extends React.Component<TWinId, ITovarElmState>{
                   <tr>
                     <td><SuperInput zagolovok="Наименование" value={this.oldElmData.name} onChange={(val) => this.changeData('name', val)}/></td>
 										<td><SprInput zagolovok="OKSM" value={this.oldElmData.oksm}
-											onBtnClick={() => addTWin(OKSMSpr, { onChoice: (elm: IOKSM) => this.changeData('oksm', elm) })}/></td>
-                    <td><SuperInput zagolovok="OKEI" value={this.oldElmData.okei} onChange={(val) => this.changeData('okei', val)}/></td>      
-                  </tr>
-              	
+											onBtnClick={() => addTWin(OKSMSpr, { onChoice: (elm: any) => this.changeData('oksm', elm) })}/></td>
+                    <td><SprInput zagolovok="OKEI" value={this.oldElmData.okei}
+											onBtnClick={() => addTWin(OKEISpr, { onChoice: (elm: any) => this.changeData('okei', elm) })}/></td>
+										<td><SprInput zagolovok="NDS" value={this.oldElmData.nds}
+											onBtnClick={() => addTWin(NDSSpr, { onChoice: (elm: any) => this.changeData('nds', elm) })}/></td>
+									</tr>
+									 <tr>
+                    <td><SprInput zagolovok="Валюта учета" value={this.oldElmData.currency_accounting}
+											onBtnClick={() => addTWin(CurrencySpr, { onChoice: (elm: any) => this.changeData('currency_accounting', elm) })}/></td>
+                    <td><SprInput zagolovok="Валюта продаж" value={this.oldElmData.currency_sale}
+											onBtnClick={() => addTWin(CurrencySpr, { onChoice: (elm: any) => this.changeData('currency_sale', elm) })}/></td>
+										<td><SuperInput zagolovok="МинОст" value={this.oldElmData.minost} onChange={(val) => this.changeData('minost', val)}/></td>
+										
+									</tr>
 									</tbody>
               	</table>
             </fieldset>

@@ -15,7 +15,7 @@ const requestShema =z.object({
   okei:       z.number(),
   oksm:       z.number(),
 	nds:        z.number(),
-  minost:     z.number(),
+  minost:     z.coerce.number(),
 	currency_accounting:  z.number(),
   currency_sale:        z.number()
 })
