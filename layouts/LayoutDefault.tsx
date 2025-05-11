@@ -17,6 +17,7 @@ import { BankSpr } from "@/components/spr/BankSpr";
 import { NDSSpr } from "@/components/spr/NdsSpr";
 import { AccTypeSpr } from "@/components/spr/AccTypeSpr";
 import { OKEISpr } from "@/components/spr/OKEISpr";
+import { SchetJorn } from "@/components/doc/Schet";
 //Стили
 //import "./style.css";
 
@@ -63,7 +64,10 @@ export default function LayoutDefault({ children }: { children: React.ReactNode 
       
         { name: "Товар", click: () => addNWin(TovarSpr, {winId: Date.now()})},
       ]
-    }
+    },
+    {name: "Документ", in: [
+      {name: "Счета", click: () => addNWin(SchetJorn, {})},
+    ]}
     ];
  
   return (
