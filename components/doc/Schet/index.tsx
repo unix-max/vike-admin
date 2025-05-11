@@ -3,9 +3,9 @@ import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
-import { FirmElm } from './elm';
+import { SchetDoc } from './elm';
 import { useWinStore } from '@/pages/+client'
-import { IFirm } from '@/db/Entitys/spr/Firm';
+import { ISchet } from '@/db/Entitys/doc/Schet';
 //import shallow from 'zustand/shallow'
 import styles from './styles.module.css'
 //console.log(styles)
@@ -15,18 +15,18 @@ const delNWin = useWinStore.getState().delNWin
 
 export type ISchetDocProps = {
   id?: number;
-  onChoice?: (elm:IFirm) => void;
+  onChoice?: (elm:ISchet) => void;
 }
 
 type TWinId = ISchetDocProps & { winId: number }
 
 type ISchetDocState = {
-  list: IFirm[];
+  list: ISchet[];
 }
 
-export class FirmSpr extends React.Component<TWinId, ISchetDocState>{
+export class SchetJorn extends React.Component<TWinId, ISchetDocState>{
   selectElmId?: number;
-  itemRef: React.RefObject<ItemTable<IFirm>>;
+  itemRef: React.RefObject<ItemTable<ISchet>>;
 
   constructor(props: TWinId) {
     super(props);
@@ -41,25 +41,25 @@ export class FirmSpr extends React.Component<TWinId, ISchetDocState>{
     this.reloadList();
   }
 
-  onSelectElm = (item: IFirm) => {
+  onSelectElm = (item: ISchet) => {
       console.log(item);
       this.selectElmId = item.id;
       this.itemRef.current?.selectItem(this.selectElmId);
     }
   
-    onEditElm = (item:IFirm) => {
+    onEditElm = (item:ISchet) => {
       if(this.props.onChoice) {
         this.props.onChoice(item);
         delNWin(this.props.winId);
       } else {
-        addTWin(FirmElm, {elmId: item.id, renew: this.reloadList});
+        addTWin(SchetDoc, {elmId: item.id, renew: this.reloadList});
       }
     }
   
     reloadList = async () => {
-      const  data = await trpc.spr.firm.getList.query();
-        //const list = data?.list.map((item)=> ({id: item.code, ...item}))
-      if (data) this.setState({list: data.list as IFirm[]});
+      const  data = await trpc.doc.schet.getJorn.query();
+        console.log(data);
+      if (data) this.setState({list: data.list as ISchet[]});
     }
     name = () => 'Счета'
 
@@ -71,12 +71,12 @@ export class FirmSpr extends React.Component<TWinId, ISchetDocState>{
           <div className={styles.container}>
             <div className={styles.button}>
               <SprButtons 
-                onNewElm={()=> addTWin(FirmElm, { renew: this.reloadList})}
+                onNewElm={()=> addTWin(SchetDoc, { renew: this.reloadList})}
                 />
             </div>
   
             <div className={styles.table}>
-            <ItemTable<IFirm> 
+            <ItemTable<ISchet> 
               tableKeys={{head:['Id', 'Дата', 'Фирма', 'Клиент', 'Сумма'], body:['id', 'date', 'firm', 'client', 'sum']}} 
               tableData={this.state.list}
               skey='id'
