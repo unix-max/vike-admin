@@ -1,7 +1,8 @@
 import { mergeRouters } from "@/trpc/server";
-import { schetDocGetList } from "./getList";
-
+import { schetGetJorn } from "./getJorn";
+import { schetGetDoc } from "./getDoc";
 export const docSchetRouter = mergeRouters(
-  schetDocGetList
+  schetGetJorn,
+  schetGetDoc
 
 );
