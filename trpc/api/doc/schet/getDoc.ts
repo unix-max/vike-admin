@@ -69,7 +69,7 @@ export const schetGetDoc = router({
         //number: itemHead.number,
         date: itemHead.schet_date, 
         firm: {id: itemHead.schet_firm_id, name: itemHead.schet_firm_name}, 
-        firm_acc: {name: itemHead.schet_firm_name, number: itemHead.schet_acc_number},
+        firm_acc: {id: itemHead.schet_firm_acc_id, name: itemHead.schet_firm_name, number: itemHead.schet_acc_number},
         client: {id: itemHead.schet_client_name, name:itemHead.schet_client_name},
         sklad: {id: itemHead.schet_sklad_id, name: itemHead.schet_sklad_name},
         currency: {id: itemHead.schet_cur_name, name: itemHead.schet_cur_name},
