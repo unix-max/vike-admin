@@ -6,8 +6,13 @@ interface ITableKeys {
 	head: string[],
 	body: string[]
 }
+type ISpr={
+	[key: string]: any;
+	id?: number;
+	name?: string;
+}
 type ITableString = {
-[key: string]: string | number| boolean| Date;
+[key: string]: ISpr| string | number| boolean ;
 }
 
 interface IItemTableProps<T>{
@@ -31,7 +36,8 @@ const THead = (props: {tHeadKeys: string[]}) => {
 function TString<T extends ITableString>(props: {tBodyKeys: string[], tableString: T, skey: string}) { 
 	const tStr = props.tBodyKeys.map((item, index) => (	
 		<td key={props.tableString[props.skey]+item}>
-			{props.tableString[item] as string}
+			{typeof props.tableString[item]=='object' ? props.tableString[item]?.name :
+			props.tableString[item] as string}
 		</td>
 	));
 	return <>{tStr}</>;
