@@ -11,7 +11,7 @@ export interface ISchet {
   date: number,
   oldCode?: number,
   firm?: IFirm,
-  firrAcc?: IFirmAccount,
+  firm_acc?: IFirmAccount,
   client?: IClient,
   sklad?: ISklad,
   currency?: ICurrency,
