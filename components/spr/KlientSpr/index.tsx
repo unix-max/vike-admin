@@ -70,14 +70,20 @@ export class KlientSpr extends React.Component<TWinId, IKlientSprState>{
     this.itemRef.current?.selectItem(this.selectElmId);
 
   }
-  onEditElm = (elm: IClient) => {
+  onEditElm = (item: IClient) => {
     //console.log(elmId)
-    if (elm.type == 'F') {
-      addTWin(KlientGrp, { grpId: this.selectElmId, renew: this.reloadTree});
+    if(this.props.onChoice) {
+      this.props.onChoice(item);
+      delNWin(this.props.winId);
     } else {
-      addTWin(KlientElm, {elmId: this.selectElmId, renew: this.reloadList});
+      if (item.type == 'F') {
+        addTWin(KlientGrp, { grpId: this.selectElmId, renew: this.reloadTree});
+      } else {
+        addTWin(KlientElm, {elmId: this.selectElmId, renew: this.reloadList});
+      }
     }
   }
+  
   reloadList = async () => {
     const  data = await trpc.spr.client.getList.query({tName:'client', tData:['name','phone'], id: this.selectGrpId});
     //console.log(data)
