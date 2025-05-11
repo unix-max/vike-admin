@@ -6,28 +6,28 @@ import { WindowCl } from '../../Window/winCl'
 import { TabPanel, TabItem} from '../../Tabs';
 
 import { SuperInput } from '../../inputs/SuperInput';
-import { SprInput } from '@/components/inputs/SprInput';
+//import { SprInput } from '@/components/inputs/SprInput';
 
 //import styles from './index.module.css'
-const addNWin = useWinStore.getState().addNWin
+//const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin;
 
 type ISkladElmProps  = {
-	winId: number;
 	elmId?: number;
-
 	renew?: () => void;
 }
+
+type TWinId = ISkladElmProps & { winId: number }
 
 type ISkladElmState = {
 	[key: string]: any
 }
 
-export class SkladElm extends React.Component<ISkladElmProps, ISkladElmState>{
+export class SkladElm extends React.Component<TWinId, ISkladElmState>{
 	newElmData: ISkladElmState;
 	oldElmData: ISkladElmState;
 
-	constructor(props: ISkladElmProps) {
+	constructor(props: TWinId) {
 		super(props);
 		this.newElmData = {};
 		this.oldElmData = {};

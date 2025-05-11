@@ -10,14 +10,15 @@ import { ISklad} from '@/db/Entitys/spr/Sklad'
 import styles from './styles.module.css'
 
 //console.log(styles)
-const addNWin = useWinStore.getState().addNWin;
+const addTWin = useWinStore.getState().addTWin;
 const delNWin = useWinStore.getState().delNWin
 
 export type ISkladSprProps = {
-  winId: number;
   id?: number;
   onChoice?: (elm:ISkladSprElm) => void;
 }
+
+type TWinId = ISkladSprProps & { winId: number }
 
 type ISkladSprElm = {
   id: number,
@@ -31,11 +32,11 @@ type ISkladSprState = {
   list: ISkladSprElm[];
 }
 
-export class SkladSpr extends React.Component<ISkladSprProps, ISkladSprState>{
+export class SkladSpr extends React.Component<TWinId, ISkladSprState>{
   selectElmId?: number;
   itemRef: React.RefObject<ItemTable<ISkladSprElm>>;
 
-  constructor(props: ISkladSprProps) {
+  constructor(props: TWinId) {
     super(props);
     this.itemRef = React.createRef();
     this.state = {
@@ -59,7 +60,7 @@ export class SkladSpr extends React.Component<ISkladSprProps, ISkladSprState>{
       this.props.onChoice(elm);
       delNWin(this.props.winId);
     } else {
-      addNWin(SkladElm, {winId: Date.now() ,elmId: this.selectElmId, renew: this.reloadList});
+      addTWin(SkladElm, {elmId: this.selectElmId, renew: this.reloadList});
 		}
   }
 
@@ -80,7 +81,7 @@ export class SkladSpr extends React.Component<ISkladSprProps, ISkladSprState>{
         <div className={styles.container}>
           <div className={styles.button}>
             <SprButtons 
-              onNewElm={()=> addNWin(SkladElm, {winId: Date.now(), renew: this.reloadList})}
+              onNewElm={()=> addTWin(SkladElm, {renew: this.reloadList})}
               />
           </div>
 
