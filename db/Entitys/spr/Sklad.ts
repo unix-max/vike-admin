@@ -2,7 +2,7 @@ export interface ISklad {
   [key: string]: any,
   id: number,
   oldCode?: number,
-  name?: string,
+  name: string,
   mol?: number,
 alias?: string,
   created?: Date,

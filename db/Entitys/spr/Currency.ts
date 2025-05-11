@@ -1,12 +1,12 @@
 
 export type ICurrency = {
     id: number,
-    code: number,
+    code?: number,
     oldCode?: number,
-    sokr: string,
-    symbol: string,
     name: string,
-    rate: number,
+    sokr?: string,
+    symbol?: string,
+    rate?: number,
 	alias?: string,
     created?: Date,
 	updated?: Date,
