@@ -3,7 +3,7 @@ import { trpc } from "@/trpc/client";
 import { WindowCl } from '../../Window/winCl'
 import { SprButtons } from '../../SprButtons'
 import { ItemTable } from '../../ItemsTable1'
-import { SchetDoc } from './elm';
+import { SchetDoc } from './doc';
 import { useWinStore } from '@/pages/+client'
 import { ISchet } from '@/db/Entitys/doc/Schet';
 //import shallow from 'zustand/shallow'
