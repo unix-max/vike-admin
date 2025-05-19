@@ -95,7 +95,7 @@ changeData= (key: string, val: any) => {
 		console.log(`Render shetDoc ${this.props.elmId}`)
 		return (           
 		<WindowCl winId={this.props.winId}
-			caption={`Счет №: ${this.oldHeadData.id} от ${this.oldHeadData.date}`}
+			caption={`Счет №: ${this.oldHeadData.id} от ${dt(this.oldHeadData.date)}`}
 			modal={false} key={this.props.winId}>
 			<form className="main">
         <fieldset>
